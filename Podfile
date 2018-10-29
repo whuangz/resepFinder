@@ -15,7 +15,6 @@ end
 target 'ResepFinder' do
   project 'ResepFinder'
   pod 'Firebase'
-  pod 'Firebase/Core'
   generalPods
   networkAndParsingPods
 end

@@ -56,7 +56,6 @@ PODS:
 DEPENDENCIES:
   - Alamofire (~> 4.7)
   - Firebase
-  - Firebase/Core
   - TPKeyboardAvoiding (= 1.2.9)
 
 SPEC REPOS:
@@ -82,6 +81,6 @@ SPEC CHECKSUMS:
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
   TPKeyboardAvoiding: ff1ee4e5a5a0c119b965552af8f183868ea20207
 
-PODFILE CHECKSUM: a55285f764fb0a39d0b7ff46bb0e0d73594f934e
+PODFILE CHECKSUM: 378df2de95152f83413ff350f56fa7271d71fe47
 
 COCOAPODS: 1.5.3
