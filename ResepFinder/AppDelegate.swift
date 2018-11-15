@@ -17,9 +17,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
+        window = UIWindow(frame: UIScreen.main.bounds)
+        //window?.rootViewController = RegistrationsVC(nibName: "RegistrationsVC", bundle: nil)
+        //redirectoProfileMenu()
+        window?.rootViewController = RFTabBarVC()
         FirebaseApp.configure()
         
         return true
+    }
+    
+    func redirectoProfileMenu(){
+        let profileVC = ProfileVC()
+
+        window?.rootViewController = profileVC
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

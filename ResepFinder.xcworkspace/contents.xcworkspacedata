@@ -4,13 +4,6 @@
    <FileRef
       location = "group:ResepFinder.xcodeproj">
    </FileRef>
-   <Group
-      location = "container:"
-      name = "Features">
-      <FileRef
-         location = "group:RFProfileMenu/RFProfileMenu.xcodeproj">
-      </FileRef>
-   </Group>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">
    </FileRef>

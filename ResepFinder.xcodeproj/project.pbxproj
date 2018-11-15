@@ -7,25 +7,88 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2600F724219726E80046239C /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2600F722219726E80046239C /* ProfileVC.swift */; };
+		26072911218F4FF100140AF9 /* Montserrat-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2607290E218F4D7100140AF9 /* Montserrat-Bold.otf */; };
+		26072912218F4FF100140AF9 /* Montserrat-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 26072910218F4D7100140AF9 /* Montserrat-Light.otf */; };
+		26072913218F4FF100140AF9 /* Montserrat-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2607290F218F4D7100140AF9 /* Montserrat-Regular.otf */; };
+		26072914218F4FF100140AF9 /* Montserrat-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2607290D218F4D7000140AF9 /* Montserrat-SemiBold.otf */; };
+		26287867218F0D1400CD07C5 /* RFButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26287866218F0D1400CD07C5 /* RFButton.swift */; };
+		2628786A218F0DFE00CD07C5 /* RFColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26287869218F0DFE00CD07C5 /* RFColor.swift */; };
+		2628786C218F0E0800CD07C5 /* RFFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2628786B218F0E0800CD07C5 /* RFFont.swift */; };
+		2633991D2188AC650035F4BE /* RegistrationsVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 263399192188AC640035F4BE /* RegistrationsVC.xib */; };
+		2633991E2188AC650035F4BE /* RegistrationsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2633991A2188AC640035F4BE /* RegistrationsVC.swift */; };
+		2633991F2188AC650035F4BE /* RFTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2633991C2188AC650035F4BE /* RFTextField.swift */; };
+		263399232188B51A0035F4BE /* RFLocalizedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263399222188B51A0035F4BE /* RFLocalizedString.swift */; };
+		263399262188B60B0035F4BE /* eng.strings in Resources */ = {isa = PBXBuildFile; fileRef = 263399252188B60B0035F4BE /* eng.strings */; };
+		26380A2C2197CB8700DFBB82 /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26380A2B2197CB8700DFBB82 /* UIView+Ext.swift */; };
+		264D2FF32193258400F66595 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 264D2FF22193258400F66595 /* AuthService.swift */; };
+		264D2FF7219325D900F66595 /* RFDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 264D2FF6219325D900F66595 /* RFDataService.swift */; };
+		264D2FFB2193582200F66595 /* RegistrationsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 264D2FFA2193582200F66595 /* RegistrationsVM.swift */; };
+		264D2FFD21935BB600F66595 /* LoginVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 264D2FFC21935BB600F66595 /* LoginVM.swift */; };
+		264D2FFF21935CD400F66595 /* RFValidations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 264D2FFE21935CD400F66595 /* RFValidations.swift */; };
+		2674F822219D051F0002D64C /* RFDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2674F821219D051F0002D64C /* RFDialog.xib */; };
+		26833AE9219C6BBE00D8A863 /* ProfileRecipesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26833AE8219C6BBE00D8A863 /* ProfileRecipesCell.swift */; };
+		268AFC84219962DC00197028 /* RFEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268AFC83219962DC00197028 /* RFEnum.swift */; };
+		268AFC892199661100197028 /* ProfileDescriptionCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268AFC882199661100197028 /* ProfileDescriptionCellTableViewCell.swift */; };
+		268AFC8B2199668400197028 /* RFBaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268AFC8A2199668400197028 /* RFBaseCell.swift */; };
+		26A8A391219C6D4700C235FB /* SettingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A8A390219C6D4700C235FB /* SettingVC.swift */; };
+		26A8A394219C743A00C235FB /* RFDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A8A393219C743A00C235FB /* RFDialog.swift */; };
 		26B2BAB921874B76004B148F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26B2BAB821874B76004B148F /* AppDelegate.swift */; };
-		26B2BABB21874B76004B148F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26B2BABA21874B76004B148F /* ViewController.swift */; };
+		26B2BABB21874B76004B148F /* RFTabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26B2BABA21874B76004B148F /* RFTabBarVC.swift */; };
 		26B2BABE21874B76004B148F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 26B2BABC21874B76004B148F /* Main.storyboard */; };
 		26B2BAC021874B76004B148F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 26B2BABF21874B76004B148F /* Assets.xcassets */; };
 		26B2BAC321874B76004B148F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 26B2BAC121874B76004B148F /* LaunchScreen.storyboard */; };
 		26B2BACC21874BE5004B148F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 26B2BACB21874BE5004B148F /* GoogleService-Info.plist */; };
-		C4F45527AB0D79756A4A192F /* Pods_ResepFinder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DE5EC465E1A8CB3A3F6CDB0 /* Pods_ResepFinder.framework */; };
+		26DBF3FC2192077800CD77FF /* LoginVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26DBF3FA2192077800CD77FF /* LoginVC.xib */; };
+		26DBF3FE219209A200CD77FF /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26DBF3FD219209A200CD77FF /* LoginVC.swift */; };
+		26DFF294219B3EBA0038D9AB /* ProfileDetailsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26DFF293219B3EBA0038D9AB /* ProfileDetailsCell.swift */; };
+		26F72E4B21952E60008129A0 /* RFBaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26F72E4A21952E60008129A0 /* RFBaseController.swift */; };
+		F9561E5DE3860D00424A1AD9 /* Pods_ResepFinder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DE5EC465E1A8CB3A3F6CDB0 /* Pods_ResepFinder.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		17C1C4AF62C0DDD2FFCDFFB8 /* Pods-ResepFinder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ResepFinder.release.xcconfig"; path = "Pods/Target Support Files/Pods-ResepFinder/Pods-ResepFinder.release.xcconfig"; sourceTree = "<group>"; };
+		2600F722219726E80046239C /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
+		2607290D218F4D7000140AF9 /* Montserrat-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-SemiBold.otf"; sourceTree = "<group>"; };
+		2607290E218F4D7100140AF9 /* Montserrat-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Bold.otf"; sourceTree = "<group>"; };
+		2607290F218F4D7100140AF9 /* Montserrat-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Regular.otf"; sourceTree = "<group>"; };
+		26072910218F4D7100140AF9 /* Montserrat-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Light.otf"; sourceTree = "<group>"; };
+		26287866218F0D1400CD07C5 /* RFButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RFButton.swift; sourceTree = "<group>"; };
+		26287869218F0DFE00CD07C5 /* RFColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RFColor.swift; sourceTree = "<group>"; };
+		2628786B218F0E0800CD07C5 /* RFFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RFFont.swift; sourceTree = "<group>"; };
+		263399192188AC640035F4BE /* RegistrationsVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RegistrationsVC.xib; sourceTree = "<group>"; };
+		2633991A2188AC640035F4BE /* RegistrationsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegistrationsVC.swift; sourceTree = "<group>"; };
+		2633991C2188AC650035F4BE /* RFTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RFTextField.swift; sourceTree = "<group>"; };
+		263399202188AD020035F4BE /* RF-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RF-Bridging-Header.h"; sourceTree = "<group>"; };
+		263399222188B51A0035F4BE /* RFLocalizedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RFLocalizedString.swift; sourceTree = "<group>"; };
+		263399252188B60B0035F4BE /* eng.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = eng.strings; sourceTree = "<group>"; };
+		26380A2B2197CB8700DFBB82 /* UIView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
+		264D2FF22193258400F66595 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		264D2FF6219325D900F66595 /* RFDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RFDataService.swift; sourceTree = "<group>"; };
+		264D2FFA2193582200F66595 /* RegistrationsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationsVM.swift; sourceTree = "<group>"; };
+		264D2FFC21935BB600F66595 /* LoginVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVM.swift; sourceTree = "<group>"; };
+		264D2FFE21935CD400F66595 /* RFValidations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RFValidations.swift; sourceTree = "<group>"; };
+		2654966B2188A4B300AFC830 /* RFProfileMenu.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RFProfileMenu.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2654966D2188A61100AFC830 /* RFProfileMenu.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RFProfileMenu.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2674F821219D051F0002D64C /* RFDialog.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RFDialog.xib; sourceTree = "<group>"; };
+		26833AE8219C6BBE00D8A863 /* ProfileRecipesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRecipesCell.swift; sourceTree = "<group>"; };
+		268AFC83219962DC00197028 /* RFEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RFEnum.swift; sourceTree = "<group>"; };
+		268AFC882199661100197028 /* ProfileDescriptionCellTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDescriptionCellTableViewCell.swift; sourceTree = "<group>"; };
+		268AFC8A2199668400197028 /* RFBaseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RFBaseCell.swift; sourceTree = "<group>"; };
+		26A8A390219C6D4700C235FB /* SettingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingVC.swift; sourceTree = "<group>"; };
+		26A8A393219C743A00C235FB /* RFDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RFDialog.swift; sourceTree = "<group>"; };
 		26B2BAB521874B76004B148F /* ResepFinder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ResepFinder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		26B2BAB821874B76004B148F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		26B2BABA21874B76004B148F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		26B2BABA21874B76004B148F /* RFTabBarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RFTabBarVC.swift; sourceTree = "<group>"; };
 		26B2BABD21874B76004B148F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		26B2BABF21874B76004B148F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		26B2BAC221874B76004B148F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		26B2BAC421874B76004B148F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		26B2BACB21874BE5004B148F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		26DBF3FA2192077800CD77FF /* LoginVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginVC.xib; sourceTree = "<group>"; };
+		26DBF3FD219209A200CD77FF /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
+		26DFF293219B3EBA0038D9AB /* ProfileDetailsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDetailsCell.swift; sourceTree = "<group>"; };
+		26F72E4A21952E60008129A0 /* RFBaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RFBaseController.swift; sourceTree = "<group>"; };
 		29937144E2B89E09C074755A /* Pods-ResepFinder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ResepFinder.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ResepFinder/Pods-ResepFinder.debug.xcconfig"; sourceTree = "<group>"; };
 		5DE5EC465E1A8CB3A3F6CDB0 /* Pods_ResepFinder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ResepFinder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -35,13 +98,126 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C4F45527AB0D79756A4A192F /* Pods_ResepFinder.framework in Frameworks */,
+				F9561E5DE3860D00424A1AD9 /* Pods_ResepFinder.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2600F721219726A90046239C /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				26A8A38F219C6CF600C235FB /* Settings */,
+				26DFF290219B3E810038D9AB /* Description */,
+				26DFF291219B3E910038D9AB /* Details */,
+				26DFF292219B3E970038D9AB /* Recipes */,
+				2600F722219726E80046239C /* ProfileVC.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		260450492192A1DB000A128E /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				264D2FF12193257900F66595 /* Account */,
+				264D2FF6219325D900F66595 /* RFDataService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		2607290A218F4D6700140AF9 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				2607290E218F4D7100140AF9 /* Montserrat-Bold.otf */,
+				26072910218F4D7100140AF9 /* Montserrat-Light.otf */,
+				2607290F218F4D7100140AF9 /* Montserrat-Regular.otf */,
+				2607290D218F4D7000140AF9 /* Montserrat-SemiBold.otf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		26287868218F0DDD00CD07C5 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				26287866218F0D1400CD07C5 /* RFButton.swift */,
+				2633991C2188AC650035F4BE /* RFTextField.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		263399182188AC640035F4BE /* Registration */ = {
+			isa = PBXGroup;
+			children = (
+				2633991A2188AC640035F4BE /* RegistrationsVC.swift */,
+				263399192188AC640035F4BE /* RegistrationsVC.xib */,
+				264D2FFA2193582200F66595 /* RegistrationsVM.swift */,
+			);
+			path = Registration;
+			sourceTree = "<group>";
+		};
+		2633991B2188AC650035F4BE /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				26380A2A2197CB6800DFBB82 /* Extensions */,
+				26287868218F0DDD00CD07C5 /* Components */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		263399212188B4D70035F4BE /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				263399222188B51A0035F4BE /* RFLocalizedString.swift */,
+				26287869218F0DFE00CD07C5 /* RFColor.swift */,
+				2628786B218F0E0800CD07C5 /* RFFont.swift */,
+				264D2FFE21935CD400F66595 /* RFValidations.swift */,
+				268AFC83219962DC00197028 /* RFEnum.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		263399242188B5F10035F4BE /* LocalizedStrings */ = {
+			isa = PBXGroup;
+			children = (
+				263399252188B60B0035F4BE /* eng.strings */,
+			);
+			path = LocalizedStrings;
+			sourceTree = "<group>";
+		};
+		26380A2A2197CB6800DFBB82 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				26380A2B2197CB8700DFBB82 /* UIView+Ext.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		264D2FF12193257900F66595 /* Account */ = {
+			isa = PBXGroup;
+			children = (
+				264D2FF22193258400F66595 /* AuthService.swift */,
+			);
+			path = Account;
+			sourceTree = "<group>";
+		};
+		26A8A38F219C6CF600C235FB /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				26A8A390219C6D4700C235FB /* SettingVC.swift */,
+			);
+			name = Settings;
+			sourceTree = "<group>";
+		};
+		26A8A392219C742000C235FB /* Dialog */ = {
+			isa = PBXGroup;
+			children = (
+				26A8A393219C743A00C235FB /* RFDialog.swift */,
+				2674F821219D051F0002D64C /* RFDialog.xib */,
+			);
+			path = Dialog;
+			sourceTree = "<group>";
+		};
 		26B2BAAC21874B76004B148F = {
 			isa = PBXGroup;
 			children = (
@@ -63,10 +239,20 @@
 		26B2BAB721874B76004B148F /* ResepFinder */ = {
 			isa = PBXGroup;
 			children = (
-				26B2BACA21874B88004B148F /* SupportingFiles */,
+				260450492192A1DB000A128E /* Services */,
+				263399212188B4D70035F4BE /* Helpers */,
+				2633991B2188AC650035F4BE /* Common */,
+				26E8DDCC2196A6A80040AD32 /* SharedView */,
+				2600F721219726A90046239C /* Profile */,
+				26DBF3F82191FE6500CD77FF /* Login */,
+				263399182188AC640035F4BE /* Registration */,
 				26B2BAB821874B76004B148F /* AppDelegate.swift */,
-				26B2BABA21874B76004B148F /* ViewController.swift */,
+				26B2BABA21874B76004B148F /* RFTabBarVC.swift */,
 				26B2BABC21874B76004B148F /* Main.storyboard */,
+				263399242188B5F10035F4BE /* LocalizedStrings */,
+				26B2BACA21874B88004B148F /* SupportingFiles */,
+				26F72E4A21952E60008129A0 /* RFBaseController.swift */,
+				268AFC8A2199668400197028 /* RFBaseCell.swift */,
 			);
 			path = ResepFinder;
 			sourceTree = "<group>";
@@ -74,12 +260,72 @@
 		26B2BACA21874B88004B148F /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
+				2607290A218F4D6700140AF9 /* Fonts */,
 				26B2BACB21874BE5004B148F /* GoogleService-Info.plist */,
 				26B2BABF21874B76004B148F /* Assets.xcassets */,
 				26B2BAC121874B76004B148F /* LaunchScreen.storyboard */,
 				26B2BAC421874B76004B148F /* Info.plist */,
+				263399202188AD020035F4BE /* RF-Bridging-Header.h */,
 			);
 			path = SupportingFiles;
+			sourceTree = "<group>";
+		};
+		26DBF3F82191FE6500CD77FF /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				26DBF3FD219209A200CD77FF /* LoginVC.swift */,
+				26DBF3FA2192077800CD77FF /* LoginVC.xib */,
+				264D2FFC21935BB600F66595 /* LoginVM.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		26DFF290219B3E810038D9AB /* Description */ = {
+			isa = PBXGroup;
+			children = (
+				268AFC882199661100197028 /* ProfileDescriptionCellTableViewCell.swift */,
+			);
+			name = Description;
+			sourceTree = "<group>";
+		};
+		26DFF291219B3E910038D9AB /* Details */ = {
+			isa = PBXGroup;
+			children = (
+				26DFF293219B3EBA0038D9AB /* ProfileDetailsCell.swift */,
+			);
+			name = Details;
+			sourceTree = "<group>";
+		};
+		26DFF292219B3E970038D9AB /* Recipes */ = {
+			isa = PBXGroup;
+			children = (
+				26833AE8219C6BBE00D8A863 /* ProfileRecipesCell.swift */,
+			);
+			name = Recipes;
+			sourceTree = "<group>";
+		};
+		26E8DDCC2196A6A80040AD32 /* SharedView */ = {
+			isa = PBXGroup;
+			children = (
+				26A8A392219C742000C235FB /* Dialog */,
+				26E8DDCE2196A6F60040AD32 /* Location */,
+				26E8DDCD2196A6BB0040AD32 /* Searchbar */,
+			);
+			path = SharedView;
+			sourceTree = "<group>";
+		};
+		26E8DDCD2196A6BB0040AD32 /* Searchbar */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Searchbar;
+			sourceTree = "<group>";
+		};
+		26E8DDCE2196A6F60040AD32 /* Location */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Location;
 			sourceTree = "<group>";
 		};
 		2E8AC51B5BB8A0AD72D4DB4C /* Pods */ = {
@@ -94,6 +340,8 @@
 		A83840CDDEA6052743F9236E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2654966D2188A61100AFC830 /* RFProfileMenu.framework */,
+				2654966B2188A4B300AFC830 /* RFProfileMenu.framework */,
 				5DE5EC465E1A8CB3A3F6CDB0 /* Pods_ResepFinder.framework */,
 			);
 			name = Frameworks;
@@ -159,10 +407,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				26072911218F4FF100140AF9 /* Montserrat-Bold.otf in Resources */,
+				26072912218F4FF100140AF9 /* Montserrat-Light.otf in Resources */,
+				26072913218F4FF100140AF9 /* Montserrat-Regular.otf in Resources */,
+				26072914218F4FF100140AF9 /* Montserrat-SemiBold.otf in Resources */,
+				2633991D2188AC650035F4BE /* RegistrationsVC.xib in Resources */,
 				26B2BAC321874B76004B148F /* LaunchScreen.storyboard in Resources */,
 				26B2BACC21874BE5004B148F /* GoogleService-Info.plist in Resources */,
 				26B2BAC021874B76004B148F /* Assets.xcassets in Resources */,
 				26B2BABE21874B76004B148F /* Main.storyboard in Resources */,
+				2674F822219D051F0002D64C /* RFDialog.xib in Resources */,
+				263399262188B60B0035F4BE /* eng.strings in Resources */,
+				26DBF3FC2192077800CD77FF /* LoginVC.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -176,16 +432,28 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-ResepFinder/Pods-ResepFinder-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Alamofire-iOS11.0/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
-				"${BUILT_PRODUCTS_DIR}/TPKeyboardAvoiding-iOS11.0/TPKeyboardAvoiding.framework",
+				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/JVFloatLabeledTextField/JVFloatLabeledTextField.framework",
+				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
+				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/TPKeyboardAvoiding/TPKeyboardAvoiding.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JVFloatLabeledTextField.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TPKeyboardAvoiding.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -218,8 +486,30 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				26B2BABB21874B76004B148F /* ViewController.swift in Sources */,
+				268AFC84219962DC00197028 /* RFEnum.swift in Sources */,
+				26A8A394219C743A00C235FB /* RFDialog.swift in Sources */,
+				268AFC892199661100197028 /* ProfileDescriptionCellTableViewCell.swift in Sources */,
+				268AFC8B2199668400197028 /* RFBaseCell.swift in Sources */,
+				26380A2C2197CB8700DFBB82 /* UIView+Ext.swift in Sources */,
+				264D2FFD21935BB600F66595 /* LoginVM.swift in Sources */,
+				264D2FFF21935CD400F66595 /* RFValidations.swift in Sources */,
+				2633991E2188AC650035F4BE /* RegistrationsVC.swift in Sources */,
+				26287867218F0D1400CD07C5 /* RFButton.swift in Sources */,
+				2600F724219726E80046239C /* ProfileVC.swift in Sources */,
+				26833AE9219C6BBE00D8A863 /* ProfileRecipesCell.swift in Sources */,
+				2633991F2188AC650035F4BE /* RFTextField.swift in Sources */,
+				264D2FFB2193582200F66595 /* RegistrationsVM.swift in Sources */,
+				26B2BABB21874B76004B148F /* RFTabBarVC.swift in Sources */,
+				264D2FF32193258400F66595 /* AuthService.swift in Sources */,
+				26F72E4B21952E60008129A0 /* RFBaseController.swift in Sources */,
+				26DBF3FE219209A200CD77FF /* LoginVC.swift in Sources */,
+				26A8A391219C6D4700C235FB /* SettingVC.swift in Sources */,
 				26B2BAB921874B76004B148F /* AppDelegate.swift in Sources */,
+				2628786A218F0DFE00CD07C5 /* RFColor.swift in Sources */,
+				26DFF294219B3EBA0038D9AB /* ProfileDetailsCell.swift in Sources */,
+				2628786C218F0E0800CD07C5 /* RFFont.swift in Sources */,
+				264D2FF7219325D900F66595 /* RFDataService.swift in Sources */,
+				263399232188B51A0035F4BE /* RFLocalizedString.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -369,15 +659,16 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9T94R4M552;
 				INFOPLIST_FILE = "$(SRCROOT)/ResepFinder/SupportingFiles/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = Huangz.ResepFinder;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "ResepFinder/SupportingFiles/RF-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -389,15 +680,16 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9T94R4M552;
 				INFOPLIST_FILE = "$(SRCROOT)/ResepFinder/SupportingFiles/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = Huangz.ResepFinder;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "ResepFinder/SupportingFiles/RF-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
