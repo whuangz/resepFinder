@@ -69,13 +69,9 @@ extension RFTextField {
         self.showHidePasswordImg.isHighlighted = false
         self.showHidePasswordImg.contentMode = .center
         
+        
         self.rightViewMode = .always
         self.rightView = self.showHidePasswordImg
-        
-        NSLayoutConstraint.activate([
-            self.showHidePasswordImg.widthAnchor.constraint(equalToConstant: 40),
-            self.showHidePasswordImg.heightAnchor.constraint(equalToConstant: 40)
-            ])
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(showHidePasswordViewTapped))
         self.showHidePasswordImg.addGestureRecognizer(tap)
@@ -93,7 +89,7 @@ extension RFTextField {
     }
     
     override func rightViewRect(forBounds bounds: CGRect) -> CGRect {
-        let rightBounds = CGRect(x: self.bounds.size.width - 40, y: 10, width: 40, height: 40 )
+        let rightBounds = CGRect(x: self.bounds.size.width - 20, y: 15, width: 20, height: 20 )
         return rightBounds
     }
 }

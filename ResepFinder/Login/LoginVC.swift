@@ -86,7 +86,10 @@ extension LoginVC {
     func callBacks(){
         guard let viewModel = self.viewModel else {return}
         viewModel.isSuccess.asObservable().bind { (valid) in
-            print(valid)            
+            print(valid)
+            if valid {
+                self.navigateToProfileMenu()
+            }
         }.disposed(by: disposeBag)
         
         viewModel.errMsg.asObservable().bind { (message) in
@@ -109,6 +112,11 @@ extension LoginVC {
     
     @objc func dismissLoggedInView(){
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    func navigateToProfileMenu(){
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.redirectoProfileMenu()
     }
 }
 

@@ -12,7 +12,7 @@ import RxSwift
 
 
 class LoginVM: NSObject{
-    private let service = AuthService()
+    private let service = RFAuthService()
     private let disposeBag = DisposeBag()
     
     let email = Variable<String>("")

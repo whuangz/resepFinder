@@ -5,3 +5,33 @@
   Created by William Huang on 30/10/18.
   Copyright © 2018 William Huang. All rights reserved.
 */
+
+
+//MARK: - REGISTER PAGE
+"register_title" = "Sign up to view my page";
+"username_placeholder" = "Username";
+"email_placeholder" = "Email";
+"pwd_placeholder" = "Password";
+"con_pwd_placeholder" = "Confirm Password";
+"region_placeholder" = "Provinces";
+"sign_up_label" = "Sign Up";
+"login_link_label" = "Login";
+"social_media_label" = "- Social Login -";
+
+
+//MARK: - LOGIN PAGE
+"login_label" = "Log In";
+
+
+//MARK: - TABBARMENU
+"home_tab_menu" = "Home";
+"create_tab_menu" = "Create";
+"conversation_tab_menu" = "Conversation";
+"profile_tab_menu" = "Profile";
+
+
+//MARK: - PROFILE MENU
+
+
+//MARK: - SETTING
+"log_out_label" = "Log Out";

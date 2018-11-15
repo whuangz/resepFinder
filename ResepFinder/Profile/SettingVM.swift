@@ -7,3 +7,13 @@
 //
 
 import Foundation
+import RxSwift
+
+class SettingVM: NSObject {
+    private let service = RFAuthService()
+    private let disposeBag = DisposeBag()
+    
+    func doLogout(){
+        self.service.logoutUser()
+    }
+}

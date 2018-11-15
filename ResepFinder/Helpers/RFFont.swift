@@ -6,4 +6,12 @@
 //  Copyright © 2018 William Huang. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+class RFFont: NSObject {
+    static let instance = RFFont()
+    
+    let headBold18 = UIFont(name: "Montserrat-Bold", size: 18)
+    
+     //14–18px for main Content and 28–34px 
+}

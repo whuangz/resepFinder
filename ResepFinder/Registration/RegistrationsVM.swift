@@ -13,7 +13,7 @@ import RxCocoa
 
 
 class RegistrationsVM: NSObject{
-    private let service = AuthService()
+    private let service = RFAuthService()
     private let disposeBag = DisposeBag()
     
     let username = Variable<String>("")
@@ -23,11 +23,6 @@ class RegistrationsVM: NSObject{
     
     let isSuccess = Variable(false)
     let errMsg = Variable("")
-    
-    override init() {
-        super.init()
-        
-    }
     
     func validateRegister() -> Observable<Bool>{
 

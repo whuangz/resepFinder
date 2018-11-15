@@ -7,3 +7,12 @@
 //
 
 import Foundation
+
+
+class RFLocalizedString : NSObject{
+    
+    func forKey(_ key: String) -> String {
+        let text = NSLocalizedString(key, tableName: "eng", value: key, comment: key)
+        return text
+    }
+}

@@ -10,81 +10,83 @@ import UIKit
 
 class SettingVC: UITableViewController {
 
+    private var viewModel: SettingVM!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        intializer()
+        setupTableView()
+        setupNavigationBar()
+        registerCell()
+    }
+    
+    private func intializer(){
+        self.viewModel = SettingVM()
+    }
+    
+    private func setupTableView(){
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyle.none
+    }
+    
+    private func setupNavigationBar(){
+        self.navigationItem.title = "Setting"
+        self.navigationItem.hidesBackButton = true
+        let backButton = UIImage(named: "back")
+        let leftMenuButton = UIBarButtonItem(image: backButton?.withRenderingMode(UIImageRenderingMode.alwaysOriginal), style: UIBarButtonItemStyle.plain, target: self, action: #selector(navigateBack))
+        
+        self.navigationItem.leftBarButtonItem = leftMenuButton
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+    }
+    
+    @objc func navigateBack(){
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    private func registerCell(){
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: ("logoutCell"))
     }
 
-    // MARK: - Table view data source
-
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        return 1
     }
-
-    /*
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
-        return cell
+        let settingCell = RFSettingCell(rawValue: indexPath.item)
+        switch settingCell! {
+        case .logout:
+            return createLogoutCell()
+        }
     }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let settingCell = RFSettingCell(rawValue: indexPath.item)
+        switch settingCell! {
+        case .logout:
+            showLogoutDialog()
+        }
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+    
+    //MARK: - CREATE CELL
+    
+    func createLogoutCell() -> UITableViewCell {
+        let cell = self.tableView.dequeueReusableCell(withIdentifier: "logoutCell")
+    
+        cell?.textLabel?.text = RFLocalizedString().forKey("log_out_label")
+        
+        return cell!
     }
-    */
 
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
+    
+    //MARK: - REDIRECT
+    func showLogoutDialog(){
+        let dialog = RFDialogView.instance
+        dialog.showDialogWith(title: "Logout", content: "Are you sure want to log out?", leftBtn: "No", rightBtn: "Logout") {
+            self.viewModel.doLogout()
+            //return to homepage
+        }
     }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

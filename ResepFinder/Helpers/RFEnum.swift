@@ -6,4 +6,14 @@
 //  Copyright © 2018 William Huang. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+enum RFProfileSection: Int {
+    case description
+    case details
+    case recipes
+}
+
+enum RFSettingCell: Int {
+    case logout
+}

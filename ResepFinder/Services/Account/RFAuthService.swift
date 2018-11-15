@@ -12,6 +12,19 @@ import RxSwift
 
 class RFAuthService: RFDataService {
     
+    func logoutUser() -> Bool{
+        do{
+            if Auth.auth().currentUser != nil {
+                try Auth.auth().signOut()
+                print("Log out Successfully")
+                return true
+            }
+        }catch {
+            print(error.localizedDescription)
+        }
+        print("not user found")
+        return false
+    }
     
     func loginWith(email: String, pwd: String) -> Observable<((AuthDataResult?, Error?))> {
         return Observable.create({ (observer) in

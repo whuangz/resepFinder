@@ -7,3 +7,23 @@
 //
 
 import Foundation
+import Firebase
+
+
+class RFDataService: NSObject {
+    
+    private let _BASE_REF = Database.database().reference()
+        
+    var USER_REF: DatabaseReference {
+        return _BASE_REF.child("users")
+    }
+        
+    
+    func showProgress() {
+        
+    }
+    
+    func dismissProgress() {
+        
+    }
+}
