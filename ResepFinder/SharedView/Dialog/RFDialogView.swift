@@ -17,7 +17,7 @@ class RFDialogView {
     private var completion: VoidCompletion!
     
     init() {
-        self.dialogView = Bundle.main.loadNibNamed("DialogView", owner: nil, options: nil)?.first as! DialogView
+        self.dialogView = Bundle.main.loadNibNamed("DialogView", owner: nil, options: nil)?.first as? DialogView
         self.dialogView.frame = UIScreen.main.bounds
         
         self.dialogView.leftBtnObserver().subscribe { (_) in

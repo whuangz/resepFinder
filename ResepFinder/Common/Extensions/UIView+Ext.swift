@@ -66,4 +66,11 @@ extension UIView {
         
         return anchors
     }
+    
+    func addSeperatorLine(left: CGFloat = 0 , right: CGFloat = 0){
+        let seperatorLine = UIView()
+        seperatorLine.backgroundColor = RFColor.instance.gray3
+        addSubview(seperatorLine)
+        _ = seperatorLine.anchor(left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, leftConstant: left, bottomConstant: 0, rightConstant: right, heightConstant: 2)
+    }
 }

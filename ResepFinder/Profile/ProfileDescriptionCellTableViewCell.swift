@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ProfileDescriptionCellTableViewCell: RFBaseCell {
+class ProfileDescriptionCellTableViewCell: RFBaseTableCell {
     
     fileprivate var userProfileImageView: UIImageView!
     fileprivate var userName: UILabel!
@@ -16,7 +16,8 @@ class ProfileDescriptionCellTableViewCell: RFBaseCell {
     fileprivate var locationLabel: UILabel!
     fileprivate var descriptionLabel: UILabel!
     
-    override func setUpViews() {
+    override func setupViews() {
+        super.setupViews()
         prepareUI()
     }
     

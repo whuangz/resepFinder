@@ -24,11 +24,17 @@ class ProfileVC: UITableViewController {
     private func registerCell(){
         tableView.register(ProfileDescriptionCellTableViewCell.self, forCellReuseIdentifier: ("ProfileDescriptionCellTableViewCell"))
         tableView.register(ProfileDetailsCell.self, forCellReuseIdentifier: ("ProfileDetailsCell"))
-        tableView.register(ProfileRecipesCell.self, forCellReuseIdentifier: ("ProfileRecipeList"))
+        tableView.register(ProfileRecipeCollection.self, forCellReuseIdentifier: ("ProfileRecipeList"))
         
+    }
+    
+    deinit {
+        print("AAA")
     }
 }
 
+
+//MARK: - TableView Delege & Data Source Implementation
 extension ProfileVC {
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -41,9 +47,17 @@ extension ProfileVC {
         case .details:
             return 80
         case .recipes:
-            return self.view.frame.height - 320
+            return recipesListHeight()
         }
         
+    }
+    
+    func recipesListHeight() -> CGFloat{
+        let numberOfItem = ceil(CGFloat(10/2))
+        let horizontalPadding: CGFloat = 32 + 32
+        let paddingRow: CGFloat = 32 + 64
+        let cellWidth: CGFloat = self.view.frame.width / 2 + 50 - 32
+        return numberOfItem * cellWidth + paddingRow
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -82,13 +96,14 @@ extension ProfileVC {
     }
     
     private func createRecipesList() -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: ("ProfileRecipeList")) as! ProfileRecipesCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: ("ProfileRecipeList")) as! ProfileRecipeCollection
         cell.selectionStyle = .none
         return cell
     }
 }
 
 
+//MARK: - Initialize Navigation Bar
 extension ProfileVC {
     private func setupNavBarItem(){
 //        /setupLeftBarItem()
@@ -109,7 +124,6 @@ extension ProfileVC {
         let settingImg = UIImage(named: "setting")?.withRenderingMode(.alwaysOriginal)
         let settingBtn = UIBarButtonItem(image: settingImg, style: .plain, target: self, action: #selector(navigateToSetting))
         
-        
         self.navigationItem.rightBarButtonItems = [settingBtn]
     }
     
@@ -117,4 +131,5 @@ extension ProfileVC {
         let settingVC = SettingVC()
         self.navigationController?.pushViewController(settingVC, animated: true)
     }
+    
 }

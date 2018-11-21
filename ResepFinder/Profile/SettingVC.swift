@@ -25,7 +25,8 @@ class SettingVC: UITableViewController {
     }
     
     private func setupTableView(){
-        self.tableView.separatorStyle = UITableViewCellSeparatorStyle.none
+        //self.tableView.separatorStyle = UITableViewCellSeparatorStyle.none
+        tableView.tableFooterView = UIView(frame: .zero)
     }
     
     private func setupNavigationBar(){

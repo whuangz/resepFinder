@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ProfileDetailsCell: RFBaseCell {
+class ProfileDetailsCell: RFBaseTableCell {
     
     fileprivate var followingView: UIView!
     fileprivate var followingCount: UILabel!
@@ -21,7 +21,8 @@ class ProfileDetailsCell: RFBaseCell {
     fileprivate var followerLbl: UILabel!
 
     
-    override func setUpViews() {
+    override func setupViews() {
+        super.setupViews()
         prepareUI()
     }
     
@@ -44,14 +45,14 @@ extension ProfileDetailsCell {
         self.followerLbl = getHeaderLbl()
         self.followerCount = getCountLbl()
         
-        configureView()
+        configureViews()
         layoutViews()
     }
     
-    fileprivate func configureView(){
-        self.followingLbl.text = "My Following"
-        self.totalRecipesLbl.text = "My Recipes"
-        self.followerLbl.text = "My Followers"
+    fileprivate func configureViews(){
+        self.followingLbl.text = "Following"
+        self.totalRecipesLbl.text = "Recipes"
+        self.followerLbl.text = "Followers"
     }
     
     fileprivate func layoutViews(){
@@ -74,17 +75,17 @@ extension ProfileDetailsCell {
         
         _ = self.followerView.anchor(top: topAnchor, left: totalRecipesView.rightAnchor, bottom: bottomAnchor, eqWidth: self.followingView.widthAnchor, eqHeight: self.followingView.heightAnchor)
         
-        _ = self.followingLbl.centerConstraintWith(centerX: followingView.centerXAnchor, centerY: followingView.centerYAnchor, yConstant: -16)
-        _ = self.followingCount.anchor(top: followingLbl.bottomAnchor, topConstant: 8)
-        _ = self.followingCount.centerConstraintWith(centerX: followingLbl.centerXAnchor)
+        _ = self.followingCount.centerConstraintWith(centerX: followingView.centerXAnchor, centerY: followingView.centerYAnchor, yConstant: -16)
+        _ = self.followingLbl.anchor(top: followingCount.bottomAnchor, topConstant: 8)
+        _ = self.followingLbl.centerConstraintWith(centerX: followingCount.centerXAnchor)
 
-        _ = self.totalRecipesLbl.centerConstraintWith(centerX: totalRecipesView.centerXAnchor, centerY: totalRecipesView.centerYAnchor, yConstant: -16)
-        _ = self.totalRecipesCount.anchor(top: totalRecipesLbl.bottomAnchor, topConstant: 8)
-        _ = self.totalRecipesCount.centerConstraintWith(centerX: totalRecipesLbl.centerXAnchor)
+        _ = self.totalRecipesCount.centerConstraintWith(centerX: totalRecipesView.centerXAnchor, centerY: totalRecipesView.centerYAnchor, yConstant: -16)
+        _ = self.totalRecipesLbl.anchor(top: totalRecipesCount.bottomAnchor, topConstant: 8)
+        _ = self.totalRecipesLbl.centerConstraintWith(centerX: totalRecipesCount.centerXAnchor)
         
-        _ = self.followerLbl.centerConstraintWith(centerX: followerView.centerXAnchor, centerY: followerView.centerYAnchor, yConstant: -16)
-        _ = self.followerCount.anchor(top: followerLbl.bottomAnchor, topConstant: 8)
-        _ = self.followerCount.centerConstraintWith(centerX: followerLbl.centerXAnchor)
+        _ = self.followerCount.centerConstraintWith(centerX: followerView.centerXAnchor, centerY: followerView.centerYAnchor, yConstant: -16)
+        _ = self.followerLbl.anchor(top: followerCount.bottomAnchor, topConstant: 8)
+        _ = self.followerLbl.centerConstraintWith(centerX: followerCount.centerXAnchor)
         
         
     }

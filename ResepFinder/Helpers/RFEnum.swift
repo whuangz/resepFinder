@@ -17,3 +17,10 @@ enum RFProfileSection: Int {
 enum RFSettingCell: Int {
     case logout
 }
+
+enum RFTabBarItem: Int {
+    case home
+    case createRecipe
+    case conversation
+    case profile
+}

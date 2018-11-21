@@ -8,17 +8,17 @@
 
 import UIKit
 
-class RFBaseCell: UITableViewCell {
+class RFBaseTableCell: UITableViewCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setUpViews()
+        setupViews()
     }
-
-    func setUpViews(){
-        fatalError("Subclasses must implement this function")
+    
+    func setupViews(){
+        self.selectionStyle = .none
     }
     
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: aDecoder)
     }
 }
