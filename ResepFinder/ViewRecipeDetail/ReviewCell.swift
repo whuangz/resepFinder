@@ -1,5 +1,5 @@
 //
-//  RFCommentCell.swift
+//  ReviewCell.swift
 //  ResepFinder
 //
 //  Created by William Huang on 25/11/18.
@@ -8,13 +8,12 @@
 
 import Foundation
 
-class CommentCell: RFBaseTableCell {
+class ReviewCell: RFBaseTableCell {
     
     fileprivate var topView: UIView!
     fileprivate var reviewHeader: UILabel!
     fileprivate var totalReviewer: UILabel!
     fileprivate var readMoreBtn: RFPrimaryBtn!
-    fileprivate var detailedView: UIView!
     
     override func setupViews() {
         super.setupViews()
@@ -25,25 +24,42 @@ class CommentCell: RFBaseTableCell {
 
 
 //MARK: - Initialize & Prepare UI
-extension CommentCell {
+extension ReviewCell {
     
     
     fileprivate func prepareUI(){
-        self.descriptionLbl = getHeaderLbl()
+        self.topView = self.getView()
+        self.reviewHeader = self.getHeaderLbl()
+        self.totalReviewer = self.getLbl()
+        self.readMoreBtn = self.getBtn()
         
         configureViews()
         layoutViews()
     }
     
     fileprivate func configureViews(){
-        self.descriptionLbl.text = "Fluffy sweet potatoes mixed with butter, sugar, and vanilla, and baked with a crunchy pecan streusel topping. This recipe was given to me by my brother-in-law."
+        
     }
     
     fileprivate func layoutViews(){
         
-        addSubview(descriptionLbl)
+        addSubview(topView)
+        topView.addSubview(reviewHeader)
+        topView.addSubview(totalReviewer)
+        topView.addSubview(readMoreBtn)
         
-        _ = self.descriptionLbl.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, leftConstant: 16, rightConstant: 16)
+        _ = self.topView.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor)
+        _ = self.reviewHeader.anchor(left: topView.leftAnchor, right: topView.rightAnchor, leftConstant: 16)
+        _ = self.reviewHeader.centerConstraintWith(centerY: topView.centerYAnchor)
+        _ = self.totalReviewer.anchor(top: reviewHeader.bottomAnchor, left: topView.leftAnchor, leftConstant: 16)
+        _ = self.readMoreBtn.anchor(left: reviewHeader.rightAnchor, right: topView.rightAnchor, leftConstant: 8, rightConstant: 16, widthConstant: 70)
+        _ = self.readMoreBtn.centerConstraintWith(centerY: reviewHeader.centerYAnchor)
+    }
+    
+    fileprivate func getView() -> UIView {
+        let view = UIView()
+        view.layer.masksToBounds = true
+        return view
     }
     
     fileprivate func getHeaderLbl() -> UILabel {
@@ -58,6 +74,16 @@ extension CommentCell {
         label.font = RFFont.instance.bodyMedium12
         label.text = "16 Reviewers"
         return label
+    }
+    
+    fileprivate func getBtn() -> RFPrimaryBtn {
+        let button = RFPrimaryBtn()
+        button.setTitle("Reads More", for: .normal)
+        button.setTitleColor(RFColor.instance.black, for: .normal)
+        button.backgroundColor = UIColor.init(white: 0.9, alpha: 0.8)
+        button.titleLabel?.font = RFFont.instance.bodyMedium10
+        button.setCornerWith(radius: 5)
+        return button
     }
     
 }
