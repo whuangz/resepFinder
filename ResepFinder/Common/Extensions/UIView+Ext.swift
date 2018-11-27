@@ -9,6 +9,17 @@
 import Foundation
 
 extension UIView {
+    
+    func safeAreaBottomHeight() -> CGFloat
+    {
+        if #available(iOS 11.0, *) {
+            return self.safeAreaInsets.bottom
+        }
+        else {
+            return 0
+        }
+    }
+    
     func centerConstraintWith(centerX: NSLayoutXAxisAnchor? = nil, centerY: NSLayoutYAxisAnchor? = nil , xConstant: CGFloat = 0, yConstant: CGFloat = 0) -> [NSLayoutConstraint]{
         translatesAutoresizingMaskIntoConstraints = false
         var anchors = [NSLayoutConstraint]()
@@ -25,7 +36,7 @@ extension UIView {
         return anchors
     }
 
-    func anchor(top: NSLayoutYAxisAnchor? = nil, left: NSLayoutXAxisAnchor? = nil, bottom: NSLayoutYAxisAnchor? = nil, right: NSLayoutXAxisAnchor? = nil, topConstant: CGFloat = 0, leftConstant: CGFloat = 0, bottomConstant: CGFloat = 0, rightConstant: CGFloat = 0, widthConstant: CGFloat = 0, heightConstant: CGFloat = 0, eqWidth: NSLayoutDimension? = nil, eqHeight: NSLayoutDimension? = nil, multiplier: CGFloat = 1) -> [NSLayoutConstraint] {
+    func anchor(top: NSLayoutYAxisAnchor? = nil, left: NSLayoutXAxisAnchor? = nil, bottom: NSLayoutYAxisAnchor? = nil, right: NSLayoutXAxisAnchor? = nil, topConstant: CGFloat = 0, leftConstant: CGFloat = 0, bottomConstant: CGFloat = 0, rightConstant: CGFloat = 0, widthConstant: CGFloat = 0, heightConstant: CGFloat = 0, eqWidth: NSLayoutDimension? = nil, eqHeight: NSLayoutDimension? = nil, widthMultiplier: CGFloat = 1, heightMultiplier: CGFloat = 1) -> [NSLayoutConstraint] {
         translatesAutoresizingMaskIntoConstraints = false
         
         var anchors = [NSLayoutConstraint]()
@@ -55,17 +66,40 @@ extension UIView {
         }
         
         if let width = eqWidth {
-            anchors.append(widthAnchor.constraint(equalTo: width, multiplier: multiplier))
+            anchors.append(widthAnchor.constraint(equalTo: width, multiplier: widthMultiplier))
         }
         
         if let height = eqHeight {
-            anchors.append(heightAnchor.constraint(equalTo: height, multiplier: multiplier))
+            anchors.append(heightAnchor.constraint(equalTo: height, multiplier: heightMultiplier))
         }
         
         anchors.forEach({$0.isActive = true})
         
         return anchors
     }
+    
+    func constraintWithVisual(format: String, options: NSLayoutFormatOptions = NSLayoutFormatOptions() , metrics: [String:Any]? = nil, views: UIView...){
+        var dictionary = [String: UIView]()
+        for (index, view) in views.enumerated() {
+            let key = "v\(index)"
+            dictionary[key] = view
+            view.translatesAutoresizingMaskIntoConstraints = false
+        }
+        
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: format, options: options, metrics: metrics, views: dictionary))
+        
+    }
+    
+    func addAttributedString(text: String, lineSpacing: CGFloat = 1, font: UIFont) -> NSMutableAttributedString{
+        let attributedString = NSMutableAttributedString(string: text)
+        
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = lineSpacing
+        attributedString.addAttributes([NSAttributedStringKey.paragraphStyle: paragraphStyle, NSAttributedStringKey.font: font], range:NSMakeRange(0, attributedString.length))
+        
+        return attributedString
+    }
+    
     
     func addSeperatorLine(left: CGFloat = 0 , right: CGFloat = 0){
         let seperatorLine = UIView()

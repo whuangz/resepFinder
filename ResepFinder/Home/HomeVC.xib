@@ -12,6 +12,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeVC" customModule="ResepFinder" customModuleProvider="target">
             <connections>
+                <outlet property="bottomView" destination="fhN-k3-Zwe" id="9sU-JH-fJB"/>
+                <outlet property="topView" destination="19W-lN-hdy" id="yca-27-4IF"/>
+                <outlet property="topViewTopConstraint" destination="Z7o-HX-YbV" id="YPb-aP-geh"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -19,7 +22,28 @@
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="19W-lN-hdy">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="220"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="220" id="jOF-oS-17i"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fhN-k3-Zwe">
+                    <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
+            </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="19W-lN-hdy" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="3vE-Sp-Q5T"/>
+                <constraint firstItem="fhN-k3-Zwe" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="JzM-p2-zNb"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="fhN-k3-Zwe" secondAttribute="bottom" id="SxO-ig-O0B"/>
+                <constraint firstItem="fhN-k3-Zwe" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="Xrh-MM-BSp"/>
+                <constraint firstItem="19W-lN-hdy" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Z7o-HX-YbV"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="fhN-k3-Zwe" secondAttribute="trailing" id="cfS-Vm-xnb"/>
+                <constraint firstItem="19W-lN-hdy" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="pmd-kS-ge2"/>
+            </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="138.40000000000001" y="139.880059970015"/>
         </view>

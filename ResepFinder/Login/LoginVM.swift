@@ -23,10 +23,11 @@ class LoginVM: NSObject{
 
     override init() {
         super.init()
-        
+        print(email.asObservable())
     }
     
     func validateLogin() -> Observable<Bool>{
+        
         let validatedEmail = email.asObservable().map { (email) in
             return RFValidations.validatewith(email: (email))
         }

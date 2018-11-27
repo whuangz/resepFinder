@@ -1,95 +1,58 @@
 //
 //  RFTextField.swift
-//  RFCommon
+//  ResepFinder
 //
-//  Created by William Huang on 30/10/18.
+//  Created by William Huang on 24/11/18.
 //  Copyright © 2018 William Huang. All rights reserved.
 //
 
 import UIKit
 
-class RFTextField: JVFloatLabeledTextField {
+class RFTextField: UITextField {
+
+    private var padding = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
     
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.configureTextField()
+    override func textRect(forBounds bounds: CGRect) -> CGRect {
+        return UIEdgeInsetsInsetRect(bounds, padding)
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+    override func editingRect(forBounds bounds: CGRect) -> CGRect {
+        return UIEdgeInsetsInsetRect(bounds, padding)
+    }
+    
+    override func placeholderRect(forBounds bounds: CGRect) -> CGRect {
+        return UIEdgeInsetsInsetRect(bounds, padding)
     }
     
     override func awakeFromNib() {
-        configureTextField()
+        super.awakeFromNib()
+        setupViews()
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        configureBottomBorder()
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupViews()
     }
     
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
-    fileprivate func configureTextField(){
-        self.floatingLabelActiveTextColor = #colorLiteral(red: 0.2745098039, green: 0.4862745098, blue: 0.1411764706, alpha: 1)
-        self.keepBaseline = true
+    func setBorderColor(_ color: UIColor, width: CGFloat) {
+        self.layer.borderColor = color.cgColor
+        self.layer.borderWidth = width
+    }
+    
+    private func setupViews(){
         self.autocorrectionType = .no
         self.spellCheckingType = .no
         self.autocapitalizationType = .none
-        self.borderStyle = .none
-    }
-    
-    fileprivate func configureBottomBorder(){
-        let border = CALayer()
-        border.borderColor = UIColor.gray.cgColor
-        border.frame = CGRect(x: 0, y: self.frame.size.height - 0.5, width: self.frame.size.width, height: self.frame.size.height)
         
-        border.borderWidth = CGFloat(0.5)
-        self.layer.masksToBounds = true
-        self.layer.addSublayer(border)
-    }
-    
-    
-    //MARK: - Properties
-    var showHidePasswordImg: UIImageView!
-    
-}
-
-extension RFTextField {
-    
-    
-    func showHidePasswordView(){
-        self.isSecureTextEntry = true
-        let active = UIImage(named: "eye-pass-active")
-        let inactive = UIImage(named: "eye-pass-inactive")
-        self.showHidePasswordImg = UIImageView()
-        self.showHidePasswordImg.isUserInteractionEnabled = true
-        self.showHidePasswordImg.highlightedImage = active
-        self.showHidePasswordImg.image = inactive
-        self.showHidePasswordImg.isHighlighted = false
-        self.showHidePasswordImg.contentMode = .center
-        
-        
-        self.rightViewMode = .always
-        self.rightView = self.showHidePasswordImg
-        
-        let tap = UITapGestureRecognizer(target: self, action: #selector(showHidePasswordViewTapped))
-        self.showHidePasswordImg.addGestureRecognizer(tap)
-    }
-    
-    @objc fileprivate func showHidePasswordViewTapped(){
-        
-        if self.showHidePasswordImg.isHighlighted == true{
-            self.isSecureTextEntry = true
-            showHidePasswordImg.isHighlighted = false
-        }else{
-            showHidePasswordImg.isHighlighted = true
-            self.isSecureTextEntry = false
+        if let placeholder = self.placeholder {
+            let placeholder = NSAttributedString(string: placeholder, attributes: [NSAttributedStringKey.foregroundColor : UIColor.white])
+            self.attributedPlaceholder = placeholder
         }
+        
     }
-    
-    override func rightViewRect(forBounds bounds: CGRect) -> CGRect {
-        let rightBounds = CGRect(x: self.bounds.size.width - 20, y: 15, width: 20, height: 20 )
-        return rightBounds
-    }
+
 }

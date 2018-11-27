@@ -10,14 +10,13 @@ import UIKit
 
 class HomeHeaderView: UICollectionReusableView {
 
-    @IBOutlet weak var locationBtn: UIButton!
     @IBOutlet weak var rfLogo: UIImageView!
     @IBOutlet weak var searchBar: SearchBar!
     @IBOutlet weak var cameraBtn: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()
-         prepareUI()
+        prepareUI()
     }
     
 }
@@ -31,9 +30,12 @@ extension HomeHeaderView {
     private func configureViews(){
         self.rfLogo.image = UIImage(named: "logo")
         self.rfLogo.contentMode = .scaleAspectFit
-        self.locationBtn.setImage(UIImage(named: "location")?.withRenderingMode(.alwaysOriginal), for: .normal)
+        //self.locationBtn.setImage(UIImage(named: "location")?.withRenderingMode(.alwaysOriginal), for: .normal)
         self.cameraBtn.setImage(UIImage(named: "camera_icon_snap")?.withRenderingMode(.alwaysOriginal), for: .normal)
         self.searchBar.placeholder = "Find Recipes..."
+        self.searchBar.isUserInteractionEnabled = false
+        
+        //custom font
     }
     
 }

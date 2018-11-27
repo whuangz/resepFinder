@@ -7,8 +7,13 @@
 //
 
 import UIKit
+import RxCocoa
+import RxSwift
 
 class RFBaseTableCell: UITableViewCell {
+    
+    let dispose: DisposeBag = DisposeBag()
+    
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupViews()

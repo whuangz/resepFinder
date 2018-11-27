@@ -32,6 +32,9 @@ class SearchBar: UISearchBar {
         self.setImage(UIImage(named: "searchbutton"), for: .search, state: .normal)
         self.sizeToFit()
         textFieldInsideSearchBar = self.value(forKey: "searchField") as? UITextField
+        textFieldInsideSearchBar.font = RFFont.instance.bodyMedium12
+        textFieldInsideSearchBar.tintColor = .blue
+        
     }
     
 }

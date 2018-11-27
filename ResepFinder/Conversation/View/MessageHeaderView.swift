@@ -11,7 +11,7 @@ import UIKit
 class MessageHeaderView: UIView {
 
     private var contentView: UIView!
-    @IBOutlet weak var profileImage: UIImageView!
+    @IBOutlet weak var profileImage: RFImageView!
     @IBOutlet weak var profileName: UILabel!
  
 //    
@@ -43,7 +43,9 @@ class MessageHeaderView: UIView {
     
     private func setupLabel(){
         self.profileImage.backgroundColor = .red
+        self.profileImage.setCornerWith(radius: 18)
         self.profileName.text = "Usernaem100"
+        self.profileName.font = RFFont.instance.subHead12
     }
 
 //    private func loadViewFromNib() -> UIView{

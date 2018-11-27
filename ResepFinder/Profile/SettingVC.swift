@@ -77,6 +77,7 @@ class SettingVC: UITableViewController {
         let cell = self.tableView.dequeueReusableCell(withIdentifier: "logoutCell")
     
         cell?.textLabel?.text = RFLocalizedString().forKey("log_out_label")
+        cell?.textLabel?.font = RFFont.instance.bodyMedium14
         
         return cell!
     }

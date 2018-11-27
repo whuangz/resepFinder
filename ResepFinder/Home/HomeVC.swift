@@ -7,33 +7,46 @@
 //
 
 import UIKit
+import RxGesture
 
 class HomeVC: RFBaseController {
 
+    @IBOutlet weak var topView: UIView!
+    @IBOutlet weak var bottomView: UIView!
+    @IBOutlet weak var topViewTopConstraint: NSLayoutConstraint!
+    
+    private var headerView: HomeHeaderView!
     private var collectionView: UICollectionView!
+    private var navigationBarHeight: CGFloat!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationBar()
         prepareUI()
         registerCell()
+        setupGesture()
     }
     
     private func setupNavigationBar(){
-        self.navigationController?.navigationBar.isHidden = true
-        self.navigationController?.navigationBar.isTranslucent = false
-        self.navigationController?.navigationBar.backgroundColor = UIColor.white
+        self.navigationBarHeight = self.navigationController!.navigationBar.frame.size.height
+        self.navigationController?.navigationBar.isHidden = false
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        self.navigationController?.view.backgroundColor = .clear
+        self.navigationController?.navigationBar.backgroundColor = .clear
+        
+        self.navigationController?.navigationBar.isTranslucent = true
         self.setupCustomLeftBarItem(image: "location", action: #selector(doNothing))
-        self.setupRightBarItemWith(image: "camera_icon_snap", action: #selector(doNothing))
     }
     
     private func registerCell(){
         collectionView.register(UINib(nibName: "HomeHeaderView", bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "header")
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        collectionView.register(UINib(nibName: "HomeCollectionCell", bundle: nil), forCellWithReuseIdentifier: "HomeCollectionCell")
+        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "nocell")
     }
     
     @objc func doNothing(){
-        
+        print("DO NOTHING")
     }
 
 }
@@ -42,15 +55,19 @@ class HomeVC: RFBaseController {
 //MARK: - Initialize & Prepare UI
 extension HomeVC {
     fileprivate func prepareUI(){
+        self.headerView = getHeaderView()
         self.collectionView = getCollectionView()
-        
+        self.headerView.cameraBtn.addTarget(self, action: #selector(doNothing), for: .touchUpInside)
         layoutView()
     }
 
     private func layoutView(){
-        self.view.addSubview(collectionView)
+        self.topView.addSubview(headerView)
+        self.bottomView.addSubview(collectionView)
+        self.view.bringSubview(toFront: topView)
         
-        _ = collectionView.anchor(top: self.view.topAnchor, left: self.view.leftAnchor, bottom: self.view.bottomAnchor, right: self.view.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0)
+        _ = headerView.anchor(top: self.topView.topAnchor, left: self.topView.leftAnchor, bottom: self.topView.bottomAnchor, right: self.topView.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0)
+        _ = collectionView.anchor(top: self.bottomView.topAnchor, left: self.bottomView.leftAnchor, bottom: self.bottomView.bottomAnchor, right: self.bottomView.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0)
     }
     
     
@@ -61,48 +78,97 @@ extension HomeVC {
         let cv = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         cv.delegate = self
         cv.dataSource = self
-        cv.backgroundColor = .white
-        cv.contentInset = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
+        cv.alwaysBounceVertical = false
+        cv.backgroundColor = .clear
+        cv.isScrollEnabled = true
+        cv.contentInset = UIEdgeInsets(top: 0, left: 16, bottom: 16, right: 16)
+        cv.scrollIndicatorInsets = UIEdgeInsets(top: 180, left: 0, bottom: 0, right: 0)
         return cv
 
+    }
+    
+    private func getHeaderView() -> HomeHeaderView{
+        let headerView = Bundle.main.loadNibNamed("HomeHeaderView", owner: self, options: nil)?.first as! HomeHeaderView
+        return headerView
+    }
+    
+    private func setupGesture() {
+        self.headerView.searchBar.rx.tapGesture().when(GestureRecognizerState.recognized).subscribe { (_) in
+            self.navigateToAdvanceSearch()
+        }.disposed(by: self.disposeBag)
     }
     
 }
 
 //MARK: - Table View Delegate & Datasource implementation
 extension HomeVC: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 2
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if section == 0 {
+            return 1
+        }
         return 10
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! UICollectionViewCell
-        cell.backgroundColor = .green
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        if kind == UICollectionElementKindSectionHeader {
-            return collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "header", for: indexPath) as! HomeHeaderView
+        if indexPath.section == 0 {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "nocell", for: indexPath) as! UICollectionViewCell
+            cell.backgroundColor = .clear
+            return cell
         }else{
-            return UICollectionReusableView()
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HomeCollectionCell", for: indexPath) as! HomeCollectionCell
+            cell.delegate = self
+            cell.backgroundColor = .green
+            return cell
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if indexPath.section == 0{
+            return CGSize(width: self.view.frame.width, height: self.topView.frame.height - self.navigationBarHeight)
+        }
         return CGSize(width: self.view.frame.width, height: 400)
     }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: self.view.frame.width, height: 240)
-    }
-    
+
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if scrollView.contentOffset.y > 180 {
-            self.navigationController?.setNavigationBarHidden(false, animated: true)
+
+        if scrollView.contentOffset.y > 0 {
+            self.topViewTopConstraint.constant = -(scrollView.contentOffset.y)
         }else{
-            self.navigationController?.setNavigationBarHidden(true, animated: true)
+            self.topViewTopConstraint.constant = 0
         }
+        
+        var offset = scrollView.contentOffset.y / 150
+        let color = UIColor(red: 1, green: 1, blue: 1, alpha: offset)
+        if offset > 1 {
+            offset = 1
+            self.navigationController?.navigationBar.backgroundColor = color
+            self.navigationController?.navigationBar.tintColor = UIColor(hue: 1, saturation: offset, brightness: 1, alpha: 1)
+            self.setupRightBarItemWith(image: "camera_icon_snap", action: #selector(doNothing))
+            self.setSearchBarAsNavigation()
+            self.searchBar.rx.tapGesture().when(GestureRecognizerState.recognized).subscribe(onNext: { (_) in
+                self.navigateToAdvanceSearch()
+            }).disposed(by: self.disposeBag)
+            UIApplication.shared.statusBarView?.backgroundColor = color
+        }else{
+            
+            self.navigationController?.navigationBar.backgroundColor = color
+            self.navigationController?.navigationBar.tintColor = UIColor(hue: 1, saturation: offset, brightness: 1, alpha: 1)
+            self.navigationItem.rightBarButtonItem = nil
+            self.navigationItem.titleView = nil
+            UIApplication.shared.statusBarView?.backgroundColor = color
+        }
+        
+        print(offset)
     }
     
+}
+
+extension HomeVC: NavigationControllerDelegate {
+    func navigateController(_ vc: UIViewController) -> UINavigationController {
+        return self.navigationController!
+    }
 }

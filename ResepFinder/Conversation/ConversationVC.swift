@@ -59,7 +59,8 @@ extension ConversationVC{
     private func getSearchBarView() -> UISearchBar {
         let searchBar = SearchBar(frame: .zero)
         searchBar.placeholder = "Find Conversation ..."
-        
+        searchBar.textFieldInsideSearchBar.font = RFFont.instance.bodyMedium12
+
         return searchBar
     }
   
@@ -95,6 +96,7 @@ extension ConversationVC: UITableViewDelegate, UITableViewDataSource {
     
     func navigateToMessage(){
         let messageVC = MessageVC()
+        messageVC.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(messageVC, animated: true)
     }
     

@@ -14,12 +14,12 @@ class RegistrationsVC: UIViewController {
     @IBOutlet weak var scrollView: TPKeyboardAvoidingScrollView!
     @IBOutlet weak var closeBtn: UIButton!
     @IBOutlet weak var registerTitle: UILabel!
-    @IBOutlet weak var userNameTxt: RFTextField!
-    @IBOutlet weak var emailTxt: RFTextField!
-    @IBOutlet weak var pwdTxt: RFTextField!
-    @IBOutlet weak var conPwdTxt: RFTextField!
-    @IBOutlet weak var regionTxt: RFTextField!
-    @IBOutlet weak var registerBtn: RFButton!
+    @IBOutlet weak var userNameTxt: RFCustomTextField!
+    @IBOutlet weak var emailTxt: RFCustomTextField!
+    @IBOutlet weak var pwdTxt: RFCustomTextField!
+    @IBOutlet weak var conPwdTxt: RFCustomTextField!
+    @IBOutlet weak var regionTxt: RFCustomTextField!
+    @IBOutlet weak var registerBtn: RFPrimaryBtn!
     @IBOutlet weak var loginLink: UIButton!
     @IBOutlet weak var socialLbl: UILabel!
     @IBOutlet weak var textFieldStackView: UIStackView!

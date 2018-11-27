@@ -28,15 +28,11 @@ class SearchUserVC: RFBaseController {
         self.navigationController?.navigationBar.isTranslucent = false
         self.navigationItem.title = "New Message"
         self.setupRightBarItemWith(title: "Next", action: #selector(navigateToCreateMessage))
-        self.setupCustomLeftBarItem(image: "back", action: #selector(navigateToPreviouseScreen))
+        self.setupCustomLeftBarItem(image: "back", action: #selector(self.navigateToPreviouseScreen))
     }
     
     @objc func navigateToCreateMessage(){
         
-    }
-    
-    @objc func navigateToPreviouseScreen(){
-        self.navigationController?.popViewController(animated: true)
     }
     
 }

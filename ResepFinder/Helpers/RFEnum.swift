@@ -8,6 +8,20 @@
 
 import UIKit
 
+enum RFCreateRecipeSection: Int{
+    case upload
+    case createRecipe
+    case ingredients
+    case steps
+}
+
+enum RFViewRecipeSection: Int {
+    case header
+    case description
+    case comment
+    case ingredients
+}
+
 enum RFProfileSection: Int {
     case description
     case details

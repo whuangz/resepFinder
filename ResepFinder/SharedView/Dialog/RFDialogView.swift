@@ -29,8 +29,7 @@ class RFDialogView {
                 self.completion()
             }
             self.dialogView.removeFromSuperview()
-        }.disposed(by: disposeBag)
-        
+        }.disposed(by: disposeBag)        
     }
     
     func showDialogWith(title: String , content: String, leftBtn: String, rightBtn: String, completion: @escaping VoidCompletion){

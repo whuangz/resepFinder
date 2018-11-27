@@ -71,6 +71,7 @@ extension ProfileDescriptionCellTableViewCell {
     fileprivate func getUsername() -> UILabel {
         let label = UILabel()
         label.text = "Username"
+        label.font = RFFont.instance.subHead14
         return label
     }
     
@@ -86,12 +87,14 @@ extension ProfileDescriptionCellTableViewCell {
     fileprivate func getLocationLabel() -> UILabel {
         let label = UILabel()
         label.text = "Sumatera"
+        label.font = RFFont.instance.bodyLight14
         return label
     }
     
     fileprivate func getDescriptionLabel() -> UILabel {
         let label = UILabel()
         label.text = "Professional Chef"
+        label.font = RFFont.instance.bodyMedium14
         label.numberOfLines = 0
         return label
     }

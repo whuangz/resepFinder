@@ -9,10 +9,12 @@
 import UIKit
 import RxCocoa
 import RxSwift
+import RxGesture
 
 class RFBaseController: UIViewController {
     
     let disposeBag = DisposeBag()
+    var searchBar: SearchBar!
     
     private func bind(textfield: UITextField, to variable: Variable<String>){
         variable.asObservable().bind(to: textfield.rx.text.orEmpty).disposed(by: disposeBag)
@@ -39,11 +41,13 @@ extension RFBaseController {
         let rightMenuBtn = UIBarButtonItem(image: btn?.withRenderingMode(UIImageRenderingMode.alwaysOriginal), style: UIBarButtonItemStyle.plain, target: self, action: action)
         
         self.navigationItem.rightBarButtonItem = rightMenuBtn
+        //self.navigationItem.setRightBarButton(rightMenuBtn, animated: true)
     }
     
     func setupRightBarItemWith(title: String, action: Selector){
         let btn = UIButton(type: .custom)
         let attrs: [NSAttributedStringKey : Any] = [
+            NSAttributedStringKey.font : RFFont.instance.subHead14,
             NSAttributedStringKey.foregroundColor : RFColor.instance.primGray,
             NSAttributedStringKey.underlineStyle : NSUnderlineStyle.styleSingle.rawValue,
         ]
@@ -55,6 +59,37 @@ extension RFBaseController {
         
         let barButton = UIBarButtonItem(customView: btn)
         self.navigationItem.rightBarButtonItem = barButton
+    }
+    
+    func setSearchBarAsNavigation(){
+        let frame = CGRect(x:0, y:0, width:(self.navigationController?.navigationBar.frame.width)!, height:(self.navigationController?.navigationBar.frame.height)!)
+        
+        let navbarView = UIView(frame: frame)
+        searchBar = SearchBar(frame: .zero)
+        searchBar.frame = CGRect(x:0, y:0, width:(self.navigationController?.navigationBar.frame.width)!, height:40)
+        searchBar.autoresizingMask = [.flexibleWidth]
+        searchBar.placeholder = "Find Recipe ..."
+        searchBar.isUserInteractionEnabled = true
+        navbarView.addSubview(searchBar)
+        self.navigationItem.titleView = navbarView
+    }
+    
+}
+
+extension RFBaseController {
+    
+    @objc func navigateToAdvanceSearch() {
+        let advancedSearchVC = RFAdvancedSearchVC()
+        advancedSearchVC.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(advancedSearchVC, animated: true)
+    }
+    
+    @objc func navigateToPreviouseScreen(){
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    @objc func dismissToPreviousScreen(){
+        self.dismiss(animated: true, completion: nil)
     }
     
 }

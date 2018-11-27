@@ -28,12 +28,7 @@ class UserMessageCell: RFBaseTableCell {
     
     override func setupViews(){
         super.setupViews()
-        self.profileImg.setCornerWith(radius: 20)
-        self.profileImg.backgroundColor = .red
-        
-        self.messageDetailView.isHidden = true
-        self.userName.isHidden = true
-        self.checkButton.isHidden = true
+        configureView()
     }
     
 
@@ -49,6 +44,21 @@ class UserMessageCell: RFBaseTableCell {
 
 //MARK: - Initialize & Prepare UI
 extension UserMessageCell {
+    
+    func configureView(){
+        self.profileImg.setCornerWith(radius: 20)
+        self.profileImg.backgroundColor = .red
+        self.messageDetailView.isHidden = true
+        self.userName.isHidden = true
+        self.checkButton.isHidden = true
+        
+        
+        //custom font
+        self.profileName.font = RFFont.instance.subHead14
+        self.messageDetail.font = RFFont.instance.bodyLight12
+        self.userName.font = RFFont.instance.bodyMedium14
+        
+    }
    
     func conversationCell(){
         self.messageDetailView.isHidden = false

@@ -62,6 +62,8 @@ class MessageCell: UITableViewCell {
         trailingMsgLbl = messageLbl.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -32)
         
         NSLayoutConstraint.activate(constraint)
+        
+        self.messageLbl.font = RFFont.instance.bodyMedium14
     }
     
     required init?(coder aDecoder: NSCoder) {

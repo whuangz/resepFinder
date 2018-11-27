@@ -15,9 +15,9 @@ class LoginVC: UIViewController {
     @IBOutlet weak var scrollView: TPKeyboardAvoidingScrollView!
     @IBOutlet weak var closeBtn: UIButton!
     @IBOutlet weak var loginTitle: UILabel!
-    @IBOutlet weak var emailTxt: RFTextField!
-    @IBOutlet weak var pwdTxt: RFTextField!
-    @IBOutlet weak var loginBtn: RFButton!
+    @IBOutlet weak var emailTxt: RFCustomTextField!
+    @IBOutlet weak var pwdTxt: RFCustomTextField!
+    @IBOutlet weak var loginBtn: RFPrimaryBtn!
     @IBOutlet weak var socialLbl: UILabel!
     @IBOutlet weak var textFieldStackView: UIStackView!
     private var viewModel: LoginVM?

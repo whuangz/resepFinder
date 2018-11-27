@@ -25,16 +25,20 @@ class DialogView: UIView {
     
     fileprivate func setupView(){
         self.backgroundColor =  UIColor(white: 0, alpha: 0.5)
+        self.headerLbl.font = RFFont.instance.subHead16
+        self.contentLbl.font = RFFont.instance.bodyMedium14
         self.dialogBg.layer.cornerRadius = 10
         self.dialogBg.clipsToBounds = true
     }
     
     func setLeftBtnWith(title: String, color: UIColor){
+        self.leftBtn.titleLabel?.font = RFFont.instance.bodyMedium14
         self.leftBtn.setTitle(title, for: .normal)
         self.leftBtn.setTitleColor(color, for: .normal)
     }
     
     func setRightBtnWith(title: String, color: UIColor){
+        self.rightBtn.titleLabel?.font = RFFont.instance.bodyMedium14
         self.rightBtn.setTitle(title, for: .normal)
         self.rightBtn.setTitleColor(color, for: .normal)
     }

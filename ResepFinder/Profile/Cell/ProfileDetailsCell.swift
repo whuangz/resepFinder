@@ -97,12 +97,14 @@ extension ProfileDetailsCell {
     
     fileprivate func getHeaderLbl() -> UILabel {
         let label = UILabel()
+        label.font = RFFont.instance.bodyMedium12
         return label
     }
 
     fileprivate func getCountLbl() -> UILabel {
         let label = UILabel()
         label.text = "0"
+        label.font = RFFont.instance.bodyMedium14
         return label
     }
 }

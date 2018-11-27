@@ -8,4 +8,5 @@
 
 #import <SVProgressHUD/SVProgressHUD.h>
 #import <TPKeyboardAvoiding/TPKeyboardAvoidingScrollView.h>
+#import <TPKeyboardAvoiding/TPKeyboardAvoidingTableView.h>
 #import <JVFloatLabeledTextField/JVFloatLabeledTextField.h>

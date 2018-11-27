@@ -71,6 +71,9 @@ PODS:
   - nanopb/encode (0.3.8)
   - RxCocoa (4.3.1):
     - RxSwift (~> 4.0)
+  - RxGesture (2.0.1):
+    - RxCocoa (~> 4.3.1)
+    - RxSwift (~> 4.3.1)
   - RxSwift (4.3.1)
   - SVProgressHUD (2.2.5)
   - TPKeyboardAvoiding (1.2.9)
@@ -82,6 +85,7 @@ DEPENDENCIES:
   - IQKeyboardManagerSwift
   - JVFloatLabeledTextField
   - RxCocoa (~> 4.0)
+  - RxGesture
   - RxSwift (~> 4.0)
   - SVProgressHUD
   - TPKeyboardAvoiding (= 1.2.9)
@@ -103,6 +107,7 @@ SPEC REPOS:
     - leveldb-library
     - nanopb
     - RxCocoa
+    - RxGesture
     - RxSwift
     - SVProgressHUD
     - TPKeyboardAvoiding
@@ -123,10 +128,11 @@ SPEC CHECKSUMS:
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
   RxCocoa: 78763c7b07d02455598d9fc3c1ad091a28b73635
+  RxGesture: 26ede4ed13ffc6336d29dbd9a8dff229bdb72de7
   RxSwift: fe0fd770a43acdb7d0a53da411c9b892e69bb6e4
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   TPKeyboardAvoiding: ff1ee4e5a5a0c119b965552af8f183868ea20207
 
-PODFILE CHECKSUM: f75a9ef42e60a38df48196c908fb761d2b4aaa9f
+PODFILE CHECKSUM: 830011c87dcc21c008cdb258697e06e79e980457
 
 COCOAPODS: 1.5.3

@@ -60,7 +60,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="375" height="464"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </view>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ii9-8i-fF5" customClass="RFButton" customModule="ResepFinder" customModuleProvider="target">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ii9-8i-fF5" customClass="RFPrimaryBtn" customModule="ResepFinder" customModuleProvider="target">
                             <rect key="frame" x="32" y="136" width="311" height="40"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="40" id="PRf-9d-i4K"/>
@@ -70,7 +70,7 @@
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="ADe-o7-IBv">
                             <rect key="frame" x="32" y="16" width="311" height="100"/>
                             <subviews>
-                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="OFH-KL-d6u" customClass="RFTextField" customModule="ResepFinder" customModuleProvider="target">
+                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="OFH-KL-d6u" customClass="RFCustomTextField" customModule="ResepFinder" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="311" height="40"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="40" id="rdy-dQ-XCi"/>
@@ -79,7 +79,7 @@
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <textInputTraits key="textInputTraits"/>
                                 </textField>
-                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qYm-in-SOM" customClass="RFTextField" customModule="ResepFinder" customModuleProvider="target">
+                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qYm-in-SOM" customClass="RFCustomTextField" customModule="ResepFinder" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="60" width="311" height="40"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="40" id="dwt-xb-GWY"/>
