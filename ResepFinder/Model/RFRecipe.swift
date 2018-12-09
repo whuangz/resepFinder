@@ -42,6 +42,13 @@ class RFRecipe: NSObject {
         self.creator = creator
     }
     
+    init(id: String, path: String, title: String, ingredients: [RFIngredient]){
+        self.id = id
+        self.recipePathToImg = path
+        self.title = title
+        self.ingredients = ingredients
+    }
+    
     func getRecipesDescription() -> [String]?{
         var ingDesc = [String]()
         for item in self.ingredients! {

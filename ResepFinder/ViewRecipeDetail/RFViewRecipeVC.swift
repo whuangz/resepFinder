@@ -120,7 +120,6 @@ class RFViewRecipeVC: RFBaseController {
             let startVC = StartCookingVC(vm: startVM)
             self.present(startVC, animated: true, completion: nil)
         }
-        //self.navigationController?.pushViewController(startVC, animated: true)
     }
 }
 
@@ -133,6 +132,20 @@ extension RFViewRecipeVC {
         self.tableView.constructParallaxHeader()
         self.tableView.tableFooterView = bottomView
         layoutViews()
+        configureView()
+    }
+    
+    private func configureView(){
+        var followed = false
+        self.followBtn.rx.tap.subscribe(onNext: {
+            self.followBtn.animateTouch(duration: 0.2)
+            if followed == true {
+                self.followBtn.setTitle("Follow", for: .normal)
+            }else{
+                self.followBtn.setTitle("Unfollow", for: .normal)
+            }
+            followed = !followed
+        }).disposed(by: self.disposeBag)
     }
     
     private func addGesture() {
@@ -259,6 +272,7 @@ extension RFViewRecipeVC: UITableViewDelegate, UITableViewDataSource {
     
     private func createIngredientsCell() -> UITableViewCell{
         let cell = tableView.dequeueReusableCell(withIdentifier: "createIngredientsCell") as! IngredientsCell
+        cell.bindData(self.getRecipe())
         cell.configureViews(self.getRecipe().getRecipesDescription()!)
         return cell
     }

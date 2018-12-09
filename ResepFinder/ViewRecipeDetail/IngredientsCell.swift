@@ -14,6 +14,8 @@ class IngredientsCell: RFBaseTableCell {
     fileprivate var ingredientHeader: UILabel!
     var ingredientContent: UITextView!
     fileprivate var addToShoppingList: RFPrimaryBtn!
+    var recipe: RFRecipe?
+    private var service = RFRecipeService()
     
     var arrayOfIngredients = [
         "2 sweet potatoes",
@@ -33,12 +35,23 @@ class IngredientsCell: RFBaseTableCell {
         prepareUI()
     }
     
+    func bindData(_ model: AnyObject){
+        if let data = model as? RFRecipe {
+            self.recipe = data
+        }
+    }
+    
+    func addRecipeToMyList(){
+        if let rcp = self.recipe {
+            self.service.addRecipeToMyList(recipeID: rcp.id!, recipeTitle: rcp.title!, recipeImgPath: rcp.recipePathToImg!, ingredients: rcp.getRecipesDescription()!)
+        }
+    }
+    
 }
 
 
 //MARK: - Initialize & Prepare UI
 extension IngredientsCell {
-    
     
     fileprivate func prepareUI(){
         self.topView = self.getView()
@@ -53,6 +66,20 @@ extension IngredientsCell {
     func configureViews(_ data: [String]){
         
         ingredientContent.attributedText = addAttributedString(text: data.joined(separator: "\n"), lineSpacing: 5, font: RFFont.instance.bodyMedium12!)
+        
+        
+        var selected = false
+        self.addToShoppingList.rx.tap.subscribe(onNext: {
+            self.addToShoppingList.animateTouch(duration: 0.2)
+            if selected == true {
+                self.addToShoppingList.setTitle("Add to Shopping List", for: .normal)
+            }else{
+                self.addToShoppingList.setTitle("Remove from My List", for: .normal)
+                self.addRecipeToMyList()
+                
+            }
+            selected = !selected
+        }).disposed(by: self.dispose)
         
     }
     

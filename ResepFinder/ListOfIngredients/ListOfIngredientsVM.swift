@@ -12,8 +12,10 @@ class ListOfIngredientsVM {
     
     let service = RFRecipeService()
     
-    func getSavedIngredients(){
-        
+    func getSavedIngredients(completion: @escaping (_ recipes: [RFRecipe])->()){
+        self.service.getListOfSavedIngredients { (recipes) in
+            completion(recipes)
+        }
     }
     
 }

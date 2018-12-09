@@ -55,6 +55,18 @@ class RFRecipeService: RFDataService {
         uploadTask.resume()
     }
     
+    func addRecipeToMyList(recipeID: String, recipeTitle: String, recipeImgPath: String, ingredients: [String]){
+        let uid = Auth.auth().currentUser?.uid
+        let body: [String : Any] = [
+            "title" : recipeTitle,
+            "path" : recipeImgPath,
+            "ingredients": ingredients,
+        ]
+        USER_SHOPPING_LIST_REF.child(uid!).child(recipeID).updateChildValues(body)
+        print("Added to my shopping list")
+        
+    }
+    
     private func createUserDB(uid: String, data: Dictionary<String,Any>){
         //USER_REF.child(uid).updateChildValues(data)
         USER_REF.child(uid).setValue(data)

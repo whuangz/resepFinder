@@ -28,6 +28,9 @@ class RFDataService: NSObject {
     var CONVERSATION_REF: DatabaseReference {
         return _BASE_DB_REF.child("conversation")
     }
+    var USER_SHOPPING_LIST_REF: DatabaseReference {
+        return _BASE_DB_REF.child("usershoppinglist")
+    }
     
     func getUserName(forUid uid: String, handler: @escaping (_ userName: String)->()){
         USER_REF.observeSingleEvent(of: .value) { (userSnapshot) in
@@ -156,6 +159,39 @@ class RFDataService: NSObject {
             let recipe = RFRecipe(id: recipeID, path: pathToImg, title: title, desc: desc, difficulty: difficulty, num: serving, time: time, ingredients: ingredients, steps: steps, userID: uid, like: likes, creator: creator)
             return recipe
         
+    }
+    
+    func getListOfSavedIngredients(completion: @escaping (_ recipe: [RFRecipe]) -> ()){
+        let uid = Auth.auth().currentUser?.uid
+        USER_SHOPPING_LIST_REF.observeSingleEvent(of: .value) { (snapshot) in
+            guard let dataSnapshot = snapshot.children.allObjects as? [DataSnapshot] else {return}
+            var returnedRecipes = [RFRecipe]()
+            
+            for dataKey in dataSnapshot {
+                if dataKey.key == uid {
+                    if let recipes = dataKey.children.allObjects as? [DataSnapshot] {
+                        
+                        for rcp in recipes {
+                            var ingredients = [RFIngredient]()
+                            
+                            let id =  rcp.key
+                            let title = rcp.childSnapshot(forPath: "title").value as! String
+                            let path = rcp.childSnapshot(forPath: "path").value as! String
+                            if let dataIngredients = rcp.childSnapshot(forPath: "ingredients").value as? [String] {
+                                
+                                for(idx, value) in dataIngredients.enumerated() {
+                                    ingredients.append(RFIngredient(id: NSNumber(value: Int(idx) + 1) , description: value ))
+                                }
+                                
+                            }
+                            returnedRecipes.append(RFRecipe(id: id, path: path, title: title, ingredients: ingredients))
+                        }
+                    }
+                }
+            }
+            
+            completion(returnedRecipes)
+        }
     }
     
     func showProgress() {

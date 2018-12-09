@@ -11,22 +11,33 @@ import UIKit
 class ListOfIngredientsVC: RFBaseController {
 
     private var listOfIngredientsTableView: UITableView!
+    private var viewModel: ListOfIngredientsVM?
+    private var listOfRecipes: [RFRecipe]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationBar()
+        setupViewModel()
         prepareUI()
         registerCell()
     }
     
+    func setupViewModel(){
+        self.viewModel = ListOfIngredientsVM()
+        self.viewModel?.getSavedIngredients { (recipes) in
+            self.listOfRecipes = recipes
+            self.listOfIngredientsTableView.reloadData()
+        }
+    }
+    
     func setupNavigationBar(){
         self.navigationController?.navigationBar.isTranslucent = false
-        self.navigationItem.title = "Your Ingredients"
+        self.navigationItem.title = "Your Shopping List"
         self.setupCustomLeftBarItem(image: "back", action: #selector(self.navigateToPreviouseScreen))
     }
     
     func registerCell(){
-        listOfIngredientsTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        listOfIngredientsTableView.register(RecipeListCell.self, forCellReuseIdentifier: "cell")
     }
 
 }
@@ -37,6 +48,7 @@ extension ListOfIngredientsVC{
     fileprivate func prepareUI(){
         self.view.backgroundColor = .white
         self.listOfIngredientsTableView = getTableView()
+        
         layoutViews()
     }
     
@@ -63,15 +75,19 @@ extension ListOfIngredientsVC{
 
 extension ListOfIngredientsVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return (self.listOfRecipes?.count) ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 80
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell")
-        if indexPath.row % 2 == 0 {
-            cell?.backgroundColor = .red
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! RecipeListCell
+        if let recipes = self.listOfRecipes {
+            cell.bindModel(recipes[indexPath.row])
         }
-        return cell!
+        return cell
     }
     
     
