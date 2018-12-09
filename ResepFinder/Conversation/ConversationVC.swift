@@ -12,12 +12,28 @@ class ConversationVC: RFBaseController {
 
     private var searchBarView: UIView!
     private var recentConversationTable: UITableView!
+    private var viewModel: ConversationVM?
+    private var listOfConversations: [RFConversation]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareUI()
         setupNavigationBar()
         registerCell()
+        setViewModel()
+    }
+    
+    func setViewModel(){
+        self.viewModel = ConversationVM()
+        self.viewModel?.getConversations(completion: { (conversations) in
+            self.listOfConversations = conversations
+            self.recentConversationTable.reloadData()
+        })
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setViewModel()
     }
     
     func registerCell(){
@@ -81,21 +97,29 @@ extension ConversationVC{
 //MARK: - UITableView Delegate & Implementation
 extension ConversationVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return self.listOfConversations?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "UserMessageDetailCell") as! UserMessageCell
         cell.conversationCell()
+        if let conversations = listOfConversations {
+            cell.bindConversationData(data: conversations[indexPath.row])
+        }
+        
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        navigateToMessage()
+        if let conversations = listOfConversations {
+            let conversation = conversations[indexPath.row]
+            self.navigateToMessage(conversation: conversation)
+        }
     }
     
-    func navigateToMessage(){
-        let messageVC = MessageVC()
+    func navigateToMessage(conversation: RFConversation){
+        let messageVM = MessageVM(data: conversation)
+        let messageVC = MessageVC(vm: messageVM)
         messageVC.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(messageVC, animated: true)
     }

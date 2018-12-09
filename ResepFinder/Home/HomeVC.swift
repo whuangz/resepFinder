@@ -18,13 +18,20 @@ class HomeVC: RFBaseController {
     private var headerView: HomeHeaderView!
     private var collectionView: UICollectionView!
     private var navigationBarHeight: CGFloat!
+    private var viewModel: HomeVM?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        initializeData()
         setupNavigationBar()
         prepareUI()
         registerCell()
         setupGesture()
+    }
+    
+    func initializeData(){
+        self.viewModel = HomeVM(vc: self)
+        self.viewModel?.retrieveRecipes()
     }
     
     private func setupNavigationBar(){
@@ -100,6 +107,16 @@ extension HomeVC {
     
 }
 
+
+extension HomeVC: HomeInput {
+    func setupData(vm: HomeVM) {
+        self.viewModel = vm
+        self.collectionView.reloadData()
+    }
+    
+}
+
+
 //MARK: - Table View Delegate & Datasource implementation
 extension HomeVC: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -110,7 +127,7 @@ extension HomeVC: UICollectionViewDataSource, UICollectionViewDelegate, UICollec
         if section == 0 {
             return 1
         }
-        return 10
+        return self.viewModel?.totalRecipes ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -121,7 +138,11 @@ extension HomeVC: UICollectionViewDataSource, UICollectionViewDelegate, UICollec
         }else{
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HomeCollectionCell", for: indexPath) as! HomeCollectionCell
             cell.delegate = self
-            cell.backgroundColor = .green
+            if self.viewModel?.totalRecipes != 0 {
+                if let recipes = self.viewModel?.getRecipes(){
+                    cell.bindData(data: recipes[indexPath.item])
+                }
+            }
             return cell
         }
     }

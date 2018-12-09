@@ -13,15 +13,15 @@ import Firebase
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    let tabBar = RFTabBarVC()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         window = UIWindow(frame: UIScreen.main.bounds)
+        window?.makeKeyAndVisible()
         //window?.rootViewController = RegistrationsVC(nibName: "RegistrationsVC", bundle: nil)
         //redirectoProfileMenu()
         
-        let tabBar = RFTabBarVC()
         window?.rootViewController = tabBar
         
         FirebaseApp.configure()
@@ -30,11 +30,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func redirectoProfileMenu(){
-        //let tabBar = RFTabBarVC()
-        //tabBar.getSelectedItemOf(RFTabBarItem.profile)
-        //window?.rootViewController = tabBar
-        let profileVC = ProfileVC()
-        window?.rootViewController = profileVC
+        let tabBar = RFTabBarVC()
+        tabBar.getSelectedItemOf(RFTabBarItem.profile)
+        window?.rootViewController = tabBar
+//        let profileVC = ProfileVC()
+//        window?.rootViewController = profileVC
+    }
+    
+    func redirectoHomeMenu(){
+        tabBar.getSelectedItemOf(RFTabBarItem.home)
+        window?.rootViewController = tabBar
+        //        let profileVC = ProfileVC()
+        //        window?.rootViewController = profileVC
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

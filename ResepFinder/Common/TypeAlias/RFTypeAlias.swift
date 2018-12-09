@@ -9,3 +9,4 @@
 import Foundation
 
 typealias VoidCompletion = () -> Void
+typealias UserCompletion = (_ user: RFUser) -> Void

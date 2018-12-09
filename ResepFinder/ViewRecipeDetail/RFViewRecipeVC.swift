@@ -11,9 +11,10 @@ import UIKit
 class RFViewRecipeVC: RFBaseController {
     
     private var tableView: RFParallaxTableView!
+    private var viewModel: RFViewRecipeVM?
     
-    let headerView: UIImageView = {
-        let imageView = UIImageView()
+    let headerView: CachedImageView = {
+        let imageView = CachedImageView()
         imageView.image = UIImage(named: "recipe1")
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
@@ -31,7 +32,7 @@ class RFViewRecipeVC: RFBaseController {
     }()
     
     let profileImage: RFImageView = {
-        let imageView = RFImageView(frame: .zero)
+        let imageView = RFImageView()
         imageView.backgroundColor = .red
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
@@ -73,18 +74,15 @@ class RFViewRecipeVC: RFBaseController {
         return btn
     }()
     
-    var arrayOfDummbyText = [
-        "2 sweet potatoes",
-        "1 cup creamy peanut butter",
-        "10 oz marshmallows",
-        "1 tbsp unsalated butter",
-        "1 tbsp maple syrup",
-        "2 sweet potatoes",
-        "1 cup creamy peanut butter",
-        "10 oz marshmallows",
-        "1 tbsp unsalated butter",
-        "1 tbsp maple syrup",
-        ]
+    convenience init(vm: RFViewRecipeVM) {
+        self.init()
+        self.viewModel = vm
+    }
+
+    
+    func getRecipe() -> RFRecipe {
+        return self.viewModel?.recipe ?? RFRecipe()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -117,8 +115,11 @@ class RFViewRecipeVC: RFBaseController {
     }
     
     @objc func navigateToStartCooking(){
-        let startVC = StartCookingVC()
-        self.present(startVC, animated: true, completion: nil)
+        if let recipe = self.getRecipe() as? RFRecipe {
+            let startVM = StartCookingVM(data: recipe.steps!, recipeImg: recipe.recipePathToImg!)
+            let startVC = StartCookingVC(vm: startVM)
+            self.present(startVC, animated: true, completion: nil)
+        }
         //self.navigationController?.pushViewController(startVC, animated: true)
     }
 }
@@ -203,7 +204,7 @@ extension RFViewRecipeVC: UITableViewDelegate, UITableViewDataSource {
             case .header:
                 return self.tableView.kTableHeaderCutAway
             case .description:
-                return ("Fluffy sweet potatoes mixed with butter, sugar, and vanilla, and baked with a crunchy pecan streusel topping. This recipe was given to me by my brother-in-law.").height(withConstrainedWidth: self.view.frame.width - 32, font: RFFont.instance.bodyMedium12!)
+                return getDescriptionHeight()
             case .comment:
                 return 80
             case .ingredients:
@@ -211,24 +212,43 @@ extension RFViewRecipeVC: UITableViewDelegate, UITableViewDataSource {
         }
     }
   
+    
+    func getDescriptionHeight() -> CGFloat {
+        if let desc = self.getRecipe().desc {
+            return desc.height(withConstrainedWidth: self.view.frame.width - 32, font: RFFont.instance.bodyMedium12!)
+        }
+        return 10
+    }
 
     func getIngredientContentHeight() -> CGFloat{
         let padding: CGFloat = 64 + 32
         
-        let attrs = self.view.addAttributedString(text: arrayOfDummbyText.joined(separator: "\n"), lineSpacing: 5, font: RFFont.instance.bodyMedium12!)
-        let cellHeight = attrs.height(withConstrainedWidth: self.view.frame.width - 32)
+        if let ingredients = self.getRecipe().getRecipesDescription() {
+            let attrs = self.view.addAttributedString(text: ingredients.joined(separator: "\n"), lineSpacing: 5, font: RFFont.instance.bodyMedium12!)
+            let cellHeight = attrs.height(withConstrainedWidth: self.view.frame.width - 32)
+            
+            return cellHeight + padding
+        }
         
-        return cellHeight + padding
+        return 32
+       
     }
     
     private func createHeaderCell() -> UITableViewCell{
         let cell = tableView.dequeueReusableCell(withIdentifier: "headerCell") as! UITableViewCell
         cell.selectionStyle = .none
+        if let url = self.viewModel?.recipe?.recipePathToImg {
+         headerView.loadImage(urlString: url )
+        }
+        
+        self.titleLbl.text = self.getRecipe().title
+        self.profileLbl.text = self.getRecipe().creator
         return cell
     }
     
     private func createDescriptionCell() -> UITableViewCell{
         let cell = tableView.dequeueReusableCell(withIdentifier: "createDescriptionCell") as! DescriptionCell
+        cell.descriptionLbl.text = self.getRecipe().desc
         return cell
     }
     
@@ -239,6 +259,7 @@ extension RFViewRecipeVC: UITableViewDelegate, UITableViewDataSource {
     
     private func createIngredientsCell() -> UITableViewCell{
         let cell = tableView.dequeueReusableCell(withIdentifier: "createIngredientsCell") as! IngredientsCell
+        cell.configureViews(self.getRecipe().getRecipesDescription()!)
         return cell
     }
     

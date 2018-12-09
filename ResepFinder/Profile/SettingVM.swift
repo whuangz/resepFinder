@@ -14,6 +14,9 @@ class SettingVM: NSObject {
     private let disposeBag = DisposeBag()
     
     func doLogout(){
-        self.service.logoutUser()
+        _ = self.service.logoutUser()
+        
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.redirectoHomeMenu()
     }
 }

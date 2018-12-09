@@ -40,16 +40,18 @@ class RegistrationsVM: NSObject{
     }
     
     func doRegister(){
-        self.service.registerWithParameters(email: email.value, pwd: pwd.value).bind { (tuple) in
+        self.service.registerWithParameters(username: username.value ,email: email.value, pwd: pwd.value, location: "Sumatera").bind { (tuple) in
             if (tuple.1 != nil){
                 self.errMsg.value = tuple.1.debugDescription
             }else{
                 print("Registration Success")
-                self.service.loginWith(email: self.email.value, pwd: self.pwd.value).bind(onNext: { (tuple) in
-                    print("Login Success")
+                //self.service.loginWith(email: self.email.value, pwd: self.pwd.value).bind(onNext: { (tuple) in
+                    //print("Login Success")
                     self.isSuccess.value = true
-                }).disposed(by: self.disposeBag)
+//                }).disposed(by: self.disposeBag)
             }
         }.disposed(by: disposeBag)
     }
 }
+
+

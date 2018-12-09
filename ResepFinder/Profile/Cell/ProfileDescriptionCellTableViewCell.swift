@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ProfileDescriptionCellTableViewCell: RFBaseTableCell {
+class ProfileDescriptionCellTableViewCell: RFBaseTableCell, RFBaseProtocol {
     
     fileprivate var userProfileImageView: UIImageView!
     fileprivate var userName: UILabel!
@@ -21,6 +21,13 @@ class ProfileDescriptionCellTableViewCell: RFBaseTableCell {
         prepareUI()
     }
     
+    func bindModel(_ model: AnyObject) {
+        if let user = model as? RFUser {
+            self.userName.text = user.username
+            self.locationLabel.text = user.region
+            self.descriptionLabel.text = "Hi I am a new user"
+        }
+    }
 }
 
 

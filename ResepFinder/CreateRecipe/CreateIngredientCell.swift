@@ -28,16 +28,18 @@ class CreateIngredientCell: RFBaseTableCell {
     fileprivate var headerLbl: UILabel!
     fileprivate var servingTxt: UITextField!
     fileprivate var headerBtn: RFPrimaryBtn!
-    fileprivate var ingredientTableView: TPKeyboardAvoidingTableView!
+    fileprivate var ingredientTableView: UITableView!
     
     private var numberOfIngredient: [Int] = [0,1]
     var delegate: GetCellHeight?
+    var viewModel: CreateIngredientVM?
     
     override func setupViews() {
         super.setupViews()
         prepareUI()
         registerCell()
         addAction()
+        
     }
     
     private func registerCell(){
@@ -55,13 +57,21 @@ class CreateIngredientCell: RFBaseTableCell {
             
             self.ingredientTableView.endUpdates()
             
-            self.ingredientTableView.selectRow(at: indexTobeAdded, animated: true, scrollPosition: .bottom)
+            self.ingredientTableView.selectRow(at: indexTobeAdded, animated: true, scrollPosition: .none)
             self.delegate?.insertedCellHeight(cell: self)
             let cell = self.ingredientTableView.cellForRow(at: indexTobeAdded) as! AddIngredientCell
             cell.ingredientField.becomeFirstResponder()
         }).disposed(by: self.dispose)
         
-        
+    }
+    
+    func setupViewModel(vm: CreateIngredientVM){
+        self.viewModel = vm
+        observeViewModel(vm: self.viewModel!)
+    }
+    
+    func observeViewModel(vm: CreateIngredientVM){
+        self.servingTxt.rx.text.orEmpty.bind(to: vm.servingTxt).disposed(by: self.dispose)
     }
     
 }
@@ -85,12 +95,25 @@ extension CreateIngredientCell: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "addIngredientCell")
-        return cell!
+        let cell = tableView.dequeueReusableCell(withIdentifier: "addIngredientCell") as! AddIngredientCell
+        cell.delegate = self
+        cell.cellAtIndex = indexPath.row
+        return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         endEditing(true)
+    }
+    
+}
+
+extension CreateIngredientCell: AddIngredientProtocol{
+    func setDetailsView(data: [Int : String]) {
+        
+        if let key = data.keys.first, let val = data.values.first {
+            self.viewModel?.ingredientTxt![key] = val
+        }
+
     }
     
 }
@@ -132,8 +155,8 @@ extension CreateIngredientCell {
         _ = self.headerBtn.centerConstraintWith(centerX: self.footer.centerXAnchor, centerY: self.footer.centerYAnchor)
     }
     
-    private func getTableView() -> TPKeyboardAvoidingTableView {
-        let tableView = TPKeyboardAvoidingTableView()
+    private func getTableView() -> UITableView {
+        let tableView = UITableView()
         tableView.delegate = self
         tableView.dataSource = self
         tableView.tableFooterView = UIView(frame: .zero)
@@ -160,6 +183,7 @@ extension CreateIngredientCell {
         textField.borderStyle = .none
         textField.textAlignment = .right
         textField.font = RFFont.instance.bodyMedium12
+        textField.autocorrectionType = .no
         
         return textField
     }
@@ -180,4 +204,3 @@ extension CreateIngredientCell {
     }
     
 }
-

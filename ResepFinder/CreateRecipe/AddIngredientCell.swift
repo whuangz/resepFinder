@@ -7,27 +7,45 @@
 //
 
 import Foundation
+import RxCocoa
+import RxSwift
 
 class AddIngredientCell: RFBaseTableCell {
 
     var ingredientField: UITextField!
     var deleteBtn: RFPrimaryBtn!
+    private var viewModel: AddIngredientVM?
+    var delegate: AddIngredientProtocol?
+    var cellAtIndex: Int?
     
     override func setupViews() {
         super.setupViews()
         prepareUI()
+        observeData()
+    }
+    
+    fileprivate func observeData(){
+        //        guard let viewModel = self.viewModel else {return}
+        
+        self.ingredientField.rx.controlEvent([.editingDidEnd])
+            .asObservable()
+            .subscribe(onNext: { (text) in
+                self.delegate?.setDetailsView(data: [self.cellAtIndex! : self.ingredientField.text!])
+            })
+            .disposed(by: self.dispose)
+        
     }
     
 }
 
 //MARK: - Initialize & Prepare UI
 extension AddIngredientCell {
-    
-    
+
     fileprivate func prepareUI(){
         
         self.ingredientField = getTextField()
         self.deleteBtn = getBtn()
+        self.viewModel = AddIngredientVM()
         
         layoutViews()
     }
@@ -48,7 +66,7 @@ extension AddIngredientCell {
         textField.borderStyle = .none
         textField.font = RFFont.instance.bodyMedium14
         textField.addLineToBottomView(color: RFColor.instance.primGray, width: 0.5)
-        
+        textField.autocorrectionType = .no
         return textField
     }
     
@@ -62,3 +80,6 @@ extension AddIngredientCell {
     
 }
 
+protocol AddIngredientProtocol {
+    func setDetailsView(data: [Int:String])
+}

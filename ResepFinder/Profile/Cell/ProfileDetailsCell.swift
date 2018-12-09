@@ -8,8 +8,8 @@
 
 import UIKit
 
-class ProfileDetailsCell: RFBaseTableCell {
-    
+class ProfileDetailsCell: RFBaseTableCell, RFBaseProtocol {
+
     fileprivate var followingView: UIView!
     fileprivate var followingCount: UILabel!
     fileprivate var followingLbl: UILabel!
@@ -24,6 +24,23 @@ class ProfileDetailsCell: RFBaseTableCell {
     override func setupViews() {
         super.setupViews()
         prepareUI()
+    }
+    
+    func bindModel(_ model: AnyObject) {
+        if let user = model as? RFUser {
+            
+            if let recipes = user.recipes {
+                self.totalRecipesCount.text = "\(recipes.count)"
+            }
+            
+            if let followings = user.following {
+                self.followingCount.text = "\(followings.count)"
+            }
+            
+            if let followers = user.follower {
+                self.followerCount.text = "\(followers.count)"
+            }
+        }
     }
     
 }

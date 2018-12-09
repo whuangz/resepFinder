@@ -10,7 +10,7 @@ import Foundation
 
 class StepsCell: RFBaseCollectionCell {
     
-    fileprivate var imgView: UIImageView!
+    fileprivate var imgView: CachedImageView!
     fileprivate var stepSubHeadLbl: UILabel!
     var stepNo: RFPrimaryBtn!
     fileprivate var stepDescription: UILabel!
@@ -18,6 +18,11 @@ class StepsCell: RFBaseCollectionCell {
     override func setUpViews() {
         super.setUpViews()
         prepareUI()
+    }
+    
+    func bindData(data: RFStep){
+        self.imgView.loadImage(urlString: data.imgPath!)
+        self.stepDescription.text = data.description!
     }
     
 }
@@ -58,8 +63,8 @@ extension StepsCell {
         
     }
     
-    fileprivate func getImageView() -> UIImageView {
-        let imageView = UIImageView()
+    fileprivate func getImageView() -> CachedImageView {
+        let imageView = CachedImageView()
         imageView.layer.cornerRadius = 5
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true

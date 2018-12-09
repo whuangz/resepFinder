@@ -17,17 +17,19 @@ class CreateStepsCell: RFBaseTableCell {
     }()
     
     fileprivate let footer: UIView = {
-        let view = UIView()
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: RFScreenHelper.screenWidth(), height: 50))
         view.backgroundColor = .white
         return view
     }()
     fileprivate var headerLbl: UILabel!
     fileprivate var timeTxt: UITextField!
     fileprivate var headerBtn: RFPrimaryBtn!
-    fileprivate var stepsTableView: TPKeyboardAvoidingTableView!
+    fileprivate var stepsTableView: UITableView!
     
     private var numberOfSteps: [Int] = [1,2]
     var delegate: GetCellHeight?
+    var viewModel: CreateStepVM?
+    var parent: CreateVC?
     
     override func setupViews() {
         super.setupViews()
@@ -50,15 +52,31 @@ class CreateStepsCell: RFBaseTableCell {
             self.stepsTableView.insertRows(at: [indexTobeAdded] , with: .automatic)
             
             self.stepsTableView.endUpdates()
-            self.stepsTableView.selectRow(at: indexTobeAdded, animated: true, scrollPosition: .top)
+            self.stepsTableView.selectRow(at: indexTobeAdded, animated: true, scrollPosition: .none)
             self.delegate?.insertedCellHeight(cell: self)
             let cell = self.stepsTableView.cellForRow(at: indexTobeAdded) as! AddStepsCell
             cell.stepDescription.becomeFirstResponder()
         }).disposed(by: self.dispose)
         
-        
     }
     
+    func setupViewModel(vm: CreateStepVM){
+        self.viewModel = vm
+        observeViewModel(vm: self.viewModel!)
+    }
+    
+    func observeViewModel(vm: CreateStepVM){
+        self.timeTxt.rx.text.orEmpty.bind(to: vm.timeTxt).disposed(by: self.dispose)
+    }
+    
+}
+
+
+
+extension CreateStepsCell: ParentVCProtocol {
+    func parentController() -> UIViewController {
+        return self.parent!
+    }
 }
 
 extension CreateStepsCell: UITableViewDelegate, UITableViewDataSource {
@@ -75,14 +93,6 @@ extension CreateStepsCell: UITableViewDelegate, UITableViewDataSource {
         return 145
     }
     
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        return footer
-    }
-    
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 50
-    }
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return numberOfSteps.count
     }
@@ -90,10 +100,32 @@ extension CreateStepsCell: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "addStepCell") as! AddStepsCell
         cell.stepNo.setTitle("\(numberOfSteps[indexPath.item])")
+        cell.cellAtIndex = indexPath.item
+        cell.delegate = self
+        cell.parent = self
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        endEditing(true)
+    }
+    
 }
+
+extension CreateStepsCell: AddStepProtocol {
+    func didChooseImage(data: [Int : String]) {
+        if let key = data.keys.first, let val = data.values.first {
+            self.viewModel?.stepsImg![key] = val
+        }
+    }
+    
+    func setDetailsView(data: [Int : String]) {
+        if let key = data.keys.first, let val = data.values.first {
+            self.viewModel?.stepsTxt![key] = val
+        }
+    }
+}
+
 
 //MARK: - Initialize & Prepare UI
 extension CreateStepsCell {
@@ -104,7 +136,8 @@ extension CreateStepsCell {
         self.headerLbl = getSubheader()
         self.timeTxt = getTextField()
         self.headerBtn = getBtn()
-        
+        self.stepsTableView.tableFooterView = footer
+
         configureViews()
         layoutViews()
     }
@@ -132,8 +165,8 @@ extension CreateStepsCell {
         _ = self.headerBtn.centerConstraintWith(centerX: self.footer.centerXAnchor, centerY: self.footer.centerYAnchor)
     }
     
-    private func getTableView() -> TPKeyboardAvoidingTableView {
-        let tableView = TPKeyboardAvoidingTableView()
+    private func getTableView() -> UITableView {
+        let tableView = UITableView()
         tableView.delegate = self
         tableView.dataSource = self
         tableView.tableFooterView = UIView(frame: .zero)
@@ -160,7 +193,7 @@ extension CreateStepsCell {
         textField.borderStyle = .none
         textField.textAlignment = .right
         textField.font = RFFont.instance.bodyMedium12
-        
+        textField.autocorrectionType = .no
         return textField
     }
     

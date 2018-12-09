@@ -37,6 +37,7 @@ class HomeCollectionCell: UICollectionViewCell {
     
     private var disposeBag = DisposeBag()
     var delegate: NavigationControllerDelegate?
+    private var recipe: RFRecipe?
     
     override func awakeFromNib() {
         prepareUI()
@@ -50,10 +51,11 @@ class HomeCollectionCell: UICollectionViewCell {
     }
     
     private func navigateToViewRecipe(){
-        let viewRecipe = RFViewRecipeVC()
+        guard let recipe = self.recipe else {return}
+        let viewRecipeVM = RFViewRecipeVM(data: recipe)
+        let viewRecipe = RFViewRecipeVC(vm: viewRecipeVM)
         viewRecipe.hidesBottomBarWhenPushed = true
         navigateTo(viewRecipe)
-        
     }
     
     private func navigateTo(_ vc: UIViewController) {
@@ -62,6 +64,17 @@ class HomeCollectionCell: UICollectionViewCell {
         navigationController.pushViewController(vc, animated: true)
     }
 
+    func bindData(data: RFRecipe){
+        self.recipe = data
+        
+        self.nameLbl.text = data.creator
+        guard let img = data.recipePathToImg else {return}
+
+        self.imageView.loadImage(urlString: img)
+        self.timeLbl.text = data.time
+        self.descriptionLbl.text = data.desc
+        self.difficulty.text = data.difficulty
+    }
 }
 
 
@@ -155,11 +168,11 @@ extension HomeCollectionCell {
         _ = imageView.anchor(top: self.middleView.topAnchor, left: self.middleView.leftAnchor, right: self.middleView.rightAnchor, topConstant: 0, leftConstant: 0, rightConstant: 0, heightConstant: 200)
         _ = self.timeView.anchor(bottom: imageView.bottomAnchor, right: imageView.rightAnchor, bottomConstant: 8, rightConstant: 8, eqWidth: self.timeLbl.widthAnchor, eqHeight: self.timeLbl.heightAnchor, widthMultiplier: 1.5)
         _ = self.timeLbl.anchor(bottom: timeView.bottomAnchor, right: timeView.rightAnchor, rightConstant: 4)
-        _ = self.timeIcon.anchor(right: timeLbl.leftAnchor, rightConstant: 4)
+        _ = self.timeIcon.anchor(left: timeView.leftAnchor, right: timeLbl.leftAnchor, leftConstant: 4, rightConstant: 4)
         _ = self.timeIcon.centerConstraintWith(centerY: self.timeLbl.centerYAnchor)
         
         //bottom view constraint
-        _ = descriptionLbl.anchor(top: self.imageView.bottomAnchor, left: self.imageView.leftAnchor, right: self.imageView.rightAnchor, topConstant: 8, leftConstant: 16, rightConstant: 16)
+        _ = descriptionLbl.anchor(top: self.imageView.bottomAnchor, left: self.imageView.leftAnchor, right: self.imageView.rightAnchor, topConstant: 8, leftConstant: 16, rightConstant: 16)    
         _ = difficultyLbl.anchor(top: self.descriptionLbl.bottomAnchor, left: descriptionLbl.leftAnchor, topConstant: 16, leftConstant: 0)
             difficultyLbl.setContentHuggingPriority(UILayoutPriority.defaultHigh, for: .horizontal)
         _ = difficulty.anchor(left: difficultyLbl.rightAnchor, leftConstant: 8)
@@ -174,7 +187,7 @@ extension HomeCollectionCell {
     }
     
     fileprivate func getUserProfileImageView() -> RFImageView {
-        let imageView = RFImageView(frame: .zero)
+        let imageView = RFImageView()
         imageView.backgroundColor = .red
         imageView.layer.cornerRadius = 5
         imageView.layer.masksToBounds = true
@@ -184,7 +197,7 @@ extension HomeCollectionCell {
     }
     
     fileprivate func getImageView() -> RFImageView {
-        let imageView = RFImageView(frame: .zero)
+        let imageView = RFImageView()
         imageView.contentMode = .scaleAspectFill
         return imageView
     }

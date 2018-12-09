@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import Firebase
 
-class MessageVC: RFBaseController {
+class MessageVC: RFBaseController, UITextFieldDelegate {
 
     private let messageTableView: UITableView! = {
         let tableView = UITableView()
@@ -52,36 +53,32 @@ class MessageVC: RFBaseController {
     private var keyboardBottomSpaceConstraint: NSLayoutConstraint?
     
     fileprivate let cellID = "msgCell"
-    var messageArr = [
-        [
-            Message(content: "King joy is the first king of reberum kingodm, he was very powerful with his spear and he's called sea serpent during his realm.", incoming: true, date: Date.dateFormatString(date: "08/03/2018")),
-            Message(content: "King joy was killed by his own wife, when his wife found out that he's used to be a serpent that kill the whole village of his wife", incoming: true, date: Date.dateFormatString(date: "08/03/2018")),
-        ],
-        
-        [
-            Message(content: "Yes, He was killed sadistically", incoming: false, date: Date.dateFormatString(date: "08/09/2018")),
-            Message(content: "Yes, He was killed sadistically", incoming: false, date: Date.dateFormatString(date: "08/09/2018")),
-            Message(content: "Yes, He was killed sadistically", incoming: false, date: Date.dateFormatString(date: "08/09/2018")),
-            Message(content: "Yes, He was killed sadistically", incoming: false, date: Date.dateFormatString(date: "08/09/2018")),
-            Message(content: "Yes, He was killed sadistically", incoming: false, date: Date.dateFormatString(date: "08/09/2018")),
-            Message(content: "Yes, He was killed sadistically", incoming: false, date: Date.dateFormatString(date: "08/09/2018")),
-        ],
-        
-        [
-            Message(content: "Yes, He was killed sadistically", incoming: true, date: Date.dateFormatString(date: "08/11/2018")),
-            Message(content: "Yes, He was killed sadistically", incoming: true, date: Date.dateFormatString(date: "08/11/2018")),
-            Message(content: "Yes, He was killed sadistically", incoming: true, date: Date.dateFormatString(date: "08/11/2018")),
-            Message(content: "Yes, He was killed sadistically", incoming: true, date: Date.dateFormatString(date: "08/11/2018")),
-            Message(content: "Yes, He was killed sadistically", incoming: true, date: Date.dateFormatString(date: "08/11/2018")),
-            Message(content: "Yes, He was killed sadistically", incoming: true, date: Date.dateFormatString(date: "08/11/2018")),
-            ]
-    ]
+    var messageArr = [Message]()
+    
+    private var viewModel: MessageVM?
+    
+    convenience init(vm: MessageVM) {
+        self.init()
+        self.viewModel = vm
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationBar()
         setupTableView()
         prepareUI()
+        retrieveMessages()
+        inputTextField.delegate = self
+    }
+    
+    func retrieveMessages(){
+        RFDataService.instance.CONVERSATION_REF.observe(.value) { (snapshot) in
+            self.viewModel?.getMessages(completion: { (messages) in
+                self.messageArr = messages
+                self.messageTableView.reloadData()
+                self.scrolltoLastItemOfMessage()
+            })
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -113,9 +110,22 @@ class MessageVC: RFBaseController {
         }
     }
     
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField.returnKeyType == .send {
+            if let conversation = self.viewModel?.conversation {
+                self.viewModel?.uploadMessage(msg: self.inputTextField.text!, groupID: conversation.roomID)
+            }
+            self.inputTextField.text = ""
+            return true;
+        }
+        return false;
+    }
+    
     private func scrolltoLastItemOfMessage(){
-        let indexPath = IndexPath(item: (self.messageArr.last?.count)! - 1, section: self.messageArr.count - 1)
-        self.messageTableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+        if messageArr.count > 0 {
+            let indexPath = IndexPath(item: (self.messageArr.count) - 1 , section: 0)
+            self.messageTableView.scrollToRow(at: IndexPath.init(row: self.messageArr.count - 1, section: 0), at: .none, animated: true)
+        }
     }
     
     @objc func keyboardWillDisappear(_ notification: Notification){
@@ -147,7 +157,12 @@ class MessageVC: RFBaseController {
         navbarView.addSubview(self.headerView)
         _ = self.headerView.centerConstraintWith(centerY: navbarView.centerYAnchor)
         
+        
+        self.viewModel?.getUsers(completion: { (user) in
+            self.headerView.bindData(user: user)
+        })
         self.navigationItem.titleView = navbarView
+        
     }
     
     private func setupHiddenTabBar(_ status: Bool){
@@ -177,31 +192,18 @@ class MessageVC: RFBaseController {
     @objc func navigateBack(){
         self.navigationController?.popViewController(animated: true)
     }
-    
-
-
-    @objc private func handleTap(){
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(2000)) {
-            let newMessage = Message(content: "Yes, He was killed sadistically", incoming: true, date: Date.dateFormatString(date: "08/019/2018"))
-            self.messageArr.append([newMessage])
-            //messageArr.sort() {$0.first?.date. < $1.first?.date}
-            self.messageTableView.reloadData()
-        }
-
-    }
 
 }
 
 extension MessageVC: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return messageArr[section].count
+        return messageArr.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID) as? MessageCell
-        let msg = messageArr[indexPath.section][indexPath.row]
+        let msg = messageArr[indexPath.row]
 
         cell?.chatMessages = msg
         cell?.selectionStyle = .none
@@ -214,33 +216,30 @@ extension MessageVC: UITableViewDelegate, UITableViewDataSource {
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        return messageArr.count
+        return 1
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if let firstMessage = messageArr[section].first {
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "MM/dd/yyy"
-            let date = dateFormatter.string(from: firstMessage.date)
-
-            let label = DateHeaderLabel()
-
-            label.text = date
-
-            let containerView = UIView()
-            containerView.addSubview(label)
-            label.centerXAnchor.constraint(equalTo: containerView.centerXAnchor).isActive = true
-            label.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
-
-            return containerView
-        }
+//        if let firstMessage = messageArr[section].first {
+//            let dateFormatter = DateFormatter()
+//            dateFormatter.dateFormat = "MM/dd/yyy"
+//            let date = dateFormatter.string(from: firstMessage.date)
+//
+//            let label = DateHeaderLabel()
+//
+//            label.text = date
+//
+//            let containerView = UIView()
+//            containerView.addSubview(label)
+//            label.centerXAnchor.constraint(equalTo: containerView.centerXAnchor).isActive = true
+//            label.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
+//
+//            return containerView
+//        }
 
         return UIView()
     }
-
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 50
-    }
+    
 }
 
 

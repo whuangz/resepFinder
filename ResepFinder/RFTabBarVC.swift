@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class RFTabBarVC: UITabBarController {
 
@@ -59,10 +60,18 @@ class RFTabBarVC: UITabBarController {
         return navigationVC
     }
     
-    
     //MARK: - GET SPECIFIC TAB BAR ITEM
     func getSelectedItemOf(_ selectedVC: RFTabBarItem){
         self.selectedViewController = self.viewControllers?[selectedVC.rawValue] as? UINavigationController
+    }
+    
+    override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+        if item.tag != 1 {
+            if Auth.auth().currentUser == nil {
+                let registerVC = RegistrationsVC()
+                self.present(registerVC, animated: true, completion: nil)
+            }
+        }
     }
     
 }
@@ -82,7 +91,11 @@ extension RFTabBarVC: UITabBarControllerDelegate {
             return false
         }
         
-        // Tells the tab bar to select other view controller as normal
-        return true
+        if Auth.auth().currentUser != nil {
+            return true
+        }else{
+            return false
+        }
+    
     }
 }

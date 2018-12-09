@@ -7,17 +7,22 @@
 //
 
 import UIKit
+import RxCocoa
+import RxSwift
+import FirebaseAuth
 
 class SearchUserVC: RFBaseController {
     
-    private var searchBarView: UIView!
+    private var searchBarView: UISearchBar!
     private var userTable: UITableView!
+    private var viewModel: SearchUserVM = SearchUserVM()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareUI()
         setupNavigationBar()
         registerCell()
+        observeData()
     }
     
     func registerCell(){
@@ -32,7 +37,49 @@ class SearchUserVC: RFBaseController {
     }
     
     @objc func navigateToCreateMessage(){
+        if let currentUser = Auth.auth().currentUser?.uid {
+            self.viewModel.createRoomBy(uid: currentUser)
+        }
+    }
+    
+    func observeData(){
+        let searchUserResults = searchBarView.rx.text.orEmpty.throttle(0.3, scheduler: MainScheduler.instance).distinctUntilChanged().flatMapLatest { (query) -> Observable<[RFUser]> in
+            if query.isEmpty {
+                return .just([])
+            }
+            return self.searchUser(query: query).catchErrorJustReturn([])
+        }.observeOn(MainScheduler.instance)
         
+        searchUserResults.asObservable().bind(to: self.userTable.rx.items(cellIdentifier: "UserMessageCell", cellType: UserMessageCell.self)) { (row, element, cell) in
+            cell.searchUserCell()
+            cell.bindData(data: element)
+        }.disposed(by: self.disposeBag)
+        
+        self.userTable.rx.itemSelected
+            .subscribe(onNext: { [weak self] indexPath in
+                let cell = self?.userTable.cellForRow(at: indexPath) as? UserMessageCell
+                self?.viewModel.validateSelectedUsers(data: (cell?.user?.uid)!)
+        }).disposed(by: self.disposeBag)
+        
+        self.userTable.rx.itemDeselected
+            .subscribe(onNext: { [weak self] indexPath in
+                let cell = self?.userTable.cellForRow(at: indexPath) as? UserMessageCell
+                self?.viewModel.validateSelectedUsers(data: (cell?.user?.uid)!)
+        }).disposed(by: self.disposeBag)
+        
+    
+        
+    }
+    
+    func searchUser(query: String) -> Observable<[RFUser]>{
+        return Observable.create({ (observer) in
+
+            self.viewModel.getUsers(query: query, completion: { (listofUsers) in
+                observer.onNext(listofUsers)
+            })
+            
+            return Disposables.create()
+        })
     }
     
 }
@@ -62,6 +109,8 @@ extension SearchUserVC{
         let searchBar = SearchBar(frame: .zero)
         searchBar.searchBarStyle = .prominent
         searchBar.placeholder = "Find people ..."
+        searchBar.autocorrectionType = .no
+        searchBar.autocapitalizationType = .none
         searchBar.textFieldInsideSearchBar.font = RFFont.instance.bodyMedium12
 
         let searchText = "To:"
@@ -77,8 +126,8 @@ extension SearchUserVC{
     
     private func getTableView() -> UITableView {
         let tableView = UITableView()
-        tableView.delegate = self
-        tableView.dataSource = self
+        //tableView.delegate = self
+        //tableView.dataSource = self
         tableView.tableFooterView = UIView(frame: .zero)
         tableView.estimatedRowHeight = 60
         tableView.rowHeight = UITableViewAutomaticDimension

@@ -99,7 +99,9 @@ extension RegistrationsVC {
     func callBacks(){
         guard let viewModel = self.viewModel else {return}
         viewModel.isSuccess.asObservable().bind { (valid) in
-            print(valid)
+            if valid {
+                self.navigateToProfileMenu()
+            }
         }.disposed(by: disposeBag)
         
         viewModel.errMsg.asObservable().bind { (message) in
@@ -115,6 +117,7 @@ extension RegistrationsVC {
     func addGesture(){
         self.regionTxt.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(navigateToRegionList)))
         self.loginLink.addTarget(self, action: #selector(navigateToLogin), for: .touchUpInside)
+        self.closeBtn.addTarget(self, action: #selector(navigateToHomeVC), for: .touchUpInside)
     }
     
     @objc func navigateToRegionList(){
@@ -124,6 +127,15 @@ extension RegistrationsVC {
     @objc func navigateToLogin(){
         let loginVC = LoginVC.init(nibName: "LoginVC", bundle: nil)
         self.present(loginVC, animated: true, completion: nil)
+    }
+    
+    @objc func navigateToHomeVC() {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    func navigateToProfileMenu(){
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.redirectoProfileMenu()
     }
 }
 

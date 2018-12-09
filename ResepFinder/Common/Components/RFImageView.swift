@@ -8,15 +8,7 @@
 
 import UIKit
 
-class RFImageView: UIImageView {
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.clipsToBounds = true
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
+class RFImageView: CachedImageView {
     
     func setCornerWith(radius: CGFloat){
         self.layer.cornerRadius = radius

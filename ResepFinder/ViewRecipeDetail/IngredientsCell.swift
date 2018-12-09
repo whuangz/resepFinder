@@ -12,10 +12,10 @@ class IngredientsCell: RFBaseTableCell {
     
     fileprivate var topView: UIView!
     fileprivate var ingredientHeader: UILabel!
-    fileprivate var ingredientContent: UITextView!
+    var ingredientContent: UITextView!
     fileprivate var addToShoppingList: RFPrimaryBtn!
     
-    var arrayOfDummbyText = [
+    var arrayOfIngredients = [
         "2 sweet potatoes",
         "1 cup creamy peanut butter",
         "10 oz marshmallows",
@@ -46,13 +46,13 @@ extension IngredientsCell {
         self.ingredientContent = self.getTextView()
         self.addToShoppingList = self.getBtn()
         
-        configureViews()
+        configureViews(self.arrayOfIngredients)
         layoutViews()
     }
     
-    fileprivate func configureViews(){
+    func configureViews(_ data: [String]){
         
-        ingredientContent.attributedText = addAttributedString(text: arrayOfDummbyText.joined(separator: "\n"), lineSpacing: 5, font: RFFont.instance.bodyMedium12!)
+        ingredientContent.attributedText = addAttributedString(text: data.joined(separator: "\n"), lineSpacing: 5, font: RFFont.instance.bodyMedium12!)
         
     }
     

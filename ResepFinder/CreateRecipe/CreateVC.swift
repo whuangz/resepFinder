@@ -12,12 +12,18 @@ class CreateVC: RFBaseController {
     private var tableView: TPKeyboardAvoidingTableView!
     private var ingredientsHeight: CGFloat = 200
     private var stepsHeight: CGFloat = 400
+    private var picker = UIImagePickerController()
+    private var uploadCell: UploadCell?
+    private var selectedPickerCell: RFBaseTableCell?
+    private var viewModel: CreateVM?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationBar()
         prepareUI()
         registerCell()
+        setupViewModel()
+        setupDelegate()
     }
     
     private func registerCell(){
@@ -33,8 +39,23 @@ class CreateVC: RFBaseController {
         self.setupRightBarItemWith(title: "Done", action: #selector(submitData))
     }
     
+    private func setupDelegate(){
+        self.picker.delegate = self
+    }
+    
     @objc func submitData(){
-        print("Submit")
+        view.endEditing(true)
+        guard let viewModel = self.viewModel else {return}
+
+        if viewModel.sendData(){
+            print("SUCCESS")
+            self.dismissToPreviousScreen()
+        }
+        
+    }
+    
+    func setupViewModel(){
+        self.viewModel = CreateVM()
     }
 
 }
@@ -106,29 +127,33 @@ extension CreateVC: UITableViewDelegate, UITableViewDataSource {
     }
 
     private func createUploadCell() -> UITableViewCell{
-        let cell = tableView.dequeueReusableCell(withIdentifier: "uploadCell") as! UploadCell
-        return cell
+        uploadCell = tableView.dequeueReusableCell(withIdentifier: "uploadCell") as? UploadCell
+        uploadCell?.delegate = self
+        return uploadCell!
     }
     
     private func createRecipeCell() -> UITableViewCell{
         let cell = tableView.dequeueReusableCell(withIdentifier: "createRecipe") as! RecipeDetailCell
+        cell.setupViewModel(vm: (self.viewModel?.recipeDetailVM)!)
         return cell
     }
     
     private func createIngredientsCell() -> UITableViewCell{
         let cell = tableView.dequeueReusableCell(withIdentifier: "createIngredientCell") as! CreateIngredientCell
         cell.delegate = self
+        cell.setupViewModel(vm: (self.viewModel?.createIngredientVM)!)
         return cell
     }
     
     private func createStepsCell() -> UITableViewCell{
         let cell = tableView.dequeueReusableCell(withIdentifier: "createStepsCell") as! CreateStepsCell
         cell.delegate = self
+        cell.parent = self
+        cell.setupViewModel(vm: (self.viewModel?.createStepVM)!)
         return cell
     }
     
 }
-
 
 extension CreateVC: GetCellHeight {
     func insertedCellHeight(cell: RFBaseTableCell) {
@@ -139,6 +164,28 @@ extension CreateVC: GetCellHeight {
             self.stepsHeight += 145
         }
         self.tableView.endUpdates()
+    }
+    
+}
+
+extension CreateVC: UploadImageProtocol, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func didUploadImage(cell: RFBaseTableCell) {
+        self.picker.allowsEditing = true
+        self.picker.sourceType = .photoLibrary
+        self.selectedPickerCell = cell
+        present(picker, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        if let image = info[UIImagePickerControllerEditedImage] as? UIImage {
+            if selectedPickerCell is UploadCell {
+                self.uploadCell?.uploadView.image = image
+                self.viewModel?.recipeImg = image
+            }
+        }
+        
+        self.dismiss(animated: true, completion: nil)
     }
     
 }

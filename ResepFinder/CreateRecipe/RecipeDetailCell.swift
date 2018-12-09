@@ -7,16 +7,55 @@
 //
 
 import Foundation
+import RxCocoa
+import RxSwift
 
 class RecipeDetailCell: RFBaseTableCell {
     
     fileprivate var titleTextField: UITextField!
     fileprivate var titleDescriptionField: UITextField!
     fileprivate var difficultyField: UITextField!
+    var viewModel: RecipeDetailVM?
     
     override func setupViews() {
         super.setupViews()
         prepareUI()
+        
+    }
+    
+    func setupViewModel(vm: RecipeDetailVM){
+        self.viewModel = vm
+        observeData(self.viewModel!)
+    }
+    
+    fileprivate func observeData(_ viewModel: RecipeDetailVM){
+//        self.titleTextField.rx.controlEvent([.editingDidEnd])
+//            .asObservable()
+//            .subscribe(onNext: { (text) in
+//                title = self.titleTextField.text!
+//            })
+//            .disposed(by: self.dispose)
+//
+//        self.titleDescriptionField.rx.controlEvent([.editingDidEnd])
+//            .asObservable()
+//            .subscribe(onNext: { (text) in
+//                desc = self.titleDescriptionField.text!
+//            })
+//            .disposed(by: self.dispose)
+//
+//        self.difficultyField.rx.controlEvent([.editingDidEnd])
+//            .asObservable()
+//            .subscribe(onNext: { (text) in
+//                difficulty = self.difficultyField.text!
+//            })
+//            .disposed(by: self.dispose)
+//
+//
+        self.titleTextField.rx.text.orEmpty.bind(to: viewModel.title).disposed(by: self.dispose)
+        self.titleDescriptionField.rx.text.orEmpty.bind(to: viewModel.desc).disposed(by: self.dispose)
+        self.difficultyField.rx.text.orEmpty.bind(to: viewModel.difficulty).disposed(by: self.dispose)
+        
+        
     }
     
 }
@@ -55,6 +94,7 @@ extension RecipeDetailCell {
         textField.placeholder = "Recipe Title"
         textField.borderStyle = .none
         textField.font = RFFont.instance.subHead16
+        textField.autocorrectionType = .no
         
         return textField
     }
@@ -64,6 +104,7 @@ extension RecipeDetailCell {
         textField.placeholder = "Difficulty Level (Easy, Medium, Hard)"
         textField.borderStyle = .none
         textField.font = RFFont.instance.bodyMedium14
+        textField.autocorrectionType = .no
         
         return textField
     }
@@ -73,9 +114,9 @@ extension RecipeDetailCell {
         textField.placeholder = "Recipe Description"
         textField.borderStyle = .none
         textField.font = RFFont.instance.bodyMedium14
+        textField.autocorrectionType = .no
         
         return textField
     }
     
 }
-

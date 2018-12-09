@@ -12,6 +12,7 @@ class StartCookingVC: RFBaseController {
     
     private var collectionView: UICollectionView!
     private var totalSteps: CGFloat = 4
+    var viewModel: StartCookingVM?
     
     private let closeBtn: RFPrimaryBtn = {
         let btn = RFPrimaryBtn()
@@ -41,6 +42,12 @@ class StartCookingVC: RFBaseController {
         prepareUI()
         registerCell()
         addGesture()
+    }
+    
+    convenience init(vm: StartCookingVM) {
+        self.init()
+        self.viewModel = vm
+        self.totalSteps = CGFloat(self.viewModel?.steps?.count ?? 0)
     }
     
     override var prefersStatusBarHidden: Bool{
@@ -121,6 +128,9 @@ extension StartCookingVC: UICollectionViewDelegate, UICollectionViewDataSource, 
         }else{
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "stepsCell", for: indexPath) as! StepsCell
             cell.stepNo.setTitle("\(indexPath.item + 1)", for: UIControlState.normal)
+            if let steps = self.viewModel?.steps {
+                cell.bindData(data: (steps[indexPath.item]))
+            }
             return cell
         }
     }
@@ -131,12 +141,13 @@ extension StartCookingVC: UICollectionViewDelegate, UICollectionViewDataSource, 
     
     private func createReviewCell(indexPath: IndexPath) -> UICollectionViewCell{
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "createReviewsCell", for: indexPath) as! CreateReviewsCell
+        cell.bindData(data: (self.viewModel?.recipeImg)!)
         return cell
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
-        var offset = scrollView.contentOffset.x / RFScreenHelper.screenWidth()
+        let offset = scrollView.contentOffset.x / RFScreenHelper.screenWidth()
         progressWidth.constant = (RFScreenHelper.screenWidth() / (totalSteps + 1) * (offset + 1))
     
     }

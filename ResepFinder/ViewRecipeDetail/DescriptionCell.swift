@@ -10,7 +10,7 @@ import Foundation
 
 class DescriptionCell: RFBaseTableCell {
     
-    fileprivate var descriptionLbl: UILabel!
+    var descriptionLbl: UILabel!
     
     override func setupViews() {
         super.setupViews()

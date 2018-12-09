@@ -7,13 +7,27 @@
 //
 
 import UIKit
+import Firebase
 
 class ProfileVC: UITableViewController {
 
+    private var viewModel: ProfileVM?
+    private var descriptionCell: ProfileDescriptionCellTableViewCell?
+    private var detailCell: ProfileDetailsCell?
+    private var recipeCollectionCell: ProfileRecipeCollection?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
         setupNavBarItem()
+        setupViewModel()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setupViewModel()
+        self.tableView.reloadData()
+        
     }
     
     private func setupTableView(){
@@ -25,7 +39,11 @@ class ProfileVC: UITableViewController {
         tableView.register(ProfileDescriptionCellTableViewCell.self, forCellReuseIdentifier: ("ProfileDescriptionCellTableViewCell"))
         tableView.register(ProfileDetailsCell.self, forCellReuseIdentifier: ("ProfileDetailsCell"))
         tableView.register(ProfileRecipeCollection.self, forCellReuseIdentifier: ("ProfileRecipeList"))
-        
+    }
+    
+    private func setupViewModel(){
+        self.viewModel = ProfileVM(vc: self)
+        self.viewModel?.retrieveUserDetail()
     }
     
     deinit {
@@ -47,17 +65,13 @@ extension ProfileVC {
         case .details:
             return 80
         case .recipes:
-            return recipesListHeight()
+            if (self.viewModel?.hasRecipes())! {
+                return self.viewModel!.recipesListHeight()
+            }else{
+                return 0
+            }
         }
         
-    }
-    
-    func recipesListHeight() -> CGFloat{
-        let numberOfItem = ceil(CGFloat(10/2))
-        let horizontalPadding: CGFloat = 32 + 32
-        let paddingRow: CGFloat = 32 + 64
-        let cellWidth: CGFloat = self.view.frame.width / 2 + 50 - 32
-        return numberOfItem * cellWidth + paddingRow
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -84,21 +98,22 @@ extension ProfileVC {
     }
     
     private func createProfileDescription() -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: ("ProfileDescriptionCellTableViewCell")) as! ProfileDescriptionCellTableViewCell
-        cell.selectionStyle = .none
-        return cell
+        descriptionCell = tableView.dequeueReusableCell(withIdentifier: ("ProfileDescriptionCellTableViewCell")) as? ProfileDescriptionCellTableViewCell
+        self.descriptionCell?.selectionStyle = .none
+        return self.descriptionCell!
     }
     
     private func createProfileDetails() -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: ("ProfileDetailsCell")) as! ProfileDetailsCell
-        cell.selectionStyle = .none
-        return cell
+        detailCell = tableView.dequeueReusableCell(withIdentifier: ("ProfileDetailsCell")) as? ProfileDetailsCell
+        self.detailCell?.selectionStyle = .none
+        return self.detailCell!
     }
     
     private func createRecipesList() -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: ("ProfileRecipeList")) as! ProfileRecipeCollection
-        cell.selectionStyle = .none
-        return cell
+        recipeCollectionCell = tableView.dequeueReusableCell(withIdentifier: ("ProfileRecipeList")) as? ProfileRecipeCollection
+        self.recipeCollectionCell?.selectionStyle = .none
+        self.recipeCollectionCell?.delegate = self
+        return self.recipeCollectionCell!
     }
 }
 
@@ -121,15 +136,49 @@ extension ProfileVC {
     }
     
     private func setupRightBarItem(){
+        let ingredientSavedImg = UIImage(named: "book")?.withRenderingMode(.alwaysOriginal)
+        let ingredientSavedBtn = UIBarButtonItem(image: ingredientSavedImg, style: .plain, target: self, action: #selector(navigateToSavedIngredients))
+        
         let settingImg = UIImage(named: "setting")?.withRenderingMode(.alwaysOriginal)
         let settingBtn = UIBarButtonItem(image: settingImg, style: .plain, target: self, action: #selector(navigateToSetting))
         
-        self.navigationItem.rightBarButtonItems = [settingBtn]
+        self.navigationItem.rightBarButtonItems = [settingBtn, ingredientSavedBtn]
+    }
+    
+    @objc func navigateToSavedIngredients(){
+        let savedIngredientVC = ListOfIngredientsVC()
+        self.navigationController?.pushViewController(savedIngredientVC, animated: true)
     }
     
     @objc func navigateToSetting(){
         let settingVC = SettingVC()
         self.navigationController?.pushViewController(settingVC, animated: true)
     }
+    
+}
+
+
+protocol ProfileInput: class {
+    func setupDescriptionCell(user: RFUser, recipeVM: ProfileRecipeCollectionVM)
+}
+
+extension ProfileVC: ProfileInput {
+    func setupDescriptionCell(user: RFUser, recipeVM: ProfileRecipeCollectionVM) {
+        self.tableView.beginUpdates()
+        self.descriptionCell?.bindModel(user)
+        self.detailCell?.bindModel(user)
+        self.viewModel?.totalRecipes = (user.recipes?.count)!
+        self.recipeCollectionCell?.setupViewModel(vm: recipeVM)
+        self.tableView.endUpdates()
+    }
+    
+    
+}
+
+extension ProfileVC: NavigationControllerDelegate {
+    func navigateController(_ vc: UIViewController) -> UINavigationController {
+        return self.navigationController!
+    }
+    
     
 }

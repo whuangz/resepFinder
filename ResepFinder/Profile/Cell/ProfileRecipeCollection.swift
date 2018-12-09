@@ -11,6 +11,8 @@ import UIKit
 class ProfileRecipeCollection: RFBaseTableCell {
     
     fileprivate var collectionView: UICollectionView!
+    private var viewModel: ProfileRecipeCollectionVM?
+    var delegate: NavigationControllerDelegate?
     
     override func setupViews() {
         super.setupViews()
@@ -20,6 +22,24 @@ class ProfileRecipeCollection: RFBaseTableCell {
     
     func registerCell(){
         self.collectionView.register(RFRecipeCell.self, forCellWithReuseIdentifier: "RECIPES")
+    }
+    
+    func setupViewModel(vm: ProfileRecipeCollectionVM){
+        self.viewModel = vm
+        self.collectionView.reloadData()
+    }
+    
+    private func navigateToViewRecipe(recipe: RFRecipe){
+        let viewRecipeVM = RFViewRecipeVM(data: recipe)
+        let viewRecipe = RFViewRecipeVC(vm: viewRecipeVM)
+        viewRecipe.hidesBottomBarWhenPushed = true
+        navigateTo(viewRecipe)
+    }
+    
+    private func navigateTo(_ vc: UIViewController) {
+        guard let delegate = self.delegate else {return}
+        guard let navigationController = delegate.navigateController(vc) as? UINavigationController else {return}
+        navigationController.pushViewController(vc, animated: true)
     }
     
 }
@@ -62,6 +82,9 @@ extension ProfileRecipeCollection {
 extension ProfileRecipeCollection: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RECIPES", for: indexPath) as! RFRecipeCell
+        if let recipes = self.viewModel?.recipes{
+            cell.bindViewModel(model: recipes[indexPath.item])
+        }
         return cell
     }
     
@@ -70,12 +93,18 @@ extension ProfileRecipeCollection: UICollectionViewDelegate, UICollectionViewDat
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return self.viewModel?.recipes?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let cellWidth = self.frame.width / 2 - 32
         return CGSize(width: cellWidth , height: cellWidth + 50)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let recipes = self.viewModel?.recipes{
+            navigateToViewRecipe(recipe: recipes[indexPath.item])
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {

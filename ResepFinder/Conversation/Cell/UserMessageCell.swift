@@ -20,6 +20,7 @@ class UserMessageCell: RFBaseTableCell {
     @IBOutlet weak var profileName: UILabel!
     @IBOutlet weak var messageDetail: UILabel!
     
+    var user: RFUser?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -37,6 +38,18 @@ class UserMessageCell: RFBaseTableCell {
     
         let image = selected ? UIImage(named: "check") : UIImage(named: "uncheck")
         self.checkButton.setImage(image, for: .normal)
+    }
+    
+    func bindData(data: RFUser){
+        self.user = data
+        self.userName.text = data.username
+    }
+    
+    func bindConversationData(data: RFConversation){
+        data.getMembersName(conversation: data) { (members) in
+            self.profileName.text = members.joined(separator: ", ")
+            self.messageDetail.text = ""
+        }
     }
     
 }

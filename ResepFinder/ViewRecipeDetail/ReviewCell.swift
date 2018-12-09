@@ -72,7 +72,7 @@ extension ReviewCell {
     fileprivate func getLbl() -> UILabel {
         let label = UILabel()
         label.font = RFFont.instance.bodyMedium12
-        label.text = "16 Reviewers"
+        label.text = "0 Reviewer"
         return label
     }
     

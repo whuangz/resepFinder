@@ -15,7 +15,7 @@ class RFBaseController: UIViewController {
     
     let disposeBag = DisposeBag()
     var searchBar: SearchBar!
-    
+
     private func bind(textfield: UITextField, to variable: Variable<String>){
         variable.asObservable().bind(to: textfield.rx.text.orEmpty).disposed(by: disposeBag)
         //textfield.rx.text.orEmpty

@@ -14,32 +14,11 @@ class MessageHeaderView: UIView {
     @IBOutlet weak var profileImage: RFImageView!
     @IBOutlet weak var profileName: UILabel!
  
-//    
-//    override init(frame: CGRect) {
-//        super.init(frame: frame)
-//        setupContentView()
-//        setupLabel()
-//    }
-//    
-//    required init?(coder aDecoder: NSCoder) {
-//        super.init(coder: aDecoder)
-//        setupContentView()
-//        setupLabel()
-//    }
-//    
     override func awakeFromNib() {
         super.awakeFromNib()
         setupLabel()
     }
-    
-//
-//    private func setupContentView() {
-//        self.contentView = self.loadViewFromNib()
-//        contentView.backgroundColor = .red
-//        self.contentView.autoresizingMask = [ .flexibleHeight, .flexibleWidth]
-//        self.addSubview(self.contentView)
-//        
-//    }
+
     
     private func setupLabel(){
         self.profileImage.backgroundColor = .red
@@ -48,13 +27,8 @@ class MessageHeaderView: UIView {
         self.profileName.font = RFFont.instance.subHead12
     }
 
-//    private func loadViewFromNib() -> UIView{
-//        let bundle = Bundle(for:type(of: self))
-//
-//        let nib = UINib(nibName: "MessageHeaderView" , bundle: bundle)
-//        let view = nib.instantiate(withOwner: self, options: nil).first as! UIView
-//        return view
-//    }
-    
+    func bindData(user: RFUser){
+        self.profileName.text = user.username
+    }
     
 }

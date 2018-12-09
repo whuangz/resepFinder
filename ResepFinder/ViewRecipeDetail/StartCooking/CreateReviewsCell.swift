@@ -10,7 +10,7 @@ import Foundation
 
 class CreateReviewsCell: RFBaseCollectionCell {
     
-    fileprivate var imgView: UIImageView!
+    fileprivate var imgView: CachedImageView!
     fileprivate var subHeader: UILabel!
     var reviewBtn: RFPrimaryBtn!
     
@@ -19,6 +19,9 @@ class CreateReviewsCell: RFBaseCollectionCell {
         prepareUI()
     }
     
+    func bindData(data: String){
+        self.imgView.loadImage(urlString: data)
+    }
 }
 
 
@@ -53,8 +56,8 @@ extension CreateReviewsCell {
         
     }
     
-    fileprivate func getImageView() -> UIImageView {
-        let imageView = UIImageView()
+    fileprivate func getImageView() -> CachedImageView {
+        let imageView = CachedImageView()
         imageView.layer.cornerRadius = 5
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true

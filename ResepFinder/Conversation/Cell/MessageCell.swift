@@ -72,10 +72,17 @@ class MessageCell: UITableViewCell {
 }
 
 
-struct Message {
+class Message {
     var content: String!
     var incoming: Bool!
-    var date: Date!
+    var sender_id: String!
+    //var date: Date!
+    
+    init(content: String, sender_id: String, incoming: Bool) {
+        self.content = content
+        self.sender_id = sender_id
+        self.incoming = incoming
+    }
 }
 
 extension Date {
