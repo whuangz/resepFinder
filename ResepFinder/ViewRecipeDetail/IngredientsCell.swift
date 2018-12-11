@@ -38,6 +38,14 @@ class IngredientsCell: RFBaseTableCell {
     func bindData(_ model: AnyObject){
         if let data = model as? RFRecipe {
             self.recipe = data
+            
+            self.service.validateAddedIngredient(recipeID: (self.recipe?.id)!) { (selected) in
+                if selected {
+                    self.addToShoppingList.setTitle("Remove from My List", for: .normal)
+                }else{
+                    self.addToShoppingList.setTitle("Add to Shopping List", for: .normal)
+                }
+            }
         }
     }
     
@@ -46,6 +54,7 @@ class IngredientsCell: RFBaseTableCell {
             self.service.addRecipeToMyList(recipeID: rcp.id!, recipeTitle: rcp.title!, recipeImgPath: rcp.recipePathToImg!, ingredients: rcp.getRecipesDescription()!)
         }
     }
+    
     
 }
 
@@ -67,18 +76,9 @@ extension IngredientsCell {
         
         ingredientContent.attributedText = addAttributedString(text: data.joined(separator: "\n"), lineSpacing: 5, font: RFFont.instance.bodyMedium12!)
         
-        
-        var selected = false
         self.addToShoppingList.rx.tap.subscribe(onNext: {
             self.addToShoppingList.animateTouch(duration: 0.2)
-            if selected == true {
-                self.addToShoppingList.setTitle("Add to Shopping List", for: .normal)
-            }else{
-                self.addToShoppingList.setTitle("Remove from My List", for: .normal)
-                self.addRecipeToMyList()
-                
-            }
-            selected = !selected
+            self.addRecipeToMyList()
         }).disposed(by: self.dispose)
         
     }

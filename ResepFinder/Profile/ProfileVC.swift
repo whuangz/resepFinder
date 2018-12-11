@@ -147,11 +147,13 @@ extension ProfileVC {
     
     @objc func navigateToSavedIngredients(){
         let savedIngredientVC = ListOfIngredientsVC()
+        savedIngredientVC.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(savedIngredientVC, animated: true)
     }
     
     @objc func navigateToSetting(){
         let settingVC = SettingVC()
+        settingVC.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(settingVC, animated: true)
     }
     

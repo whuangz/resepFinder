@@ -57,13 +57,20 @@ class RFRecipeService: RFDataService {
     
     func addRecipeToMyList(recipeID: String, recipeTitle: String, recipeImgPath: String, ingredients: [String]){
         let uid = Auth.auth().currentUser?.uid
-        let body: [String : Any] = [
+	        let body: [String : Any] = [
             "title" : recipeTitle,
             "path" : recipeImgPath,
             "ingredients": ingredients,
         ]
         USER_SHOPPING_LIST_REF.child(uid!).child(recipeID).updateChildValues(body)
         print("Added to my shopping list")
+        
+    }
+    
+    func validateAddedIngredient(recipeID: String, completion: @escaping (_ completion: Bool)->()) {
+        self.checkAddedIngredientToUser(recipeID: recipeID) { (status) in
+            completion(status)
+        }
         
     }
     

@@ -114,6 +114,8 @@
 		26FD0BFD21B4D7E900D9C540 /* CreateStepsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26FD0BFC21B4D7E900D9C540 /* CreateStepsVM.swift */; };
 		26FDAEE421ACFF5B00758D33 /* CreateStepsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26FDAEE321ACFF5B00758D33 /* CreateStepsCell.swift */; };
 		26FDAEE721ACFF7C00758D33 /* AddStepsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26FDAEE621ACFF7C00758D33 /* AddStepsCell.swift */; };
+		3C63EC2921BECA7A00661D9D /* DetailIngredientsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C63EC2821BECA7A00661D9D /* DetailIngredientsVC.swift */; };
+		3C63EC2B21BECB6900661D9D /* DetailIngredientsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C63EC2A21BECB6900661D9D /* DetailIngredientsVM.swift */; };
 		F9561E5DE3860D00424A1AD9 /* Pods_ResepFinder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DE5EC465E1A8CB3A3F6CDB0 /* Pods_ResepFinder.framework */; };
 /* End PBXBuildFile section */
 
@@ -232,6 +234,8 @@
 		26FDAEE321ACFF5B00758D33 /* CreateStepsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateStepsCell.swift; sourceTree = "<group>"; };
 		26FDAEE621ACFF7C00758D33 /* AddStepsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddStepsCell.swift; sourceTree = "<group>"; };
 		29937144E2B89E09C074755A /* Pods-ResepFinder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ResepFinder.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ResepFinder/Pods-ResepFinder.debug.xcconfig"; sourceTree = "<group>"; };
+		3C63EC2821BECA7A00661D9D /* DetailIngredientsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailIngredientsVC.swift; sourceTree = "<group>"; };
+		3C63EC2A21BECB6900661D9D /* DetailIngredientsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailIngredientsVM.swift; sourceTree = "<group>"; };
 		5DE5EC465E1A8CB3A3F6CDB0 /* Pods_ResepFinder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ResepFinder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -456,6 +460,8 @@
 				26EBFC0321BD5A1F00008C77 /* Cell */,
 				265C167121BD02A600770779 /* ListOfIngredientsVC.swift */,
 				265C167321BD0B8100770779 /* ListOfIngredientsVM.swift */,
+				3C63EC2821BECA7A00661D9D /* DetailIngredientsVC.swift */,
+				3C63EC2A21BECB6900661D9D /* DetailIngredientsVM.swift */,
 			);
 			path = ListOfIngredients;
 			sourceTree = "<group>";
@@ -972,6 +978,7 @@
 				26F3ABD921B3FA4300E33834 /* CreatIngredientVM.swift in Sources */,
 				263E375921AA9AEA001DDE33 /* RFParallaxTableView.swift in Sources */,
 				2600F724219726E80046239C /* ProfileVC.swift in Sources */,
+				3C63EC2921BECA7A00661D9D /* DetailIngredientsVC.swift in Sources */,
 				26B1814D21BC2AF400B7836A /* MessageVM.swift in Sources */,
 				26EBFC0521BD5AA900008C77 /* RecipeListCell.swift in Sources */,
 				2650F9CA21A96BED000638DE /* RFAdvancedSearchVC.swift in Sources */,
@@ -983,6 +990,7 @@
 				264D2FFB2193582200F66595 /* RegistrationsVM.swift in Sources */,
 				26E9F2EF21B6C366006D1FB9 /* ProfileRecipeCollectionVM.swift in Sources */,
 				26253C5221AC496E00FC6598 /* UITextField+Ext.swift in Sources */,
+				3C63EC2B21BECB6900661D9D /* DetailIngredientsVM.swift in Sources */,
 				262FD2AC21B751F6004A29AE /* HomeVM.swift in Sources */,
 				267E202A21B95C1000A474CC /* UIImagePickerController+RxSwift.swift in Sources */,
 				26E9F2F621B6CB51006D1FB9 /* DiscardableImageCacheItem.swift in Sources */,

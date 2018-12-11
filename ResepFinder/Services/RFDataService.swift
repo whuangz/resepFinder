@@ -194,6 +194,34 @@ class RFDataService: NSObject {
         }
     }
     
+    func checkAddedIngredientToUser(recipeID: String, completion: @escaping (_ status: Bool) -> ()){
+        let uid = Auth.auth().currentUser?.uid
+        USER_SHOPPING_LIST_REF.observeSingleEvent(of: .value) { (snapshot) in
+            guard let dataSnapshot = snapshot.children.allObjects as? [DataSnapshot] else {return}
+            var returnedRecipes = [RFRecipe]()
+            
+            for dataKey in dataSnapshot {
+                if dataKey.key == uid {
+                    if let recipes = dataKey.children.allObjects as? [DataSnapshot] {
+                        
+                        for rcp in recipes {
+                            var ingredients = [RFIngredient]()
+                            
+                            let id =  rcp.key
+                            if id == recipeID {
+                                completion(true)
+                                break
+                            }
+                        }
+                    }
+                }
+            }
+            
+            completion(false)
+        }
+    }
+    
+    
     func showProgress() {
         
     }

@@ -70,6 +70,12 @@ extension ListOfIngredientsVC{
         return tableView
     }
     
+    func navigateToDetail(recipe: RFRecipe){
+        let vm = DetailIngredientsVM(data: recipe)
+        let vc = DetailIngredientsVC(vm: vm)
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
 }
 
 
@@ -88,6 +94,12 @@ extension ListOfIngredientsVC: UITableViewDelegate, UITableViewDataSource {
             cell.bindModel(recipes[indexPath.row])
         }
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let recipes = self.listOfRecipes {
+            self.navigateToDetail(recipe: recipes[indexPath.row])
+        }
     }
     
     
