@@ -96,7 +96,7 @@ class RFDataService: NSObject {
     }
     
     func getAllRecipes(completion: @escaping (_ recipe: [RFRecipe]) -> ()){
-        RECIPE_REF.observe(.value) { (snapshot) in
+        RECIPE_REF.queryOrderedByKey().observe(.value) { (snapshot) in
             guard let recipeSnapShot = snapshot.children.allObjects as? [DataSnapshot] else {return}
             var recipes = [RFRecipe]()
             for recipe in recipeSnapShot {
@@ -196,29 +196,42 @@ class RFDataService: NSObject {
     
     func checkAddedIngredientToUser(recipeID: String, completion: @escaping (_ status: Bool) -> ()){
         let uid = Auth.auth().currentUser?.uid
-        USER_SHOPPING_LIST_REF.observeSingleEvent(of: .value) { (snapshot) in
+        USER_SHOPPING_LIST_REF.child(uid!).observeSingleEvent(of: .value) { (snapshot) in
             guard let dataSnapshot = snapshot.children.allObjects as? [DataSnapshot] else {return}
-            var returnedRecipes = [RFRecipe]()
             
-            for dataKey in dataSnapshot {
-                if dataKey.key == uid {
-                    if let recipes = dataKey.children.allObjects as? [DataSnapshot] {
-                        
-                        for rcp in recipes {
-                            var ingredients = [RFIngredient]()
-                            
-                            let id =  rcp.key
-                            if id == recipeID {
-                                completion(true)
-                                break
-                            }
-                        }
-                    }
-                }
+            if dataSnapshot.count == 0 {
+                completion(false)
             }
             
-            completion(false)
+            for dataKey in dataSnapshot {
+                if dataKey.key == recipeID {
+                    completion(true)
+                    break
+                }else{
+                    completion(false)
+                }
+            }
         }
+    }
+    
+    func checkLovedRecipe(recipeID: String, completion: @escaping (_ status: Bool) -> ()){
+        let uid = Auth.auth().currentUser?.uid
+        RECIPE_REF.child(recipeID).observeSingleEvent(of: .value) { (snapshot) in
+            guard let dataSnap = snapshot.value as? [String:AnyObject] else {return}
+            if let peopleWhoLikes = dataSnap["peopleWhoLikes"] as? [String:AnyObject] {
+                for (id, person) in peopleWhoLikes {
+                    if person as? String == uid {
+                        completion(true)
+                        break
+                    }else{
+                        completion(false)
+                    }
+                }
+            }else{
+                completion(false)
+            }
+        }
+        
     }
     
     

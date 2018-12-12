@@ -40,7 +40,7 @@ class RFRecipeService: RFDataService {
                 imgStorage.downloadURL(completion: { (url, err) in
                     guard let downloadUrl = url?.absoluteString else {return}
                     
-                    var recipes:[String:Any] = ["title" : title, "description": desc, "difficulty": difficulty, "serving": serving, "time": time,"userId" : uid!, "pathToImage" : downloadUrl, "likes" : 0, "creator" : username, "recipeID" : key, "ingredients" : ingredients]
+                    var recipes:[String:Any] = ["title" : title, "description": desc, "difficulty": difficulty, "serving": serving, "time": time,"userId" : uid!, "pathToImage" : downloadUrl, "peopleWhoLikes" : [String:AnyObject](), "creator" : username, "recipeID" : key, "ingredients" : ingredients]
                     recipes["steps"] = steps
                     
                     let recipeFeed = ["\(key)" : recipes]
@@ -67,12 +67,36 @@ class RFRecipeService: RFDataService {
         
     }
     
-    func validateAddedIngredient(recipeID: String, completion: @escaping (_ completion: Bool)->()) {
-        self.checkAddedIngredientToUser(recipeID: recipeID) { (status) in
-            completion(status)
-        }
+    func removeRecipe(recipeID: String){
+       let uid = Auth.auth().currentUser?.uid
+        self.USER_SHOPPING_LIST_REF.child(uid!).child(recipeID).removeValue()
+    }
+    
+    func addRecipeToLoved(recipeID: String){
+        let keyToPost = RECIPE_REF.childByAutoId().key
+        let uid = Auth.auth().currentUser?.uid
+        let body: [String : Any] = [
+            "peopleWhoLikes/\(keyToPost!)" : uid!
+            ]
+        RECIPE_REF.child(recipeID).updateChildValues(body)
+        print("Successfully loved")
         
     }
+    
+    func removeLove(recipeID: String){
+        let uid = Auth.auth().currentUser?.uid
+        RECIPE_REF.child(recipeID).observeSingleEvent(of: .value) { (snapshot) in
+            guard let dataSnap = snapshot.value as? [String:AnyObject] else {return}
+            if let peopleWhoLikes = dataSnap["peopleWhoLikes"] as? [String:AnyObject] {
+                for (id, person) in peopleWhoLikes {
+                    if person as? String == uid {
+                        self.RECIPE_REF.child(recipeID).child("peopleWhoLikes").child(id).removeValue()
+                    }
+                }
+            }
+        }
+    }
+
     
     private func createUserDB(uid: String, data: Dictionary<String,Any>){
         //USER_REF.child(uid).updateChildValues(data)

@@ -38,8 +38,7 @@ class IngredientsCell: RFBaseTableCell {
     func bindData(_ model: AnyObject){
         if let data = model as? RFRecipe {
             self.recipe = data
-            
-            self.service.validateAddedIngredient(recipeID: (self.recipe?.id)!) { (selected) in
+            self.service.checkAddedIngredientToUser(recipeID: ((self.recipe?.id)!)) { (selected) in
                 if selected {
                     self.addToShoppingList.setTitle("Remove from My List", for: .normal)
                 }else{
@@ -78,7 +77,16 @@ extension IngredientsCell {
         
         self.addToShoppingList.rx.tap.subscribe(onNext: {
             self.addToShoppingList.animateTouch(duration: 0.2)
-            self.addRecipeToMyList()
+            self.service.checkAddedIngredientToUser(recipeID: ((self.recipe?.id)!)) { (selected) in
+                if selected {
+                    self.service.removeRecipe(recipeID: (self.recipe?.id)!)
+                    self.addToShoppingList.setTitle("Add to Shopping List", for: .normal)
+                    
+                }else{
+                    self.addRecipeToMyList()
+                    self.addToShoppingList.setTitle("Remove from My List", for: .normal)
+                }
+            }
         }).disposed(by: self.dispose)
         
     }

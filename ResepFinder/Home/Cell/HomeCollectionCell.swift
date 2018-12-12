@@ -38,6 +38,7 @@ class HomeCollectionCell: UICollectionViewCell {
     private var disposeBag = DisposeBag()
     var delegate: NavigationControllerDelegate?
     private var recipe: RFRecipe?
+    private var service = RFRecipeService()
     
     override func awakeFromNib() {
         prepareUI()
@@ -74,6 +75,10 @@ class HomeCollectionCell: UICollectionViewCell {
         self.timeLbl.text = data.time
         self.descriptionLbl.text = data.desc
         self.difficulty.text = data.difficulty
+        
+        self.service.checkLovedRecipe(recipeID: ((self.recipe?.id)!)) { (selected) in
+            self.loveBtn.selected(selected)
+        }
     }
 }
 
@@ -126,17 +131,26 @@ extension HomeCollectionCell {
             }
             followed = !followed
         }).disposed(by: self.disposeBag)
-        
-        var selected = false
-        
-        self.loveBtn.rx.tap.subscribe(onNext: {
-            self.loveBtn.selected(!selected)
-            selected = !selected
-        }).disposed(by: self.disposeBag)
  
+        self.setupLoveBtn()
+        
         // custom font
         self.nameLbl.font = RFFont.instance.subHead14
         self.difficultyLbl.font = RFFont.instance.subHead14
+    }
+    
+    fileprivate func setupLoveBtn(){
+        self.loveBtn.rx.tap.subscribe(onNext: {
+            self.service.checkLovedRecipe(recipeID: ((self.recipe?.id)!)) { (selected) in
+                if selected {
+                    self.service.removeLove(recipeID: (self.recipe?.id)!)
+                }else{
+                    self.service.addRecipeToLoved(recipeID: (self.recipe?.id)!)
+                }
+                
+            }
+            
+        }).disposed(by: self.disposeBag)
     }
     
     fileprivate func layoutViews(){
