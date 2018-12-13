@@ -105,5 +105,4 @@ class RFAuthService: RFDataService {
         RECIPE_REF.updateChildValues(recipes)
     }
     
-    
 }

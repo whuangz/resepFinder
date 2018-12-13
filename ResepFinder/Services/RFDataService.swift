@@ -31,6 +31,9 @@ class RFDataService: NSObject {
     var USER_SHOPPING_LIST_REF: DatabaseReference {
         return _BASE_DB_REF.child("usershoppinglist")
     }
+    var FOLLOW_RELATION_REF: DatabaseReference {
+        return _BASE_DB_REF.child("followRelation")
+    }
     
     func getUserName(forUid uid: String, handler: @escaping (_ userName: String)->()){
         USER_REF.observeSingleEvent(of: .value) { (userSnapshot) in
@@ -231,7 +234,53 @@ class RFDataService: NSObject {
                 completion(false)
             }
         }
-        
+    }
+    
+    func checkFollowRelation(userID: String, completion: @escaping (_ status: Bool) -> ()){
+        let uid = Auth.auth().currentUser?.uid
+        FOLLOW_RELATION_REF.child(uid!).child("followings").queryOrderedByKey().observeSingleEvent(of: .value) { (snapshot) in
+            
+            if let followings = snapshot.value as? [String:AnyObject]  {
+                for (id, val) in followings {
+                    if val as? String == userID {
+                        completion(true)
+                        break
+                    }else{
+                        completion(false)
+                    }
+                }
+            }else{
+                completion(false)
+            }
+        }
+    }
+    
+    //Following Relation
+    func addFollowing(userID: String){
+        let uid = Auth.auth().currentUser?.uid
+        if userID != uid {
+            let key = FOLLOW_RELATION_REF.childByAutoId().key
+            let followingData: [String:Any] = ["followings/\(key!)" : userID]
+            let followerData: [String:Any] = ["followers/\(key!)" : uid!]
+            FOLLOW_RELATION_REF.child(uid!).updateChildValues(followingData)
+            FOLLOW_RELATION_REF.child(userID).updateChildValues(followerData)
+        }
+    }
+    
+    func removeFollowing(userID: String){
+        let uid = Auth.auth().currentUser?.uid
+        if userID != uid {
+            FOLLOW_RELATION_REF.child(uid!).child("followings").queryOrderedByKey().observeSingleEvent(of: .value) { (snapShot) in
+                if let followings = snapShot.value as? [String:AnyObject]{
+                    for (id, val) in followings {
+                        if val as? String == userID {
+                            self.FOLLOW_RELATION_REF.child(uid!).child("followings/\(id)").removeValue()
+                            self.FOLLOW_RELATION_REF.child(userID).child("followers/\(id)").removeValue()
+                        }
+                    }
+                }
+            }
+        }
     }
     
     

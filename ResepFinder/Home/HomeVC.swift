@@ -29,6 +29,11 @@ class HomeVC: RFBaseController {
         setupGesture()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.collectionView.reloadData()
+    }
+    
     func initializeData(){
         self.viewModel = HomeVM(vc: self)
         self.viewModel?.retrieveRecipes()

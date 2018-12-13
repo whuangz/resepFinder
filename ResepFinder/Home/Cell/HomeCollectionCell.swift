@@ -9,6 +9,7 @@
 import UIKit
 import RxCocoa
 import RxSwift
+import FirebaseAuth
 
 protocol NavigationControllerDelegate {
     func navigateController(_ vc: UIViewController) -> UINavigationController
@@ -76,8 +77,25 @@ class HomeCollectionCell: UICollectionViewCell {
         self.descriptionLbl.text = data.desc
         self.difficulty.text = data.difficulty
         
-        self.service.checkLovedRecipe(recipeID: ((self.recipe?.id)!)) { (selected) in
-            self.loveBtn.selected(selected)
+        if let recipe = self.recipe {
+            self.service.checkLovedRecipe(recipeID: ((recipe.id)!)) { (selected) in
+                self.loveBtn.selected(selected)
+            }
+            if let userID = Auth.auth().currentUser?.uid{
+                if recipe.uid == userID{
+                    self.followBtn.isHidden = true
+                }else{
+                    self.followBtn.isHidden = false
+                    self.service.checkFollowRelation(userID: (recipe.uid)!) { (selected) in
+                        if selected {
+                            self.followBtn.setTitle("Unfollow", for: .normal)
+                        }else{
+                            self.followBtn.setTitle("Follow", for: .normal)
+                        }
+                    }
+                }
+            }
+           
         }
     }
 }
@@ -120,19 +138,9 @@ extension HomeCollectionCell {
         
         self.starBtn.setImage(UIImage(named: "favorited"), for: .normal)
         self.loveBtn.setContentImageFor(active: "like", inactive: "unlike")
-        
-        var followed = false
-        self.followBtn.rx.tap.subscribe(onNext: {
-            self.followBtn.animateTouch(duration: 0.2)
-            if followed == true {
-                self.followBtn.setTitle("Follow", for: .normal)
-            }else{
-                self.followBtn.setTitle("Unfollow", for: .normal)
-            }
-            followed = !followed
-        }).disposed(by: self.disposeBag)
  
         self.setupLoveBtn()
+        self.setupFollowBtn()
         
         // custom font
         self.nameLbl.font = RFFont.instance.subHead14
@@ -150,6 +158,22 @@ extension HomeCollectionCell {
                 
             }
             
+        }).disposed(by: self.disposeBag)
+    }
+    
+    fileprivate func setupFollowBtn(){
+        self.followBtn.rx.tap.subscribe(onNext: {
+            let recipeUID = (self.recipe?.uid)!
+            self.followBtn.animateTouch(duration: 0.2)
+            self.service.checkFollowRelation(userID: (recipeUID)) { (selected) in
+                if selected {
+                    self.followBtn.setTitle("Follow", for: .normal)
+                    self.service.removeFollowing(userID: (recipeUID))
+                }else{
+                    self.followBtn.setTitle("Unfollow", for: .normal)
+                    self.service.addFollowing(userID: (recipeUID))
+                }
+            }
         }).disposed(by: self.disposeBag)
     }
     
@@ -218,7 +242,7 @@ extension HomeCollectionCell {
     
     fileprivate func getPrimaryBtn() -> RFPrimaryBtn {
         let button = RFPrimaryBtn()
-        button.setTitle("Follow", for: .normal)
+        button.isHidden = true
         button.setTitleColor(RFColor.instance.black, for: .normal)
         button.backgroundColor = UIColor.init(white: 0.9, alpha: 0.8)
         button.titleLabel?.font = RFFont.instance.bodyMedium12

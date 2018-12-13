@@ -10,6 +10,7 @@ import Foundation
 
 class RFViewRecipeVM {
     var recipe: RFRecipe?
+    var service = RFRecipeService()
     
     init(data: RFRecipe) {
         self.recipe = data

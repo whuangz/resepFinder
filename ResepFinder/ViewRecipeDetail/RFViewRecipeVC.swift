@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class RFViewRecipeVC: RFBaseController {
     
@@ -50,6 +51,7 @@ class RFViewRecipeVC: RFBaseController {
     let followBtn: RFPrimaryBtn = {
         let button = RFPrimaryBtn()
         button.setTitle("Follow", for: .normal)
+        button.isHidden = true
         button.setTitleColor(RFColor.instance.black, for: .normal)
         button.backgroundColor = UIColor.init(white: 0.9, alpha: 0.8)
         button.titleLabel?.font = RFFont.instance.bodyMedium10
@@ -136,16 +138,29 @@ extension RFViewRecipeVC {
     }
     
     private func configureView(){
-        var followed = false
-        self.followBtn.rx.tap.subscribe(onNext: {
-            self.followBtn.animateTouch(duration: 0.2)
-            if followed == true {
-                self.followBtn.setTitle("Follow", for: .normal)
+        self.setupFollowBtn()
+    }
+    
+    fileprivate func setupFollowBtn(){
+        if let recipeUID = (self.viewModel?.recipe?.uid), let service = self.viewModel?.service {
+            if recipeUID == Auth.auth().currentUser?.uid{
+                self.followBtn.isHidden = true
             }else{
-                self.followBtn.setTitle("Unfollow", for: .normal)
+                self.followBtn.isHidden = false
+                self.followBtn.rx.tap.subscribe(onNext: {
+                    self.followBtn.animateTouch(duration: 0.2)
+                    service.checkFollowRelation(userID: (recipeUID)) { (selected) in
+                        if selected {
+                            self.followBtn.setTitle("Follow", for: .normal)
+                            service.removeFollowing(userID: (recipeUID))
+                        }else{
+                            self.followBtn.setTitle("Unfollow", for: .normal)
+                            service.addFollowing(userID: (recipeUID))
+                        }
+                    }
+                }).disposed(by: self.disposeBag)
             }
-            followed = !followed
-        }).disposed(by: self.disposeBag)
+        }
     }
     
     private func addGesture() {
