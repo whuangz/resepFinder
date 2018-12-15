@@ -16,5 +16,9 @@ class RFScreenHelper {
     static func screenWidth() -> CGFloat {
         return UIScreen.main.bounds.size.width;
     }
+    
+    static func isLessThanIPhone6() -> Bool {
+        return UIScreen.main.bounds.size.height < 667;
+    }
 
 }

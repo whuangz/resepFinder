@@ -18,6 +18,10 @@ class HomeVM: NSObject {
     
     init(vc: HomeInput) {
         self.viewController = vc
+        
+        self.service.getReviews(recipeID: "-LTlpUUsa04x6cO7GL4w") { (reviews) in
+            print(reviews)
+        }
     }
     
     func retrieveRecipesWith(defaultLocationID: String) {

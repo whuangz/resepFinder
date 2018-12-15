@@ -30,6 +30,7 @@ target 'ResepFinder' do
   pod 'RxSwift',    '~> 4.0'
   pod 'RxCocoa',    '~> 4.0'
   pod "RxGesture"
+  pod 'HCSStarRatingView', '~> 1.5'
   #networkAndParsingPods
 end
 

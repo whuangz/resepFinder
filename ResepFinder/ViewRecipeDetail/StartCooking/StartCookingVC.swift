@@ -142,6 +142,7 @@ extension StartCookingVC: UICollectionViewDelegate, UICollectionViewDataSource, 
     private func createReviewCell(indexPath: IndexPath) -> UICollectionViewCell{
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "createReviewsCell", for: indexPath) as! CreateReviewsCell
         cell.bindData(data: (self.viewModel?.recipeImg)!)
+        cell.delegate = self
         return cell
     }
     
@@ -154,3 +155,10 @@ extension StartCookingVC: UICollectionViewDelegate, UICollectionViewDataSource, 
     
 }
 
+extension StartCookingVC: ReviewRecipeProtocol{
+    func didSendReview(_ data: RFReview) {
+        self.viewModel?.submitReview(data)
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+}

@@ -37,6 +37,9 @@ class RFDataService: NSObject {
     var LOCATION_REF: DatabaseReference {
         return _BASE_DB_REF.child("Location")
     }
+    var REVIEW_REF: DatabaseReference {
+        return _BASE_DB_REF.child("ReviewTable")
+    }
     
     func getListOfLocations(handler: @escaping (_ location: [RFLocation])->()){
         LOCATION_REF.observeSingleEvent(of: .value) { (dataSnapShot) in
@@ -339,6 +342,33 @@ class RFDataService: NSObject {
                     }
                 }
             }
+        }
+    }
+    
+    func reviewRecipe(data: RFReview, recipeID: String){
+        let uid = Auth.auth().currentUser?.uid
+        let key = REVIEW_REF.childByAutoId().key
+        let data: [String:Any] = [
+            "id" : key!,
+            "reviewer" : uid,
+            "rating" : data.rating!,
+            "comment" : data.comment!
+        ]
+        REVIEW_REF.child(recipeID).child(uid!).updateChildValues(data)
+    }
+    
+    func getReviews(recipeID: String, completion: @escaping (_ data: [RFReview])->()){
+        self.REVIEW_REF.child(recipeID).observeSingleEvent(of: .value) { (dataSnap) in
+            var reviews = [RFReview]()
+            guard let dataSnapshot = dataSnap.children.allObjects as? [DataSnapshot] else {return}
+            for data in dataSnapshot {
+                let comment = data.childSnapshot(forPath: "comment").value as! String
+                let rating = data.childSnapshot(forPath: "rating").value as! NSNumber
+                let reviewer = data.childSnapshot(forPath: "reviewer").value as! String
+                let review = RFReview(comment: comment, rating: rating, reviewer: reviewer)
+                reviews.append(review)
+            }
+            completion(reviews)
         }
     }
     

@@ -68,6 +68,7 @@ PODS:
   - GoogleUtilities/UserDefaults (5.3.3):
     - GoogleUtilities/Logger
   - GTMSessionFetcher/Core (1.2.0)
+  - HCSStarRatingView (1.5)
   - IQKeyboardManagerSwift (6.2.0)
   - JVFloatLabeledTextField (1.2.1)
   - leveldb-library (1.20)
@@ -90,6 +91,7 @@ DEPENDENCIES:
   - Firebase/Auth
   - Firebase/Database
   - Firebase/Storage
+  - HCSStarRatingView (~> 1.5)
   - IQKeyboardManagerSwift
   - JVFloatLabeledTextField
   - RxCocoa (~> 4.0)
@@ -111,6 +113,7 @@ SPEC REPOS:
     - GoogleAppMeasurement
     - GoogleUtilities
     - GTMSessionFetcher
+    - HCSStarRatingView
     - IQKeyboardManagerSwift
     - JVFloatLabeledTextField
     - leveldb-library
@@ -133,6 +136,7 @@ SPEC CHECKSUMS:
   GoogleAppMeasurement: 2b3a023a61239c8d002e6e4fcf4abce8eddce0e0
   GoogleUtilities: 8208aee3e97a1ae93d44c57e96c476a5a3b03f0a
   GTMSessionFetcher: 0c4baf0a73acd0041bf9f71ea018deedab5ea84e
+  HCSStarRatingView: 1d18f79654735514cd6f00e6d90e38cb6320dc31
   IQKeyboardManagerSwift: b07ccf9d8cafe993dcd6cb794eb4ba34611a0c4e
   JVFloatLabeledTextField: cfc44e3c4d493b2ed92ede8035e8e89c2912ba64
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
@@ -143,6 +147,6 @@ SPEC CHECKSUMS:
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   TPKeyboardAvoiding: ff1ee4e5a5a0c119b965552af8f183868ea20207
 
-PODFILE CHECKSUM: 76312ca0b1a1a340590f164a7fb01fdd9f7a8b4d
+PODFILE CHECKSUM: bca1547ff5ad3c5ae9f92a2f92f535e83a41de52
 
 COCOAPODS: 1.5.3

@@ -53,6 +53,8 @@
 		2650F9C421A94E20000638DE /* RFTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2650F9C321A94E20000638DE /* RFTextField.swift */; };
 		2650F9CA21A96BED000638DE /* RFAdvancedSearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2650F9C921A96BED000638DE /* RFAdvancedSearchVC.swift */; };
 		2650F9CD21A9C906000638DE /* CreateVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2650F9CC21A9C906000638DE /* CreateVC.swift */; };
+		2659069721C5628000564259 /* CreateRecipeVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2659069621C5628000564259 /* CreateRecipeVM.swift */; };
+		2659069921C56E6B00564259 /* RFReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2659069821C56E6B00564259 /* RFReview.swift */; };
 		265C167221BD02A600770779 /* ListOfIngredientsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 265C167121BD02A600770779 /* ListOfIngredientsVC.swift */; };
 		265C167421BD0B8100770779 /* ListOfIngredientsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 265C167321BD0B8100770779 /* ListOfIngredientsVM.swift */; };
 		265EDDD821C36F03001F455C /* RFLocationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 265EDDD721C36F03001F455C /* RFLocationVC.swift */; };
@@ -178,6 +180,8 @@
 		2650F9CC21A9C906000638DE /* CreateVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateVC.swift; sourceTree = "<group>"; };
 		2654966B2188A4B300AFC830 /* RFProfileMenu.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RFProfileMenu.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2654966D2188A61100AFC830 /* RFProfileMenu.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RFProfileMenu.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2659069621C5628000564259 /* CreateRecipeVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecipeVM.swift; sourceTree = "<group>"; };
+		2659069821C56E6B00564259 /* RFReview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RFReview.swift; sourceTree = "<group>"; };
 		265C167121BD02A600770779 /* ListOfIngredientsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfIngredientsVC.swift; sourceTree = "<group>"; };
 		265C167321BD0B8100770779 /* ListOfIngredientsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfIngredientsVM.swift; sourceTree = "<group>"; };
 		265EDDD721C36F03001F455C /* RFLocationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RFLocationVC.swift; sourceTree = "<group>"; };
@@ -663,6 +667,7 @@
 				26144B6321B42828001BCEA5 /* RFIngredient.swift */,
 				260F320721BBE48100A85A43 /* RFConversation.swift */,
 				26B0125D21C38EB4008250ED /* RFLocation.swift */,
+				2659069821C56E6B00564259 /* RFReview.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -716,6 +721,7 @@
 			isa = PBXGroup;
 			children = (
 				26E7009021ABE690001A8F7C /* CreateReviewsCell.swift */,
+				2659069621C5628000564259 /* CreateRecipeVM.swift */,
 			);
 			name = CreateReviewCell;
 			sourceTree = "<group>";
@@ -939,6 +945,7 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-ResepFinder/Pods-ResepFinder-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/HCSStarRatingView/HCSStarRatingView.framework",
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/JVFloatLabeledTextField/JVFloatLabeledTextField.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
@@ -953,6 +960,7 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HCSStarRatingView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JVFloatLabeledTextField.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
@@ -1055,6 +1063,7 @@
 				265EDDDF21C37895001F455C /* UIViewController+Ext.swift in Sources */,
 				26C6964321A26C500020862D /* SearchBar.swift in Sources */,
 				26FDAEE721ACFF7C00758D33 /* AddStepsCell.swift in Sources */,
+				2659069921C56E6B00564259 /* RFReview.swift in Sources */,
 				26B0125E21C38EB4008250ED /* RFLocation.swift in Sources */,
 				26C3A35721B11E9B007601D2 /* ProfileVM.swift in Sources */,
 				26F72E4B21952E60008129A0 /* RFBaseController.swift in Sources */,
@@ -1087,6 +1096,7 @@
 				264D2FF7219325D900F66595 /* RFDataService.swift in Sources */,
 				26F3ABDB21B3FB9000E33834 /* AddIngredientVM.swift in Sources */,
 				26B0126021C39964008250ED /* RFLocationVM.swift in Sources */,
+				2659069721C5628000564259 /* CreateRecipeVM.swift in Sources */,
 				263399232188B51A0035F4BE /* RFLocalizedString.swift in Sources */,
 				26F3ABD521B3E7DE00E33834 /* RFRecipeService.swift in Sources */,
 				260F320621BBAE5500A85A43 /* SearchUserVM.swift in Sources */,

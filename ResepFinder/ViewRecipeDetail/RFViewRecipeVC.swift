@@ -118,7 +118,7 @@ class RFViewRecipeVC: RFBaseController {
     
     @objc func navigateToStartCooking(){
         if let recipe = self.getRecipe() as? RFRecipe {
-            let startVM = StartCookingVM(data: recipe.steps!, recipeImg: recipe.recipePathToImg!)
+            let startVM = StartCookingVM(data: recipe.steps!, recipeImg: recipe.recipePathToImg!, recipeID: recipe.id!)
             let startVC = StartCookingVC(vm: startVM)
             self.present(startVC, animated: true, completion: nil)
         }
