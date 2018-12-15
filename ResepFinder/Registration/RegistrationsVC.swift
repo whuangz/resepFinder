@@ -79,6 +79,7 @@ extension RegistrationsVC {
         self.emailTxt.rx.text.orEmpty.bind(to: viewModel.email).disposed(by: disposeBag)
         self.pwdTxt.rx.text.orEmpty.bind(to: viewModel.pwd).disposed(by: disposeBag)
         self.conPwdTxt.rx.text.orEmpty.bind(to: viewModel.conPwd).disposed(by: disposeBag)
+        self.regionTxt.rx.text.orEmpty.bind(to: viewModel.region).disposed(by: disposeBag)
         
         let validation = viewModel.validateRegister()
         validation.bind(onNext: { (valid) in
@@ -121,7 +122,10 @@ extension RegistrationsVC {
     }
     
     @objc func navigateToRegionList(){
-        print("LIST")
+        let locationVM = RFLocationVM()
+        let locationVC = RFLocationVC(vm: locationVM, delegate: self)
+        //self.presentDetail(locationVC)
+        self.present(locationVC, animated: true, completion: nil)
     }
     
     @objc func navigateToLogin(){
@@ -173,9 +177,17 @@ extension RegistrationsVC {
     }
     
     func setupButton(){
-        self.closeBtn.setImage(UIImage(named: "back"), for: .normal)
+        self.closeBtn.setImage(UIImage(named: "close"), for: .normal)
         self.closeBtn.contentEdgeInsets = UIEdgeInsets(top: 0, left: 16, bottom:0, right: 16)
         self.registerBtn.makeDisabled()
     }
 
+}
+
+extension RegistrationsVC: SelectLocationDelegate {
+    func didChooseLocation(location: RFLocation) {
+        self.reloadInputViews()
+        self.regionTxt.text = location.name
+    }
+    
 }

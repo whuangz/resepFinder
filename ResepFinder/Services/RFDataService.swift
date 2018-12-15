@@ -34,6 +34,21 @@ class RFDataService: NSObject {
     var FOLLOW_RELATION_REF: DatabaseReference {
         return _BASE_DB_REF.child("followRelation")
     }
+    var LOCATION_REF: DatabaseReference {
+        return _BASE_DB_REF.child("Location")
+    }
+    
+    func getListOfLocations(handler: @escaping (_ location: [RFLocation])->()){
+        LOCATION_REF.observeSingleEvent(of: .value) { (dataSnapShot) in
+            var arrOfLocations = [RFLocation]()
+            guard let dataSnap = dataSnapShot.children.allObjects as? [DataSnapshot] else {return}
+            for location in dataSnap{
+                let l = RFLocation(id: location.key, name: location.value as! String)
+                arrOfLocations.append(l)
+            }
+            handler(arrOfLocations)
+        }
+    }
     
     func getUserName(forUid uid: String, handler: @escaping (_ userName: String)->()){
         USER_REF.observeSingleEvent(of: .value) { (userSnapshot) in
@@ -252,6 +267,31 @@ class RFDataService: NSObject {
             }else{
                 completion(false)
             }
+        }
+    }
+    
+    func getNumberOfFollowings(completion: @escaping (_ data: [Int:[String]]) -> ()) {
+        let uid = Auth.auth().currentUser?.uid
+        FOLLOW_RELATION_REF.child(uid!).observeSingleEvent(of: .value) { (snapshot) in
+            guard let dataSnap = snapshot.value as? [String:Any] else {return}
+            var followings = [String]()
+            var followers = [String]()
+            
+            
+            if let followingsData = dataSnap["followings"] as? [String:AnyObject]  {
+                for (_,v) in followingsData {
+                    followings.append((v as? String)!)
+                }
+            }
+            
+            if let followersData = dataSnap["followers"] as? [String:AnyObject] {
+                for (_,v) in followersData {
+                    followers.append((v as? String)!)
+                }
+            }
+            
+            let followTable = [ 0: followings, 1: followers ]
+            completion(followTable)
         }
     }
     

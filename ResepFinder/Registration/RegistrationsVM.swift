@@ -20,7 +20,7 @@ class RegistrationsVM: NSObject{
     let email = Variable<String>("")
     let pwd = Variable<String>("")
     let conPwd = Variable<String>("")
-    
+    let region = Variable<String>("")
     let isSuccess = Variable(false)
     let errMsg = Variable("")
     
@@ -40,7 +40,7 @@ class RegistrationsVM: NSObject{
     }
     
     func doRegister(){
-        self.service.registerWithParameters(username: username.value ,email: email.value, pwd: pwd.value, location: "Sumatera").bind { (tuple) in
+        self.service.registerWithParameters(username: username.value ,email: email.value, pwd: pwd.value, location: region.value).bind { (tuple) in
             if (tuple.1 != nil){
                 self.errMsg.value = tuple.1.debugDescription
             }else{

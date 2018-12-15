@@ -13,7 +13,7 @@
 "email_placeholder" = "Email";
 "pwd_placeholder" = "Password";
 "con_pwd_placeholder" = "Confirm Password";
-"region_placeholder" = "Sumatera";
+"region_placeholder" = "Provinces";
 "sign_up_label" = "Sign Up";
 "login_link_label" = "Login";
 "social_media_label" = "- Social Login -";

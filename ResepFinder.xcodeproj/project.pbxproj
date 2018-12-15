@@ -55,6 +55,10 @@
 		2650F9CD21A9C906000638DE /* CreateVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2650F9CC21A9C906000638DE /* CreateVC.swift */; };
 		265C167221BD02A600770779 /* ListOfIngredientsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 265C167121BD02A600770779 /* ListOfIngredientsVC.swift */; };
 		265C167421BD0B8100770779 /* ListOfIngredientsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 265C167321BD0B8100770779 /* ListOfIngredientsVM.swift */; };
+		265EDDD821C36F03001F455C /* RFLocationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 265EDDD721C36F03001F455C /* RFLocationVC.swift */; };
+		265EDDDC21C36FF1001F455C /* RFLocationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 265EDDDA21C36FF1001F455C /* RFLocationCell.swift */; };
+		265EDDDD21C36FF1001F455C /* RFLocationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 265EDDDB21C36FF1001F455C /* RFLocationCell.xib */; };
+		265EDDDF21C37895001F455C /* UIViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 265EDDDE21C37895001F455C /* UIViewController+Ext.swift */; };
 		266C973421A4415100110728 /* MessageHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 266C973321A4415100110728 /* MessageHeaderView.swift */; };
 		266C973621A4416B00110728 /* MessageHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 266C973521A4416B00110728 /* MessageHeaderView.xib */; };
 		2674F822219D051F0002D64C /* DialogView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2674F821219D051F0002D64C /* DialogView.xib */; };
@@ -70,6 +74,8 @@
 		26A8A391219C6D4700C235FB /* SettingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A8A390219C6D4700C235FB /* SettingVC.swift */; };
 		26ABDBBE21A0581C00F05409 /* RFBaseCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26ABDBBD21A0581C00F05409 /* RFBaseCollectionCell.swift */; };
 		26ABDBC121A0862900F05409 /* ConversationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26ABDBC021A0862900F05409 /* ConversationVC.swift */; };
+		26B0125E21C38EB4008250ED /* RFLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26B0125D21C38EB4008250ED /* RFLocation.swift */; };
+		26B0126021C39964008250ED /* RFLocationVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26B0125F21C39964008250ED /* RFLocationVM.swift */; };
 		26B1814D21BC2AF400B7836A /* MessageVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26B1814C21BC2AF400B7836A /* MessageVM.swift */; };
 		26B2BAB921874B76004B148F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26B2BAB821874B76004B148F /* AppDelegate.swift */; };
 		26B2BABB21874B76004B148F /* RFTabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26B2BABA21874B76004B148F /* RFTabBarVC.swift */; };
@@ -172,6 +178,10 @@
 		2654966D2188A61100AFC830 /* RFProfileMenu.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RFProfileMenu.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		265C167121BD02A600770779 /* ListOfIngredientsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfIngredientsVC.swift; sourceTree = "<group>"; };
 		265C167321BD0B8100770779 /* ListOfIngredientsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfIngredientsVM.swift; sourceTree = "<group>"; };
+		265EDDD721C36F03001F455C /* RFLocationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RFLocationVC.swift; sourceTree = "<group>"; };
+		265EDDDA21C36FF1001F455C /* RFLocationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RFLocationCell.swift; sourceTree = "<group>"; };
+		265EDDDB21C36FF1001F455C /* RFLocationCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RFLocationCell.xib; sourceTree = "<group>"; };
+		265EDDDE21C37895001F455C /* UIViewController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Ext.swift"; sourceTree = "<group>"; };
 		266C973321A4415100110728 /* MessageHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageHeaderView.swift; sourceTree = "<group>"; };
 		266C973521A4416B00110728 /* MessageHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MessageHeaderView.xib; sourceTree = "<group>"; };
 		2674F821219D051F0002D64C /* DialogView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DialogView.xib; sourceTree = "<group>"; };
@@ -187,6 +197,8 @@
 		26A8A390219C6D4700C235FB /* SettingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingVC.swift; sourceTree = "<group>"; };
 		26ABDBBD21A0581C00F05409 /* RFBaseCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RFBaseCollectionCell.swift; sourceTree = "<group>"; };
 		26ABDBC021A0862900F05409 /* ConversationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationVC.swift; sourceTree = "<group>"; };
+		26B0125D21C38EB4008250ED /* RFLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RFLocation.swift; path = ResepFinder/Helpers/RFLocation.swift; sourceTree = SOURCE_ROOT; };
+		26B0125F21C39964008250ED /* RFLocationVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RFLocationVM.swift; sourceTree = "<group>"; };
 		26B1814C21BC2AF400B7836A /* MessageVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageVM.swift; sourceTree = "<group>"; };
 		26B2BAB521874B76004B148F /* ResepFinder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ResepFinder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		26B2BAB821874B76004B148F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -372,6 +384,7 @@
 				26253C5121AC496E00FC6598 /* UITextField+Ext.swift */,
 				26E9F2F021B6CA46006D1FB9 /* UIImage+Ext.swift */,
 				267E202921B95C1000A474CC /* UIImagePickerController+RxSwift.swift */,
+				265EDDDE21C37895001F455C /* UIViewController+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -464,6 +477,25 @@
 				3C63EC2A21BECB6900661D9D /* DetailIngredientsVM.swift */,
 			);
 			path = ListOfIngredients;
+			sourceTree = "<group>";
+		};
+		265EDDD621C36ED0001F455C /* Location */ = {
+			isa = PBXGroup;
+			children = (
+				265EDDD921C36FD5001F455C /* Cell */,
+				265EDDD721C36F03001F455C /* RFLocationVC.swift */,
+				26B0125F21C39964008250ED /* RFLocationVM.swift */,
+			);
+			path = Location;
+			sourceTree = "<group>";
+		};
+		265EDDD921C36FD5001F455C /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				265EDDDA21C36FF1001F455C /* RFLocationCell.swift */,
+				265EDDDB21C36FF1001F455C /* RFLocationCell.xib */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		2681C2A521A668A500AE98F0 /* Cell */ = {
@@ -590,6 +622,7 @@
 				2600F721219726A90046239C /* Profile */,
 				26DBF3F82191FE6500CD77FF /* Login */,
 				263399182188AC640035F4BE /* Registration */,
+				265EDDD621C36ED0001F455C /* Location */,
 				26B2BAB821874B76004B148F /* AppDelegate.swift */,
 				26B2BABC21874B76004B148F /* Main.storyboard */,
 				263399242188B5F10035F4BE /* LocalizedStrings */,
@@ -623,6 +656,7 @@
 				26C73A0221B3B5A8000B7FAE /* RFRecipe.swift */,
 				26144B6321B42828001BCEA5 /* RFIngredient.swift */,
 				260F320721BBE48100A85A43 /* RFConversation.swift */,
+				26B0125D21C38EB4008250ED /* RFLocation.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -872,6 +906,7 @@
 				26B2BAC021874B76004B148F /* Assets.xcassets in Resources */,
 				26B2BABE21874B76004B148F /* Main.storyboard in Resources */,
 				2674F822219D051F0002D64C /* DialogView.xib in Resources */,
+				265EDDDD21C36FF1001F455C /* RFLocationCell.xib in Resources */,
 				2681C2B421A68BED00AE98F0 /* HomeCollectionCell.xib in Resources */,
 				263399262188B60B0035F4BE /* eng.strings in Resources */,
 				26DBF3FC2192077800CD77FF /* LoginVC.xib in Resources */,
@@ -968,6 +1003,7 @@
 				26D5EDBD219D7D16004AFB39 /* RFDialogView.swift in Sources */,
 				264D2FFD21935BB600F66595 /* LoginVM.swift in Sources */,
 				26F3224C21A4188900EDEC7F /* MessageVC.swift in Sources */,
+				265EDDDC21C36FF1001F455C /* RFLocationCell.swift in Sources */,
 				264D2FFF21935CD400F66595 /* RFValidations.swift in Sources */,
 				2620805221A00B79008DFCD6 /* RFRecipeCell.swift in Sources */,
 				26FD0BFB21B4D7DF00D9C540 /* AddStepVM.swift in Sources */,
@@ -1000,12 +1036,15 @@
 				26B2BABB21874B76004B148F /* RFTabBarVC.swift in Sources */,
 				264D2FF32193258400F66595 /* RFAuthService.swift in Sources */,
 				26FDAEE421ACFF5B00758D33 /* CreateStepsCell.swift in Sources */,
+				265EDDDF21C37895001F455C /* UIViewController+Ext.swift in Sources */,
 				26C6964321A26C500020862D /* SearchBar.swift in Sources */,
 				26FDAEE721ACFF7C00758D33 /* AddStepsCell.swift in Sources */,
+				26B0125E21C38EB4008250ED /* RFLocation.swift in Sources */,
 				26C3A35721B11E9B007601D2 /* ProfileVM.swift in Sources */,
 				26F72E4B21952E60008129A0 /* RFBaseController.swift in Sources */,
 				26DBF3FE219209A200CD77FF /* LoginVC.swift in Sources */,
 				260F320A21BC0B9E00A85A43 /* ConversationVM.swift in Sources */,
+				265EDDD821C36F03001F455C /* RFLocationVC.swift in Sources */,
 				26D5EDC0219DA42C004AFB39 /* RFTypeAlias.swift in Sources */,
 				26144B6221B42556001BCEA5 /* RecipeDetailVM.swift in Sources */,
 				26253C5021AC440400FC6598 /* AddIngredientCell.swift in Sources */,
@@ -1031,6 +1070,7 @@
 				26E7008E21ABCDFB001A8F7C /* StepsCell.swift in Sources */,
 				264D2FF7219325D900F66595 /* RFDataService.swift in Sources */,
 				26F3ABDB21B3FB9000E33834 /* AddIngredientVM.swift in Sources */,
+				26B0126021C39964008250ED /* RFLocationVM.swift in Sources */,
 				263399232188B51A0035F4BE /* RFLocalizedString.swift in Sources */,
 				26F3ABD521B3E7DE00E33834 /* RFRecipeService.swift in Sources */,
 				260F320621BBAE5500A85A43 /* SearchUserVM.swift in Sources */,

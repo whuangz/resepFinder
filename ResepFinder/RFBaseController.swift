@@ -92,4 +92,8 @@ extension RFBaseController {
         self.dismiss(animated: true, completion: nil)
     }
     
+    @objc func dismissSwipeView(){
+        self.dismissDetail()
+    }
+    
 }
