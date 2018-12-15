@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import FirebaseAuth
 
 class CreateVM: NSObject {
     private let service = RFRecipeService()
@@ -42,8 +43,10 @@ class CreateVM: NSObject {
         let time = stepData.timeTxt.value
         let steps = stepData.getSteps()
         
-        
-        self.service.createRecipeWith(title: title, desc: desc, difficulty: difficulty, serving: serving, time: time, ingredients: ingredients, steps: steps, recipeImg: recipeImg)
+        let uid = Auth.auth().currentUser?.uid
+        self.service.getUser(forUid: uid!) { (user) in
+            self.service.createRecipeWith(title: title, desc: desc, difficulty: difficulty, serving: serving, time: time, ingredients: ingredients, steps: steps, recipeImg: recipeImg, userData: user)
+        }
         
         return true
         

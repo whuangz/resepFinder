@@ -18,7 +18,8 @@ protocol NavigationControllerDelegate {
 class HomeCollectionCell: UICollectionViewCell {
     
     @IBOutlet weak var topView: UIView!
-    private var profileView: RFImageView!
+    private var profileView: UIView!
+    fileprivate var userProfileInitialName: UILabel!
     private var nameLbl: UILabel!
     private var followBtn: RFPrimaryBtn!
     
@@ -40,6 +41,7 @@ class HomeCollectionCell: UICollectionViewCell {
     var delegate: NavigationControllerDelegate?
     private var recipe: RFRecipe?
     private var service = RFRecipeService()
+    private var location: String?
     
     override func awakeFromNib() {
         prepareUI()
@@ -66,10 +68,11 @@ class HomeCollectionCell: UICollectionViewCell {
         navigationController.pushViewController(vc, animated: true)
     }
 
-    func bindData(data: RFRecipe){
+    func bindData(data: RFRecipe, location: String){
         self.recipe = data
         
         self.nameLbl.text = data.creator
+        self.userProfileInitialName.text = "\(RFFunction.getInitialname(name: data.creator!))"
         guard let img = data.recipePathToImg else {return}
 
         self.imageView.loadImage(urlString: img)
@@ -77,8 +80,10 @@ class HomeCollectionCell: UICollectionViewCell {
         self.descriptionLbl.text = data.desc
         self.difficulty.text = data.difficulty
         
+        self.location = location
+        
         if let recipe = self.recipe {
-            self.service.checkLovedRecipe(recipeID: ((recipe.id)!)) { (selected) in
+            self.service.checkLovedRecipe(recipeID: ((recipe.id)!), location: self.location ?? "") { (selected) in
                 self.loveBtn.selected(selected)
             }
             if let userID = Auth.auth().currentUser?.uid{
@@ -106,6 +111,7 @@ extension HomeCollectionCell {
     
     fileprivate func prepareUI(){
         self.profileView = getUserProfileImageView()
+        self.userProfileInitialName = getUserProfileText()
         self.nameLbl = getLbl()
         self.followBtn = getPrimaryBtn()
         
@@ -149,11 +155,11 @@ extension HomeCollectionCell {
     
     fileprivate func setupLoveBtn(){
         self.loveBtn.rx.tap.subscribe(onNext: {
-            self.service.checkLovedRecipe(recipeID: ((self.recipe?.id)!)) { (selected) in
+            self.service.checkLovedRecipe(recipeID: ((self.recipe?.id)!), location: self.location ?? "") { (selected) in
                 if selected {
-                    self.service.removeLove(recipeID: (self.recipe?.id)!)
+                    self.service.removeLove(recipeID: (self.recipe?.id)!, location: self.location ?? "")
                 }else{
-                    self.service.addRecipeToLoved(recipeID: (self.recipe?.id)!)
+                    self.service.addRecipeToLoved(recipeID: (self.recipe?.id)!, location: self.location ?? "")
                 }
                 
             }
@@ -179,6 +185,7 @@ extension HomeCollectionCell {
     
     fileprivate func layoutViews(){
         self.topView.addSubview(profileView)
+        self.profileView.addSubview(userProfileInitialName)
         self.topView.addSubview(nameLbl)
         self.topView.addSubview(followBtn)
         
@@ -197,6 +204,7 @@ extension HomeCollectionCell {
         
         //top view constraint
         _ = profileView.anchor(top: self.topView.topAnchor, left: self.topView.leftAnchor, bottom: self.topView.bottomAnchor, topConstant: 8, leftConstant: 16, bottomConstant: 8, widthConstant: 30, heightConstant: 30)
+        _ = userProfileInitialName.centerConstraintWith(centerX: profileView.centerXAnchor, centerY: profileView.centerYAnchor)
         _ = nameLbl.centerConstraintWith(centerY: self.profileView.centerYAnchor)
         _ = nameLbl.anchor(left: self.profileView.rightAnchor, leftConstant: 8)
         _ = followBtn.centerConstraintWith(centerY: self.nameLbl.centerYAnchor)
@@ -224,14 +232,21 @@ extension HomeCollectionCell {
         
     }
     
-    fileprivate func getUserProfileImageView() -> RFImageView {
-        let imageView = RFImageView()
-        imageView.backgroundColor = .red
-        imageView.layer.cornerRadius = 5
-        imageView.layer.masksToBounds = true
-        imageView.clipsToBounds = true
-        imageView.contentMode = .scaleAspectFill
+    fileprivate func getUserProfileImageView() -> UIView {
+        let imageView = UIView()
+        imageView.backgroundColor = UIColor(red: 224/255, green: 224/255, blue: 224/255, alpha: 1)
+        imageView.layer.cornerRadius = 10
+        //        imageView.layer.masksToBounds = true
+        //        imageView.clipsToBounds = true
+        //        imageView.contentMode = .scaleAspectFill
         return imageView
+    }
+    
+    fileprivate func getUserProfileText() -> UILabel {
+        let label = UILabel()
+        label.text = "D"
+        label.font = RFFont.instance.headBold12
+        return label
     }
     
     fileprivate func getImageView() -> RFImageView {

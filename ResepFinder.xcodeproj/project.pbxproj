@@ -120,6 +120,8 @@
 		26FD0BFD21B4D7E900D9C540 /* CreateStepsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26FD0BFC21B4D7E900D9C540 /* CreateStepsVM.swift */; };
 		26FDAEE421ACFF5B00758D33 /* CreateStepsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26FDAEE321ACFF5B00758D33 /* CreateStepsCell.swift */; };
 		26FDAEE721ACFF7C00758D33 /* AddStepsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26FDAEE621ACFF7C00758D33 /* AddStepsCell.swift */; };
+		3C192D2921C52F7F00F5ACB1 /* RFFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C192D2821C52F7F00F5ACB1 /* RFFunction.swift */; };
+		3C192D2C21C5368100F5ACB1 /* RFReviewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C192D2B21C5368100F5ACB1 /* RFReviewVC.swift */; };
 		3C63EC2921BECA7A00661D9D /* DetailIngredientsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C63EC2821BECA7A00661D9D /* DetailIngredientsVC.swift */; };
 		3C63EC2B21BECB6900661D9D /* DetailIngredientsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C63EC2A21BECB6900661D9D /* DetailIngredientsVM.swift */; };
 		F9561E5DE3860D00424A1AD9 /* Pods_ResepFinder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DE5EC465E1A8CB3A3F6CDB0 /* Pods_ResepFinder.framework */; };
@@ -246,6 +248,8 @@
 		26FDAEE321ACFF5B00758D33 /* CreateStepsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateStepsCell.swift; sourceTree = "<group>"; };
 		26FDAEE621ACFF7C00758D33 /* AddStepsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddStepsCell.swift; sourceTree = "<group>"; };
 		29937144E2B89E09C074755A /* Pods-ResepFinder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ResepFinder.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ResepFinder/Pods-ResepFinder.debug.xcconfig"; sourceTree = "<group>"; };
+		3C192D2821C52F7F00F5ACB1 /* RFFunction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RFFunction.swift; sourceTree = "<group>"; };
+		3C192D2B21C5368100F5ACB1 /* RFReviewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RFReviewVC.swift; sourceTree = "<group>"; };
 		3C63EC2821BECA7A00661D9D /* DetailIngredientsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailIngredientsVC.swift; sourceTree = "<group>"; };
 		3C63EC2A21BECB6900661D9D /* DetailIngredientsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailIngredientsVM.swift; sourceTree = "<group>"; };
 		5DE5EC465E1A8CB3A3F6CDB0 /* Pods_ResepFinder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ResepFinder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -363,6 +367,7 @@
 				264D2FFE21935CD400F66595 /* RFValidations.swift */,
 				268AFC83219962DC00197028 /* RFEnum.swift */,
 				2681C2B521A6C5FB00AE98F0 /* RFScreenHelper.swift */,
+				3C192D2821C52F7F00F5ACB1 /* RFFunction.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -623,6 +628,7 @@
 				26DBF3F82191FE6500CD77FF /* Login */,
 				263399182188AC640035F4BE /* Registration */,
 				265EDDD621C36ED0001F455C /* Location */,
+				3C192D2A21C5365F00F5ACB1 /* Review */,
 				26B2BAB821874B76004B148F /* AppDelegate.swift */,
 				26B2BABC21874B76004B148F /* Main.storyboard */,
 				263399242188B5F10035F4BE /* LocalizedStrings */,
@@ -822,6 +828,14 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		3C192D2A21C5365F00F5ACB1 /* Review */ = {
+			isa = PBXGroup;
+			children = (
+				3C192D2B21C5368100F5ACB1 /* RFReviewVC.swift */,
+			);
+			path = Review;
+			sourceTree = "<group>";
+		};
 		A83840CDDEA6052743F9236E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -1000,6 +1014,8 @@
 				260F320421BB9E4500A85A43 /* RFConversationService.swift in Sources */,
 				26380A2C2197CB8700DFBB82 /* UIView+Ext.swift in Sources */,
 				26D5EDBB219D7CFB004AFB39 /* DialogView.swift in Sources */,
+				3C192D2C21C5368100F5ACB1 /* RFReviewVC.swift in Sources */,
+				3C192D2921C52F7F00F5ACB1 /* RFFunction.swift in Sources */,
 				26D5EDBD219D7D16004AFB39 /* RFDialogView.swift in Sources */,
 				264D2FFD21935BB600F66595 /* LoginVM.swift in Sources */,
 				26F3224C21A4188900EDEC7F /* MessageVC.swift in Sources */,

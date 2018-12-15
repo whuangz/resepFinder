@@ -8,7 +8,29 @@
 
 import Foundation
 
-extension UIViewController {
+extension UIViewController{
+    
+    
+    func pushViewController(_ viewController: UIViewController){
+        let transition:CATransition = CATransition()
+        transition.duration = 0.5
+        transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        transition.type = kCATransitionPush
+        transition.subtype = kCATransitionFromBottom
+        self.navigationController?.view.layer.add(transition, forKey: kCATransition)
+        self.navigationController?.pushViewController(viewController, animated: false)
+    }
+    
+    
+    func popViewController(){
+        let transition:CATransition = CATransition()
+        transition.duration = 0.5
+        transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        transition.type = kCATransitionPush
+        transition.subtype = kCATransitionFromTop
+        self.navigationController?.view.layer.add(transition, forKey: kCATransition)
+        self.navigationController?.popViewController(animated: false)
+    }
     
     func presentDetail(_ viewControllerToPresent: UIViewController) {
         let transition = CATransition()

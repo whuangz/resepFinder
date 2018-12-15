@@ -61,26 +61,39 @@ class RFDataService: NSObject {
         }
     }
     
+    func getLocationBy(_ locationID: String, handler: @escaping (_ location: RFLocation)->()){
+        LOCATION_REF.observeSingleEvent(of: .value) { (dataSnapShot) in
+            guard let dataSnap = dataSnapShot.children.allObjects as? [DataSnapshot] else {return}
+            for location in dataSnap{
+                if location.key == locationID {
+                    let l = RFLocation(id: locationID, name: location.value as! String)
+                    handler(l)
+                }
+            }
+        }
+    }
+    
     func getUser(forUid uid: String, handler: @escaping (_ userName: RFUser)->()){
         USER_REF.observeSingleEvent(of: .value) { (userSnapshot) in
             guard let usersSnapShot = userSnapshot.children.allObjects as? [DataSnapshot] else {return}
             for user in usersSnapShot {
                 if user.key == uid {
                     let userName = user.childSnapshot(forPath: "username").value as! String
-                    let user = RFUser(uid: uid, username: userName)
+                    let location = user.childSnapshot(forPath: "location").value as! String
+                    let user = RFUser(uid: uid, username: userName, location: location)
                     handler(user)
                 }
             }
         }
     }
 
-    func getRecipes(forUid uid: String, completion: @escaping (_ recipe: [RFRecipe]) -> ()){
-        RECIPE_REF.observe(.value) { (snapshot) in
+    func getRecipes(forUser user: RFUser, completion: @escaping (_ recipe: [RFRecipe]) -> ()){
+        RECIPE_REF.child(user.region!).observe(.value) { (snapshot) in
             guard let recipeSnapShot = snapshot.children.allObjects as? [DataSnapshot] else {return}
             var recipes = [RFRecipe]()
             for recipe in recipeSnapShot {
                 let userID = recipe.childSnapshot(forPath: "userId").value as! String
-                if userID == uid {
+                if userID == user.uid {
                     if let data = recipe.value as? Dictionary<String,AnyObject> {
                         recipes.append(self.appendRecipes(data))
                     }
@@ -100,10 +113,11 @@ class RFDataService: NSObject {
             for user in userSnapshot {
                 let uid = user.childSnapshot(forPath: "uid").value as! String
                 let name = user.childSnapshot(forPath: "username").value as! String
+                let location = user.childSnapshot(forPath: "location").value as! String
                 
                 if uid != currentUser {
                     if name.caseInsensitiveCompare(query) == .orderedSame || name.contains(query){
-                        let user = RFUser(uid: uid, username: name)
+                        let user = RFUser(uid: uid, username: name, location: location)
                         users.append(user)
                     }
                 }
@@ -113,8 +127,8 @@ class RFDataService: NSObject {
         }
     }
     
-    func getAllRecipes(completion: @escaping (_ recipe: [RFRecipe]) -> ()){
-        RECIPE_REF.queryOrderedByKey().observe(.value) { (snapshot) in
+    func getAllRecipesWith(from location: RFLocation, completion: @escaping (_ recipe: [RFRecipe]) -> ()){
+        RECIPE_REF.child(location.name!).queryOrderedByKey().observe(.value) { (snapshot) in
             guard let recipeSnapShot = snapshot.children.allObjects as? [DataSnapshot] else {return}
             var recipes = [RFRecipe]()
             for recipe in recipeSnapShot {
@@ -232,9 +246,9 @@ class RFDataService: NSObject {
         }
     }
     
-    func checkLovedRecipe(recipeID: String, completion: @escaping (_ status: Bool) -> ()){
+    func checkLovedRecipe(recipeID: String, location: String, completion: @escaping (_ status: Bool) -> ()){
         let uid = Auth.auth().currentUser?.uid
-        RECIPE_REF.child(recipeID).observeSingleEvent(of: .value) { (snapshot) in
+        self.RECIPE_REF.child(location).child(recipeID).observeSingleEvent(of: .value) { (snapshot) in
             guard let dataSnap = snapshot.value as? [String:AnyObject] else {return}
             if let peopleWhoLikes = dataSnap["peopleWhoLikes"] as? [String:AnyObject] {
                 for (id, person) in peopleWhoLikes {
@@ -273,9 +287,14 @@ class RFDataService: NSObject {
     func getNumberOfFollowings(completion: @escaping (_ data: [Int:[String]]) -> ()) {
         let uid = Auth.auth().currentUser?.uid
         FOLLOW_RELATION_REF.child(uid!).observeSingleEvent(of: .value) { (snapshot) in
-            guard let dataSnap = snapshot.value as? [String:Any] else {return}
+            guard let dataSnap = snapshot.value as? [String:Any] else {
+                let followTable = [ 0: [String](), 1: [String]() ]
+                completion(followTable)
+                return
+            }
             var followings = [String]()
             var followers = [String]()
+            
             
             
             if let followingsData = dataSnap["followings"] as? [String:AnyObject]  {
@@ -289,8 +308,8 @@ class RFDataService: NSObject {
                     followers.append((v as? String)!)
                 }
             }
-            
             let followTable = [ 0: followings, 1: followers ]
+            
             completion(followTable)
         }
     }

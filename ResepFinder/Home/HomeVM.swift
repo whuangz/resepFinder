@@ -13,19 +13,22 @@ class HomeVM: NSObject {
     private let service = RFAuthService()
     private weak var viewController: HomeInput?
     private var recipes: [RFRecipe]?
+    var location: String?
     var totalRecipes: Int = 0
     
     init(vc: HomeInput) {
         self.viewController = vc
     }
     
-    func retrieveRecipes() {
-        self.service.getAllRecipes(completion: { (arrOfRecipe) in
-            self.totalRecipes = arrOfRecipe.count
-            self.recipes = arrOfRecipe
-            self.viewController?.setupData(vm: self)
-        })
-        
+    func retrieveRecipesWith(defaultLocationID: String) {
+        self.service.getLocationBy(defaultLocationID) { (location) in
+            self.service.getAllRecipesWith(from: location, completion: { (arrOfRecipe) in
+                self.totalRecipes = arrOfRecipe.count
+                self.location = location.name!
+                self.recipes = arrOfRecipe.reversed()
+                self.viewController?.setupData(vm: self)
+            })
+        }
     }
     
     func getRecipes() -> [RFRecipe]{

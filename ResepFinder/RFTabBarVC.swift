@@ -68,8 +68,9 @@ class RFTabBarVC: UITabBarController {
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         if item.tag != 1 {
             if Auth.auth().currentUser == nil {
-                let registerVC = RegistrationsVC()
-                self.present(registerVC, animated: true, completion: nil)
+                let navigationVC = UINavigationController(rootViewController: RegistrationsVC() as UIViewController)
+                //self.present(registerVC, animated: true, completion: nil)
+                //self.selectedViewController = navigationVC
             }
         }
     }
@@ -80,20 +81,23 @@ class RFTabBarVC: UITabBarController {
 extension RFTabBarVC: UITabBarControllerDelegate {
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
         
-        // If your view controller is emedded in a UINavigationController you will need to check if it's a UINavigationController and check that the root view controller is your desired controller (or subclass the navigation controller)
-        if viewController is CreateVC {
-            
-            let createVC = CreateVC()
-            let navigationVC = UINavigationController(rootViewController: createVC)
-            navigationVC.hidesBottomBarWhenPushed = true
-            self.present(navigationVC, animated: true, completion: nil)
-            
-            return false
-        }
         
         if Auth.auth().currentUser != nil {
+            if viewController is CreateVC {
+                
+                let createVC = CreateVC()
+                let navigationVC = UINavigationController(rootViewController: createVC)
+                navigationVC.hidesBottomBarWhenPushed = true
+                self.present(navigationVC, animated: true, completion: nil)
+                
+                return false
+            }
+            
             return true
         }else{
+            let navigationVC = UINavigationController(rootViewController: RegistrationsVC())
+            navigationVC.hidesBottomBarWhenPushed = true
+            self.present(navigationVC, animated: true, completion: nil)
             return false
         }
     

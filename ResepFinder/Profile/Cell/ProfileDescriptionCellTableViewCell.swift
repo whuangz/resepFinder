@@ -10,7 +10,8 @@ import UIKit
 
 class ProfileDescriptionCellTableViewCell: RFBaseTableCell, RFBaseProtocol {
     
-    fileprivate var userProfileImageView: UIImageView!
+    fileprivate var userProfileImageView: UIView!
+    fileprivate var userProfileInitialName: UILabel!
     fileprivate var userName: UILabel!
     fileprivate var locationIcon: UIImageView!
     fileprivate var locationLabel: UILabel!
@@ -24,6 +25,7 @@ class ProfileDescriptionCellTableViewCell: RFBaseTableCell, RFBaseProtocol {
     func bindModel(_ model: AnyObject) {
         if let user = model as? RFUser {
             self.userName.text = user.username
+            self.userProfileInitialName.text = "\(RFFunction.getInitialname(name: user.username!))"
             self.locationLabel.text = user.region
             self.descriptionLabel.text = "Hi I am a new user"
         }
@@ -38,6 +40,7 @@ extension ProfileDescriptionCellTableViewCell {
     fileprivate func prepareUI(){
         self.userProfileImageView = getUserProfileImageView()
         self.userName = getUsername()
+        self.userProfileInitialName = getUserProfileText()
         self.locationIcon = getLocationIcon()
         self.locationLabel = getLocationLabel()
         self.descriptionLabel = getDescriptionLabel()
@@ -46,13 +49,14 @@ extension ProfileDescriptionCellTableViewCell {
     
     fileprivate func layoutViews(){
         addSubview(userProfileImageView)
+        userProfileImageView.addSubview(userProfileInitialName)
         addSubview(userName)
         addSubview(locationLabel)
         addSubview(locationIcon)
         addSubview(descriptionLabel)
 
         _ = userProfileImageView.anchor(top: self.topAnchor, left: self.leftAnchor, topConstant: 16, leftConstant: 16, widthConstant: 60, heightConstant: 60)
-        
+        _ = userProfileInitialName.centerConstraintWith(centerX: userProfileImageView.centerXAnchor, centerY: userProfileImageView.centerYAnchor)
         
         _ = userName.anchor(top: userProfileImageView.topAnchor, left: userProfileImageView.rightAnchor, right: self.rightAnchor, leftConstant: 8, rightConstant: 16)
         
@@ -65,14 +69,21 @@ extension ProfileDescriptionCellTableViewCell {
         
     }
     
-    fileprivate func getUserProfileImageView() -> UIImageView {
-        let imageView = UIImageView()
-        imageView.backgroundColor = .red
+    fileprivate func getUserProfileImageView() -> UIView {
+        let imageView = UIView()
+        imageView.backgroundColor = UIColor(red: 224/255, green: 224/255, blue: 224/255, alpha: 1)
         imageView.layer.cornerRadius = 10
-        imageView.layer.masksToBounds = true
-        imageView.clipsToBounds = true
-        imageView.contentMode = .scaleAspectFill
+//        imageView.layer.masksToBounds = true
+//        imageView.clipsToBounds = true
+//        imageView.contentMode = .scaleAspectFill
         return imageView
+    }
+    
+    fileprivate func getUserProfileText() -> UILabel {
+        let label = UILabel()
+        label.text = "D"
+        label.font = RFFont.instance.headBold18
+        return label
     }
     
     fileprivate func getUsername() -> UILabel {

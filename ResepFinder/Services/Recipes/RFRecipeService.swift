@@ -13,9 +13,9 @@ import RxSwift
 
 class RFRecipeService: RFDataService {
    
-    func createRecipeWith(title: String, desc: String, difficulty: String, serving: String, time: String, ingredients: [String], steps: [[String:Any]], recipeImg: UIImage){
+    func createRecipeWith(title: String, desc: String, difficulty: String, serving: String, time: String, ingredients: [String], steps: [[String:Any]], recipeImg: UIImage, userData: RFUser){
         
-        let uid = Auth.auth().currentUser?.uid
+        let uid = userData.uid
     
         let key = RECIPE_REF.childByAutoId().key!
         let imgStorage = RECIPE_STORAGE_REF.child(uid!).child("\(key).jpg")
@@ -45,7 +45,7 @@ class RFRecipeService: RFDataService {
                     
                     let recipeFeed = ["\(key)" : recipes]
                 
-                    self.RECIPE_REF.updateChildValues(recipeFeed)
+                    self.RECIPE_REF.child(userData.region!).updateChildValues(recipeFeed)
                     
                     
                 })
@@ -72,25 +72,26 @@ class RFRecipeService: RFDataService {
         self.USER_SHOPPING_LIST_REF.child(uid!).child(recipeID).removeValue()
     }
     
-    func addRecipeToLoved(recipeID: String){
+    func addRecipeToLoved(recipeID: String, location: String){
         let keyToPost = RECIPE_REF.childByAutoId().key
         let uid = Auth.auth().currentUser?.uid
         let body: [String : Any] = [
             "peopleWhoLikes/\(keyToPost!)" : uid!
             ]
-        RECIPE_REF.child(recipeID).updateChildValues(body)
+        
+        RECIPE_REF.child(location).child(recipeID).updateChildValues(body)
         print("Successfully loved")
         
     }
     
-    func removeLove(recipeID: String){
+    func removeLove(recipeID: String, location: String){
         let uid = Auth.auth().currentUser?.uid
-        RECIPE_REF.child(recipeID).observeSingleEvent(of: .value) { (snapshot) in
+        RECIPE_REF.child(location).child(recipeID).observeSingleEvent(of: .value) { (snapshot) in
             guard let dataSnap = snapshot.value as? [String:AnyObject] else {return}
             if let peopleWhoLikes = dataSnap["peopleWhoLikes"] as? [String:AnyObject] {
                 for (id, person) in peopleWhoLikes {
                     if person as? String == uid {
-                        self.RECIPE_REF.child(recipeID).child("peopleWhoLikes").child(id).removeValue()
+                        self.RECIPE_REF.child(location).child(recipeID).child("peopleWhoLikes").child(id).removeValue()
                     }
                 }
             }

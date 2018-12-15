@@ -18,6 +18,7 @@ class MessageVM {
     }
     
     func getUsers(completion: @escaping (_ user: RFUser)->()){
+        //only take 1 user
         let uid = Auth.auth().currentUser?.uid
         if let members = conversation?.roomMembers {
             for mmb in members {

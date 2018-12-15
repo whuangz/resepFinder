@@ -1,26 +1,23 @@
 //
-//  RFLocationVCV.swift
+//  RFReviewVC.swift
 //  ResepFinder
 //
-//  Created by William Huang on 14/12/18.
+//  Created by William Huang on 15/12/18.
 //  Copyright © 2018 William Huang. All rights reserved.
 //
 
 import UIKit
-import RxCocoa
-import RxSwift
 
-class RFLocationVC: RFBaseController {
+class RFReviewVC: RFBaseController {
     
     private var backButton: UIButton!
     private let locTitle: UILabel = {
         let label = UILabel()
         label.font = RFFont.instance.headBold14
-        label.text = "Locations"
+        label.text = "Reviews"
         return label
     }()
-    private var searchBarView: UISearchBar!
-    private var locationTable: UITableView!
+    private var reviewTable: UITableView!
     private var viewModel: RFLocationVM?
     weak var delegate: SelectLocationDelegate?
     
@@ -33,16 +30,15 @@ class RFLocationVC: RFBaseController {
     func getLocation(){
         self.viewModel?.getLocations(completion: { [weak self ](locations) in
             self?.viewModel?.locations = locations
-            self?.locationTable.reloadData()
+            self?.reviewTable.reloadData()
         })
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.navigationBar.isHidden = true
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareUI()
@@ -53,29 +49,14 @@ class RFLocationVC: RFBaseController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.locationTable.reloadData()
+        self.reviewTable.reloadData()
     }
     
     func registerCell(){
-        locationTable.register(UINib(nibName: "RFLocationCell", bundle: nil), forCellReuseIdentifier: "RFLocationCell")
+        reviewTable.register(UINib(nibName: "RFLocationCell", bundle: nil), forCellReuseIdentifier: "RFLocationCell")
     }
     
     func observeData(){
-//
-//        self.locationTable.rx.itemSelected
-//            .subscribe(onNext: { [weak self] indexPath in
-//                let cell = self?.locationTable.cellForRow(at: indexPath) as? UserMessageCell
-//                self?.viewModel.validateSelectedUsers(data: (cell?.user?.uid)!)
-//            }).disposed(by: self.disposeBag)
-//
-        
-//        self.locationTable.rx.itemSelected.subscribe(onNext: {[weak self] indexPath in
-//
-//            if let locations = self?.viewModel?.locations {
-//                self?.delegate?.didChooseLocation(location: locations[indexPath.row])
-//            }
-//        }).disposed(by: self.disposeBag)
-    
         self.backButton?.addTarget(self, action: #selector(self.navigateToPreviouseScreen), for: .touchUpInside)
         
     }
@@ -83,13 +64,13 @@ class RFLocationVC: RFBaseController {
 
 
 //MARK: - Initialize & Prepare UI
-extension RFLocationVC{
+extension RFReviewVC{
     
     fileprivate func prepareUI(){
         self.view.backgroundColor = .white
         self.backButton = getButton()
         //self.searchBarView = getSearchBarView()
-        self.locationTable = getTableView()
+        self.reviewTable = getTableView()
         layoutViews()
     }
     
@@ -97,12 +78,12 @@ extension RFLocationVC{
         self.view.addSubview(backButton)
         self.view.addSubview(locTitle)
         //self.view.addSubview(searchBarView)
-        self.view.addSubview(locationTable)
+        self.view.addSubview(reviewTable)
         
         _ = backButton.anchor(top: self.topLayoutGuide.bottomAnchor, left: self.view.leftAnchor, leftConstant: 16, heightConstant: 50)
         _ = locTitle.centerConstraintWith(centerX: self.view.centerXAnchor, centerY: self.backButton.centerYAnchor)
         //_ = searchBarView.anchor(top: self.topLayoutGuide.bottomAnchor, left: self.backButton.rightAnchor, right: self.view.rightAnchor, leftConstant: 8, rightConstant: 0, heightConstant: 50)
-        _ = locationTable.anchor(top: backButton.bottomAnchor, left: self.view.leftAnchor, bottom: self.view.bottomAnchor, right: self.view.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0)
+        _ = reviewTable.anchor(top: backButton.bottomAnchor, left: self.view.leftAnchor, bottom: self.view.bottomAnchor, right: self.view.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0)
         
     }
     
@@ -136,7 +117,7 @@ extension RFLocationVC{
 }
 
 //MARK: - UITableView Delegate & Implementation
-extension RFLocationVC: UITableViewDelegate, UITableViewDataSource {
+extension RFReviewVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let locations = self.viewModel?.locations {
             return locations.count
@@ -166,8 +147,4 @@ extension RFLocationVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     
-}
-
-protocol SelectLocationDelegate: class{
-    func didChooseLocation(location: RFLocation)
 }

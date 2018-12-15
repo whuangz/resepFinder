@@ -23,7 +23,7 @@ class ProfileVM: NSObject {
     
     func retrieveUserDetail() {
         self.service.retrieveUserDetail { (user) in
-            self.service.getRecipes(forUid: user.uid!) { (arrOfRecipe) in
+            self.service.getRecipes(forUser: user) { (arrOfRecipe) in
                 self.service.getNumberOfFollowings(completion: { (followTable) in
                     user.recipes = arrOfRecipe
                     user.following = followTable[0]
@@ -31,6 +31,7 @@ class ProfileVM: NSObject {
                     self.recipeCollectionVM?.recipes = arrOfRecipe
                     self.viewController?.setupDescriptionCell(user: user, recipeVM: self.recipeCollectionVM ?? ProfileRecipeCollectionVM())
                 })
+               
             }
         }
     }

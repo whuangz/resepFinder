@@ -12,6 +12,7 @@ class UserMessageCell: RFBaseTableCell {
 
     //Recent Message Outlet
     @IBOutlet weak var profileImg: RFImageView!
+    fileprivate var userProfileInitialName: UILabel!
     @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var checkButton: UIButton!
     
@@ -43,12 +44,14 @@ class UserMessageCell: RFBaseTableCell {
     func bindData(data: RFUser){
         self.user = data
         self.userName.text = data.username
+        self.userProfileInitialName.text = "\(RFFunction.getInitialname(name: data.username!))"
     }
     
     func bindConversationData(data: RFConversation){
         data.getMembersName(conversation: data) { (members) in
             self.profileName.text = members.joined(separator: ", ")
             self.messageDetail.text = ""
+            self.userProfileInitialName.text = "\(RFFunction.getInitialname(name: members.first!))"
         }
     }
     
@@ -59,8 +62,12 @@ class UserMessageCell: RFBaseTableCell {
 extension UserMessageCell {
     
     func configureView(){
+        self.userProfileInitialName = getUserProfileText()
+        self.profileImg.addSubview(self.userProfileInitialName)
+        _ = userProfileInitialName.centerConstraintWith(centerX: profileImg.centerXAnchor, centerY: profileImg.centerYAnchor)
+        
         self.profileImg.setCornerWith(radius: 20)
-        self.profileImg.backgroundColor = .red
+        self.profileImg.backgroundColor = UIColor(red: 224/255, green: 224/255, blue: 224/255, alpha: 1)
         self.messageDetailView.isHidden = true
         self.userName.isHidden = true
         self.checkButton.isHidden = true
@@ -70,7 +77,13 @@ extension UserMessageCell {
         self.profileName.font = RFFont.instance.subHead14
         self.messageDetail.font = RFFont.instance.bodyLight12
         self.userName.font = RFFont.instance.bodyMedium14
-        
+    }
+    
+    fileprivate func getUserProfileText() -> UILabel {
+        let label = UILabel()
+        label.text = "D"
+        label.font = RFFont.instance.headBold18
+        return label
     }
    
     func conversationCell(){

@@ -24,10 +24,9 @@ class ProfileVC: UITableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         setupViewModel()
         self.tableView.reloadData()
-        
+        super.viewWillAppear(animated)
     }
     
     private func setupTableView(){
@@ -166,12 +165,13 @@ protocol ProfileInput: class {
 
 extension ProfileVC: ProfileInput {
     func setupDescriptionCell(user: RFUser, recipeVM: ProfileRecipeCollectionVM) {
-        self.tableView.beginUpdates()
+        //self.tableView.beginUpdates()
         self.descriptionCell?.bindModel(user)
         self.detailCell?.bindModel(user)
         self.viewModel?.totalRecipes = (user.recipes?.count)!
         self.recipeCollectionCell?.setupViewModel(vm: recipeVM)
-        self.tableView.endUpdates()
+        //self.tableView.endUpdates()
+        self.tableView.reloadData()
     }
     
     

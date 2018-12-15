@@ -96,4 +96,8 @@ extension RFBaseController {
         self.dismissDetail()
     }
     
+    @objc func swipeBack(){
+        self.popViewController()
+    }
+
 }

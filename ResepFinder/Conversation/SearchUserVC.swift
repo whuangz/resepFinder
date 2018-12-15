@@ -39,6 +39,7 @@ class SearchUserVC: RFBaseController {
     @objc func navigateToCreateMessage(){
         if let currentUser = Auth.auth().currentUser?.uid {
             self.viewModel.createRoomBy(uid: currentUser)
+            self.navigateToPreviouseScreen()
         }
     }
     

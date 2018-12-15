@@ -18,6 +18,7 @@ class HomeVC: RFBaseController {
     private var headerView: HomeHeaderView!
     private var collectionView: UICollectionView!
     private var navigationBarHeight: CGFloat!
+    private var defaultLocationKey = "KA"
     private var viewModel: HomeVM?
     
     override func viewDidLoad() {
@@ -30,13 +31,15 @@ class HomeVC: RFBaseController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.navigationBar.isHidden = false
         super.viewWillAppear(animated)
+        initializeData()
         self.collectionView.reloadData()
     }
     
     func initializeData(){
         self.viewModel = HomeVM(vc: self)
-        self.viewModel?.retrieveRecipes()
+        self.viewModel?.retrieveRecipesWith(defaultLocationID: defaultLocationKey)
     }
     
     private func setupNavigationBar(){
@@ -48,13 +51,21 @@ class HomeVC: RFBaseController {
         self.navigationController?.navigationBar.backgroundColor = .clear
         
         self.navigationController?.navigationBar.isTranslucent = true
-        self.setupCustomLeftBarItem(image: "location", action: #selector(doNothing))
+        self.setupCustomLeftBarItem(image: "location", action: #selector(self.navigateToChangeLocation))
     }
     
     private func registerCell(){
         collectionView.register(UINib(nibName: "HomeHeaderView", bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "header")
         collectionView.register(UINib(nibName: "HomeCollectionCell", bundle: nil), forCellWithReuseIdentifier: "HomeCollectionCell")
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "nocell")
+    }
+    
+    
+    @objc func navigateToChangeLocation(){
+        let locationVM = RFLocationVM()
+        let locationVC = RFLocationVC(vm: locationVM, delegate: self)
+        locationVC.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(locationVC, animated: true)
     }
     
     @objc func doNothing(){
@@ -143,9 +154,10 @@ extension HomeVC: UICollectionViewDataSource, UICollectionViewDelegate, UICollec
         }else{
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HomeCollectionCell", for: indexPath) as! HomeCollectionCell
             cell.delegate = self
-            if self.viewModel?.totalRecipes != 0 {
-                if let recipes = self.viewModel?.getRecipes(){
-                    cell.bindData(data: recipes[indexPath.item])
+            if let vm = self.viewModel{
+                if vm.totalRecipes != 0 {
+                    let recipes = vm.getRecipes()
+                    cell.bindData(data: recipes[indexPath.item], location: vm.location!)
                 }
             }
             return cell
@@ -197,4 +209,12 @@ extension HomeVC: NavigationControllerDelegate {
     func navigateController(_ vc: UIViewController) -> UINavigationController {
         return self.navigationController!
     }
+}
+
+extension HomeVC: SelectLocationDelegate {
+    func didChooseLocation(location: RFLocation) {
+        self.defaultLocationKey = location.id!
+        self.collectionView.reloadData()
+    }
+    
 }

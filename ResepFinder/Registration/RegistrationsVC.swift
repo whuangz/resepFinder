@@ -29,6 +29,7 @@ class RegistrationsVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.navigationBar.isHidden = true
         setupView()
         addGesture()
         setupDelegate()
@@ -38,7 +39,6 @@ class RegistrationsVC: UIViewController {
             self.textFieldStackView.spacing = 10
         }
     }
-
     
     func setupDelegate(){
         self.userNameTxt.delegate = self
@@ -79,7 +79,6 @@ extension RegistrationsVC {
         self.emailTxt.rx.text.orEmpty.bind(to: viewModel.email).disposed(by: disposeBag)
         self.pwdTxt.rx.text.orEmpty.bind(to: viewModel.pwd).disposed(by: disposeBag)
         self.conPwdTxt.rx.text.orEmpty.bind(to: viewModel.conPwd).disposed(by: disposeBag)
-        self.regionTxt.rx.text.orEmpty.bind(to: viewModel.region).disposed(by: disposeBag)
         
         let validation = viewModel.validateRegister()
         validation.bind(onNext: { (valid) in
@@ -125,7 +124,8 @@ extension RegistrationsVC {
         let locationVM = RFLocationVM()
         let locationVC = RFLocationVC(vm: locationVM, delegate: self)
         //self.presentDetail(locationVC)
-        self.present(locationVC, animated: true, completion: nil)
+        //self.present(locationVC, animated: true, completion: nil)
+        self.navigationController?.pushViewController(locationVC, animated: true)
     }
     
     @objc func navigateToLogin(){
@@ -186,8 +186,9 @@ extension RegistrationsVC {
 
 extension RegistrationsVC: SelectLocationDelegate {
     func didChooseLocation(location: RFLocation) {
-        self.reloadInputViews()
+        guard let viewModel = self.viewModel else {return}
         self.regionTxt.text = location.name
+        self.regionTxt.rx.text.orEmpty.bind(to: viewModel.region).disposed(by: disposeBag)
     }
     
 }
