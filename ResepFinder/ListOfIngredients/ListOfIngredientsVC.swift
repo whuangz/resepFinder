@@ -102,5 +102,17 @@ extension ListOfIngredientsVC: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        
+        let delete = UITableViewRowAction(style: .destructive, title: "Remove From Shopping") { (action, indexPath) in
+            let recipe = self.listOfRecipes![indexPath.row]
+            self.listOfRecipes?.remove(at: indexPath.row)
+            self.viewModel?.removeSavedIngredients(recipeID: recipe.id!)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+        
+        return [delete]
+    }
+    
     
 }

@@ -18,4 +18,8 @@ class ListOfIngredientsVM {
         }
     }
     
+    func removeSavedIngredients(recipeID: String){
+        self.service.removeRecipeBy(recipeID)
+    }
+    
 }

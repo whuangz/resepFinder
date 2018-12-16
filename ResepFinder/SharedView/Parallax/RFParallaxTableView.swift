@@ -20,6 +20,10 @@ class RFParallaxTableView: UITableView {
     private var headerMaskLayer: CAShapeLayer?
     
     func constructParallaxHeader() {
+        if RFScreenHelper.isLessThanIPhone6() {
+            kTableHeaderHeight = 200
+        }
+        
         if self.tableHeaderView !== nil {
             // get the original table header
             headerView = self.tableHeaderView

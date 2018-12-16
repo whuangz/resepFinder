@@ -13,7 +13,9 @@ class ReviewCell: RFBaseTableCell {
     fileprivate var topView: UIView!
     fileprivate var reviewHeader: UILabel!
     fileprivate var totalReviewer: UILabel!
-    fileprivate var readMoreBtn: RFPrimaryBtn!
+    var readMoreBtn: RFPrimaryBtn!
+    var delegate: NavigationControllerDelegate?
+    var recipeID: String?
     
     override func setupViews() {
         super.setupViews()
@@ -33,12 +35,7 @@ extension ReviewCell {
         self.totalReviewer = self.getLbl()
         self.readMoreBtn = self.getBtn()
         
-        configureViews()
         layoutViews()
-    }
-    
-    fileprivate func configureViews(){
-        
     }
     
     fileprivate func layoutViews(){

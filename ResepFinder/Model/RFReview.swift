@@ -25,7 +25,11 @@ class RFReview {
         self.reviewer = reviewer
     }
     
-    func getReviewerName(completion: @escaping (_ name: [String])->()){
-        
+    func getReviewerName(completion: @escaping (_ name: String)->()){
+        if let uid = reviewer {
+            self.service.getUserName(forUid: uid) { (userName) in
+                completion(userName)
+            }
+        }
     }
 }

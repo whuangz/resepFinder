@@ -88,6 +88,18 @@ class RFViewRecipeVC: RFBaseController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.setupViews()
+    }
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.setupViews()
+        self.tableView.updateHeaderView()
+        self.tableView.reloadData()
+    }
+    
+    func setupViews(){
         setupNavigationBar()
         prepareUI()
         registerCell()
@@ -121,6 +133,14 @@ class RFViewRecipeVC: RFBaseController {
             let startVM = StartCookingVM(data: recipe.steps!, recipeImg: recipe.recipePathToImg!, recipeID: recipe.id!)
             let startVC = StartCookingVC(vm: startVM)
             self.present(startVC, animated: true, completion: nil)
+        }
+    }
+    
+    @objc func navigateToReviews(){
+        if let recipe = self.getRecipe() as? RFRecipe {
+            let reviewVM = RFReviewVM(recipeID: recipe.id!)
+            let reviewVC = RFReviewVC(vm: reviewVM)
+            self.navigationController?.pushViewController(reviewVC, animated: true)
         }
     }
 }
@@ -282,6 +302,7 @@ extension RFViewRecipeVC: UITableViewDelegate, UITableViewDataSource {
     
     private func createCommentsCell() -> UITableViewCell{
         let cell = tableView.dequeueReusableCell(withIdentifier: "createReviewCell") as! ReviewCell
+        cell.readMoreBtn.addTarget(self, action: #selector(navigateToReviews), for: .touchUpInside)
         return cell
     }
     

@@ -19,6 +19,10 @@
 		260F320A21BC0B9E00A85A43 /* ConversationVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 260F320921BC0B9E00A85A43 /* ConversationVM.swift */; };
 		26144B6221B42556001BCEA5 /* RecipeDetailVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26144B6121B42556001BCEA5 /* RecipeDetailVM.swift */; };
 		26144B6421B42828001BCEA5 /* RFIngredient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26144B6321B42828001BCEA5 /* RFIngredient.swift */; };
+		26156E0021C6194700D2F152 /* RFReviewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26156DFF21C6194700D2F152 /* RFReviewVC.swift */; };
+		26156E0221C61A8700D2F152 /* RFReviewVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26156E0121C61A8700D2F152 /* RFReviewVM.swift */; };
+		26156E0521C61D4C00D2F152 /* RFReviewListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26156E0321C61D4C00D2F152 /* RFReviewListCell.swift */; };
+		26156E0621C61D4C00D2F152 /* RFReviewListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26156E0421C61D4C00D2F152 /* RFReviewListCell.xib */; };
 		2620805221A00B79008DFCD6 /* RFRecipeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2620805121A00B79008DFCD6 /* RFRecipeCell.swift */; };
 		2620805421A00BAD008DFCD6 /* ProfileRecipeCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2620805321A00BAC008DFCD6 /* ProfileRecipeCollection.swift */; };
 		26253C4D21AC36D700FC6598 /* CreateIngredientCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26253C4C21AC36D700FC6598 /* CreateIngredientCell.swift */; };
@@ -123,7 +127,6 @@
 		26FDAEE421ACFF5B00758D33 /* CreateStepsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26FDAEE321ACFF5B00758D33 /* CreateStepsCell.swift */; };
 		26FDAEE721ACFF7C00758D33 /* AddStepsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26FDAEE621ACFF7C00758D33 /* AddStepsCell.swift */; };
 		3C192D2921C52F7F00F5ACB1 /* RFFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C192D2821C52F7F00F5ACB1 /* RFFunction.swift */; };
-		3C192D2C21C5368100F5ACB1 /* RFReviewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C192D2B21C5368100F5ACB1 /* RFReviewVC.swift */; };
 		3C63EC2921BECA7A00661D9D /* DetailIngredientsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C63EC2821BECA7A00661D9D /* DetailIngredientsVC.swift */; };
 		3C63EC2B21BECB6900661D9D /* DetailIngredientsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C63EC2A21BECB6900661D9D /* DetailIngredientsVM.swift */; };
 		F9561E5DE3860D00424A1AD9 /* Pods_ResepFinder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DE5EC465E1A8CB3A3F6CDB0 /* Pods_ResepFinder.framework */; };
@@ -143,6 +146,10 @@
 		260F320921BC0B9E00A85A43 /* ConversationVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationVM.swift; sourceTree = "<group>"; };
 		26144B6121B42556001BCEA5 /* RecipeDetailVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailVM.swift; sourceTree = "<group>"; };
 		26144B6321B42828001BCEA5 /* RFIngredient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RFIngredient.swift; sourceTree = "<group>"; };
+		26156DFF21C6194700D2F152 /* RFReviewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RFReviewVC.swift; sourceTree = "<group>"; };
+		26156E0121C61A8700D2F152 /* RFReviewVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RFReviewVM.swift; sourceTree = "<group>"; };
+		26156E0321C61D4C00D2F152 /* RFReviewListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RFReviewListCell.swift; sourceTree = "<group>"; };
+		26156E0421C61D4C00D2F152 /* RFReviewListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RFReviewListCell.xib; sourceTree = "<group>"; };
 		2620805121A00B79008DFCD6 /* RFRecipeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RFRecipeCell.swift; sourceTree = "<group>"; };
 		2620805321A00BAC008DFCD6 /* ProfileRecipeCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileRecipeCollection.swift; sourceTree = "<group>"; };
 		26253C4C21AC36D700FC6598 /* CreateIngredientCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateIngredientCell.swift; sourceTree = "<group>"; };
@@ -253,7 +260,6 @@
 		26FDAEE621ACFF7C00758D33 /* AddStepsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddStepsCell.swift; sourceTree = "<group>"; };
 		29937144E2B89E09C074755A /* Pods-ResepFinder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ResepFinder.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ResepFinder/Pods-ResepFinder.debug.xcconfig"; sourceTree = "<group>"; };
 		3C192D2821C52F7F00F5ACB1 /* RFFunction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RFFunction.swift; sourceTree = "<group>"; };
-		3C192D2B21C5368100F5ACB1 /* RFReviewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RFReviewVC.swift; sourceTree = "<group>"; };
 		3C63EC2821BECA7A00661D9D /* DetailIngredientsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailIngredientsVC.swift; sourceTree = "<group>"; };
 		3C63EC2A21BECB6900661D9D /* DetailIngredientsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailIngredientsVM.swift; sourceTree = "<group>"; };
 		5DE5EC465E1A8CB3A3F6CDB0 /* Pods_ResepFinder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ResepFinder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -310,6 +316,17 @@
 				260F320321BB9E4500A85A43 /* RFConversationService.swift */,
 			);
 			path = Conversation;
+			sourceTree = "<group>";
+		};
+		26156DFE21C6192B00D2F152 /* ReviewView */ = {
+			isa = PBXGroup;
+			children = (
+				26156DFF21C6194700D2F152 /* RFReviewVC.swift */,
+				26156E0121C61A8700D2F152 /* RFReviewVM.swift */,
+				26156E0321C61D4C00D2F152 /* RFReviewListCell.swift */,
+				26156E0421C61D4C00D2F152 /* RFReviewListCell.xib */,
+			);
+			path = ReviewView;
 			sourceTree = "<group>";
 		};
 		2620805021A005D0008DFCD6 /* Recipe */ = {
@@ -421,6 +438,7 @@
 		263E375A21AABF14001DDE33 /* ViewRecipeDetail */ = {
 			isa = PBXGroup;
 			children = (
+				26156DFE21C6192B00D2F152 /* ReviewView */,
 				26E7008B21ABCDCB001A8F7C /* StartCooking */,
 				263E375F21AAD337001DDE33 /* IngredientsCell */,
 				263E375B21AAC11F001DDE33 /* DescriptionCell */,
@@ -632,7 +650,6 @@
 				26DBF3F82191FE6500CD77FF /* Login */,
 				263399182188AC640035F4BE /* Registration */,
 				265EDDD621C36ED0001F455C /* Location */,
-				3C192D2A21C5365F00F5ACB1 /* Review */,
 				26B2BAB821874B76004B148F /* AppDelegate.swift */,
 				26B2BABC21874B76004B148F /* Main.storyboard */,
 				263399242188B5F10035F4BE /* LocalizedStrings */,
@@ -834,14 +851,6 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		3C192D2A21C5365F00F5ACB1 /* Review */ = {
-			isa = PBXGroup;
-			children = (
-				3C192D2B21C5368100F5ACB1 /* RFReviewVC.swift */,
-			);
-			path = Review;
-			sourceTree = "<group>";
-		};
 		A83840CDDEA6052743F9236E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -924,6 +933,7 @@
 				26B2BACC21874BE5004B148F /* GoogleService-Info.plist in Resources */,
 				263BE07721A5182B00AD3A2C /* HomeVC.xib in Resources */,
 				26B2BAC021874B76004B148F /* Assets.xcassets in Resources */,
+				26156E0621C61D4C00D2F152 /* RFReviewListCell.xib in Resources */,
 				26B2BABE21874B76004B148F /* Main.storyboard in Resources */,
 				2674F822219D051F0002D64C /* DialogView.xib in Resources */,
 				265EDDDD21C36FF1001F455C /* RFLocationCell.xib in Resources */,
@@ -1022,7 +1032,6 @@
 				260F320421BB9E4500A85A43 /* RFConversationService.swift in Sources */,
 				26380A2C2197CB8700DFBB82 /* UIView+Ext.swift in Sources */,
 				26D5EDBB219D7CFB004AFB39 /* DialogView.swift in Sources */,
-				3C192D2C21C5368100F5ACB1 /* RFReviewVC.swift in Sources */,
 				3C192D2921C52F7F00F5ACB1 /* RFFunction.swift in Sources */,
 				26D5EDBD219D7D16004AFB39 /* RFDialogView.swift in Sources */,
 				264D2FFD21935BB600F66595 /* LoginVM.swift in Sources */,
@@ -1044,6 +1053,7 @@
 				2650F9CA21A96BED000638DE /* RFAdvancedSearchVC.swift in Sources */,
 				2681C2B621A6C5FB00AE98F0 /* RFScreenHelper.swift in Sources */,
 				266C973421A4415100110728 /* MessageHeaderView.swift in Sources */,
+				26156E0521C61D4C00D2F152 /* RFReviewListCell.swift in Sources */,
 				2633991F2188AC650035F4BE /* RFCustomTextField.swift in Sources */,
 				2638E57E21BAD3FA003BF480 /* StartCookingVM.swift in Sources */,
 				26F3224A21A4122E00EDEC7F /* MessageCell.swift in Sources */,
@@ -1055,6 +1065,7 @@
 				267E202A21B95C1000A474CC /* UIImagePickerController+RxSwift.swift in Sources */,
 				26E9F2F621B6CB51006D1FB9 /* DiscardableImageCacheItem.swift in Sources */,
 				26C6964521A26DC20020862D /* SearchUserVC.swift in Sources */,
+				26156E0021C6194700D2F152 /* RFReviewVC.swift in Sources */,
 				263E375D21AAC15A001DDE33 /* DescriptionCell.swift in Sources */,
 				26E7009421ABF26B001A8F7C /* UploadCell.swift in Sources */,
 				26B2BABB21874B76004B148F /* RFTabBarVC.swift in Sources */,
@@ -1092,6 +1103,7 @@
 				263BE07A21A51AB200AD3A2C /* HomeHeaderView.swift in Sources */,
 				2628786C218F0E0800CD07C5 /* RFFont.swift in Sources */,
 				263E376121AAD3CC001DDE33 /* ReviewCell.swift in Sources */,
+				26156E0221C61A8700D2F152 /* RFReviewVM.swift in Sources */,
 				26E7008E21ABCDFB001A8F7C /* StepsCell.swift in Sources */,
 				264D2FF7219325D900F66595 /* RFDataService.swift in Sources */,
 				26F3ABDB21B3FB9000E33834 /* AddIngredientVM.swift in Sources */,

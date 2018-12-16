@@ -67,6 +67,11 @@ class RFRecipeService: RFDataService {
         
     }
     
+    func removeRecipeBy(_ recipeID: String){
+        let uid = Auth.auth().currentUser?.uid
+        USER_SHOPPING_LIST_REF.child(uid!).child(recipeID).removeValue()
+    }
+    
     func removeRecipe(recipeID: String){
        let uid = Auth.auth().currentUser?.uid
         self.USER_SHOPPING_LIST_REF.child(uid!).child(recipeID).removeValue()
