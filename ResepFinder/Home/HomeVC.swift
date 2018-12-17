@@ -67,8 +67,9 @@ class HomeVC: RFBaseController {
         self.navigationController?.pushViewController(locationVC, animated: true)
     }
     
-    @objc func doNothing(){
-        print("DO NOTHING")
+    @objc func navigateToCamera(){
+        let cameraVC = CameraVC()
+        self.present(cameraVC, animated: true, completion: nil)
     }
 
 }
@@ -79,7 +80,7 @@ extension HomeVC {
     fileprivate func prepareUI(){
         self.headerView = getHeaderView()
         self.tableView = getTableView()
-        self.headerView.cameraBtn.addTarget(self, action: #selector(doNothing), for: .touchUpInside)
+        self.headerView.cameraBtn.addTarget(self, action: #selector(navigateToCamera), for: .touchUpInside)
         layoutView()
     }
 
@@ -97,11 +98,12 @@ extension HomeVC {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.tableFooterView = UIView(frame: .zero)
-        tableView.estimatedRowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 500
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.separatorStyle = .none
-        tableView.allowsMultipleSelection = false
-        tableView.allowsSelection = false
+        tableView.bounces = false
+        tableView.canCancelContentTouches = true
+        tableView.delaysContentTouches = true
         
         return tableView
     }
@@ -155,6 +157,7 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
                 if vm.totalRecipes != 0 {
                     let recipes = vm.getRecipes()
                     cell.bindData(data: recipes[indexPath.item], location: vm.location!)
+                    cell.clipsToBounds = true
                 }
             }
             return cell
@@ -182,7 +185,7 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
             offset = 1
             self.navigationController?.navigationBar.backgroundColor = color
             self.navigationController?.navigationBar.tintColor = UIColor(hue: 1, saturation: offset, brightness: 1, alpha: 1)
-            self.setupRightBarItemWith(image: "camera_icon_snap", action: #selector(doNothing))
+            self.setupRightBarItemWith(image: "camera_icon_snap", action: #selector(navigateToCamera))
             self.setSearchBarAsNavigation()
             self.searchBar.rx.tapGesture().when(GestureRecognizerState.recognized).subscribe(onNext: { (_) in
                 self.navigateToAdvanceSearch(self.defaultLocationKey)

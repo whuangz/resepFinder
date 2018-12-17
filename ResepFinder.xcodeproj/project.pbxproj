@@ -94,6 +94,7 @@
 		26B2BACC21874BE5004B148F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 26B2BACB21874BE5004B148F /* GoogleService-Info.plist */; };
 		26B80D4A21C7D478003AE55D /* RFSearchResultVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26B80D4921C7D478003AE55D /* RFSearchResultVC.swift */; };
 		26B80D4C21C7D54D003AE55D /* RFSearchResultVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26B80D4B21C7D54D003AE55D /* RFSearchResultVM.swift */; };
+		26B80D4F21C7FB5D003AE55D /* CameraVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26B80D4E21C7FB5D003AE55D /* CameraVC.swift */; };
 		26C3A35721B11E9B007601D2 /* ProfileVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C3A35621B11E9B007601D2 /* ProfileVM.swift */; };
 		26C3A35A21B12326007601D2 /* RFUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C3A35921B12326007601D2 /* RFUser.swift */; };
 		26C3E1F021A6F65D0095FBB5 /* UIButton+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C3E1EF21A6F65D0095FBB5 /* UIButton+Ext.swift */; };
@@ -231,6 +232,7 @@
 		26B2BACB21874BE5004B148F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		26B80D4921C7D478003AE55D /* RFSearchResultVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RFSearchResultVC.swift; sourceTree = "<group>"; };
 		26B80D4B21C7D54D003AE55D /* RFSearchResultVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RFSearchResultVM.swift; sourceTree = "<group>"; };
+		26B80D4E21C7FB5D003AE55D /* CameraVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraVC.swift; sourceTree = "<group>"; };
 		26C3A35621B11E9B007601D2 /* ProfileVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVM.swift; sourceTree = "<group>"; };
 		26C3A35921B12326007601D2 /* RFUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RFUser.swift; sourceTree = "<group>"; };
 		26C3E1EF21A6F65D0095FBB5 /* UIButton+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Ext.swift"; sourceTree = "<group>"; };
@@ -673,6 +675,7 @@
 				265EDDD621C36ED0001F455C /* Location */,
 				2626785621C7A2D4004E1E77 /* AdvancedSearch */,
 				26B80D4821C7D44F003AE55D /* SearchResult */,
+				26B80D4D21C7F9EF003AE55D /* CameraView */,
 				26B2BAB821874B76004B148F /* AppDelegate.swift */,
 				26B2BABC21874B76004B148F /* Main.storyboard */,
 				263399242188B5F10035F4BE /* LocalizedStrings */,
@@ -705,6 +708,14 @@
 				26B80D4B21C7D54D003AE55D /* RFSearchResultVM.swift */,
 			);
 			path = SearchResult;
+			sourceTree = "<group>";
+		};
+		26B80D4D21C7F9EF003AE55D /* CameraView */ = {
+			isa = PBXGroup;
+			children = (
+				26B80D4E21C7FB5D003AE55D /* CameraVC.swift */,
+			);
+			path = CameraView;
 			sourceTree = "<group>";
 		};
 		26C3A35821B1231E007601D2 /* Model */ = {
@@ -1062,6 +1073,7 @@
 				268AFC8B2199668400197028 /* RFBaseTableCell.swift in Sources */,
 				2683CF8B21A7F1E200467B4E /* RFDateHeaderLabel.swift in Sources */,
 				263E376321AADB79001DDE33 /* IngredientsCell.swift in Sources */,
+				26B80D4F21C7FB5D003AE55D /* CameraVC.swift in Sources */,
 				260F320421BB9E4500A85A43 /* RFConversationService.swift in Sources */,
 				26380A2C2197CB8700DFBB82 /* UIView+Ext.swift in Sources */,
 				26D5EDBB219D7CFB004AFB39 /* DialogView.swift in Sources */,
