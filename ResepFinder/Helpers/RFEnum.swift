@@ -38,3 +38,23 @@ enum RFTabBarItem: Int {
     case conversation
     case profile
 }
+
+enum RegionLoc: String {
+    case KA
+    case JW
+    case SL
+    case SM
+    
+    var rawValue: String {
+        switch self {
+        case .KA:
+            return "Kalimantan"
+        case .JW:
+            return "Jawa"
+        case .SL:
+            return "Sulawesi"
+        case .SM:
+            return "Sumatera"
+        }
+    }
+}

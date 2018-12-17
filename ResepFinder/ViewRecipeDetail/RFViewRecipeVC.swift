@@ -34,11 +34,18 @@ class RFViewRecipeVC: RFBaseController {
     
     let profileImage: RFImageView = {
         let imageView = RFImageView()
-        imageView.backgroundColor = .red
+        imageView.backgroundColor = UIColor(red: 224/255, green: 224/255, blue: 224/255, alpha: 1)
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         imageView.setCornerWith(radius: 15)
         return imageView
+    }()
+    
+    let userProfileInitialName: UILabel = {
+        let label = UILabel()
+        label.text = "D"
+        label.font = RFFont.instance.subHead14
+        return label
     }()
     
     let profileLbl: UILabel = {
@@ -193,6 +200,7 @@ extension RFViewRecipeVC {
         self.view.addSubview(tableView)
         self.tableView.addSubview(titleLbl)
         self.tableView.addSubview(profileImage)
+        self.profileImage.addSubview(userProfileInitialName)
         self.tableView.addSubview(profileLbl)
         self.tableView.addSubview(followBtn)
         self.bottomView.addSubview(startBtn)
@@ -202,6 +210,7 @@ extension RFViewRecipeVC {
         _ = titleLbl.centerConstraintWith(centerX: self.tableView.centerXAnchor)
         
         _ = profileImage.anchor(left: self.tableView.leftAnchor, bottom: self.headerView.bottomAnchor, leftConstant: 16, widthConstant: 30, heightConstant: 30)
+        _ = userProfileInitialName.centerConstraintWith(centerX: profileImage.centerXAnchor, centerY: profileImage.centerYAnchor)
         _ = profileLbl.anchor(left: self.profileImage.rightAnchor, leftConstant: 8)
         _ = profileLbl.centerConstraintWith(centerY: self.profileImage.centerYAnchor)
         _ = followBtn.anchor(top: profileLbl.bottomAnchor, left: self.profileImage.rightAnchor, topConstant: 4, leftConstant: 8, widthConstant: 50)
@@ -291,6 +300,7 @@ extension RFViewRecipeVC: UITableViewDelegate, UITableViewDataSource {
         
         self.titleLbl.text = self.getRecipe().title
         self.profileLbl.text = self.getRecipe().creator
+        self.userProfileInitialName.text = "\(RFFunction.getInitialname(name: self.getRecipe().creator!))"
         return cell
     }
     
@@ -302,6 +312,7 @@ extension RFViewRecipeVC: UITableViewDelegate, UITableViewDataSource {
     
     private func createCommentsCell() -> UITableViewCell{
         let cell = tableView.dequeueReusableCell(withIdentifier: "createReviewCell") as! ReviewCell
+        cell.bindData(self.getRecipe().id ?? "")
         cell.readMoreBtn.addTarget(self, action: #selector(navigateToReviews), for: .touchUpInside)
         return cell
     }

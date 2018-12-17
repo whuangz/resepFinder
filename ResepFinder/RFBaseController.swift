@@ -78,8 +78,9 @@ extension RFBaseController {
 
 extension RFBaseController {
     
-    @objc func navigateToAdvanceSearch() {
-        let advancedSearchVC = RFAdvancedSearchVC()
+    @objc func navigateToAdvanceSearch(_ locationID: String) {
+        let vm = RFAdvancedSearchVM(locID: locationID)
+        let advancedSearchVC = RFAdvancedSearchVC(vm: vm)
         advancedSearchVC.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(advancedSearchVC, animated: true)
     }
@@ -98,6 +99,10 @@ extension RFBaseController {
     
     @objc func swipeBack(){
         self.popViewController()
+    }
+    
+    @objc func dismissToRoot(){
+        self.navigationController?.popToRootViewController(animated: true)
     }
 
 }

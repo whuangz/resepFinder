@@ -23,8 +23,13 @@ class RFRecipe: NSObject {
     var like: Int?
     var creator: String?
     
-    override init(){
+    override init() {
         
+    }
+    
+    init(id: String, title: String){
+        self.id = id
+        self.title = title
     }
     
     init(id: String, path: String, title: String, desc: String, difficulty: String, num: String, time: String, ingredients: [RFIngredient], steps: [RFStep], userID: String, like: Int, creator: String?){

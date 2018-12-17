@@ -15,7 +15,7 @@ protocol NavigationControllerDelegate {
     func navigateController(_ vc: UIViewController) -> UINavigationController
 }
 
-class HomeCollectionCell: UICollectionViewCell {
+class HomeCollectionCell: UITableViewCell {
     
     @IBOutlet weak var topView: UIView!
     private var profileView: UIView!
@@ -24,7 +24,7 @@ class HomeCollectionCell: UICollectionViewCell {
     private var followBtn: RFPrimaryBtn!
     
     @IBOutlet weak var middleView: UIView!
-    private var imageView: RFImageView!
+    private var imgView: RFImageView!
     private var timeView: UIView!
     private var timeIcon: UIImageView!
     private var timeLbl: UILabel!
@@ -75,7 +75,7 @@ class HomeCollectionCell: UICollectionViewCell {
         self.userProfileInitialName.text = "\(RFFunction.getInitialname(name: data.creator!))"
         guard let img = data.recipePathToImg else {return}
 
-        self.imageView.loadImage(urlString: img)
+        self.imgView.loadImage(urlString: img)
         self.timeLbl.text = data.time
         self.descriptionLbl.text = data.desc
         self.difficulty.text = data.difficulty
@@ -118,7 +118,7 @@ extension HomeCollectionCell {
         self.timeView = getView()
         self.timeIcon = getImageView()
         self.timeLbl = getTimeLbl()
-        self.imageView = getImageView()
+        self.imgView = getImageView()
         
         self.descriptionLbl = getDescriptionLbl()
         self.difficultyLbl = getLbl()
@@ -135,7 +135,7 @@ extension HomeCollectionCell {
     fileprivate func configureViews(){
         
         self.timeLbl.text = " 5 Mins "
-        self.imageView.image = UIImage(named: "recipe1")
+        self.imgView.image = UIImage(named: "recipe1")
         self.timeIcon.image = UIImage(named: "timer")
         
         self.descriptionLbl.text = "Fluffy sweet potatoes mixed with butter, sugar, and vanilla, and baked with a crunchy pecan streusel topping. This recipe was given to me by my brother-in-law."
@@ -155,6 +155,7 @@ extension HomeCollectionCell {
     
     fileprivate func setupLoveBtn(){
         self.loveBtn.rx.tap.subscribe(onNext: {
+            self.loveBtn.animateTouch(duration: 0.2)
             self.service.checkLovedRecipe(recipeID: ((self.recipe?.id)!), location: self.location ?? "") { (selected) in
                 if selected {
                     self.service.removeLove(recipeID: (self.recipe?.id)!, location: self.location ?? "")
@@ -189,8 +190,8 @@ extension HomeCollectionCell {
         self.topView.addSubview(nameLbl)
         self.topView.addSubview(followBtn)
         
-        self.middleView.addSubview(imageView)
-        self.imageView.addSubview(timeView)
+        self.middleView.addSubview(imgView)
+        self.imgView.addSubview(timeView)
         timeView.addSubview(timeIcon)
         timeView.addSubview(timeLbl)
         
@@ -211,17 +212,18 @@ extension HomeCollectionCell {
         _ = followBtn.anchor(left: self.nameLbl.rightAnchor, right: self.topView.rightAnchor, leftConstant: 8, rightConstant: 16, widthConstant: 60)
         
         //middle view constraint
-        _ = imageView.anchor(top: self.middleView.topAnchor, left: self.middleView.leftAnchor, right: self.middleView.rightAnchor, topConstant: 0, leftConstant: 0, rightConstant: 0, heightConstant: 200)
-        _ = self.timeView.anchor(bottom: imageView.bottomAnchor, right: imageView.rightAnchor, bottomConstant: 8, rightConstant: 8, eqWidth: self.timeLbl.widthAnchor, eqHeight: self.timeLbl.heightAnchor, widthMultiplier: 1.5)
+        _ = imgView.anchor(top: self.middleView.topAnchor, left: self.middleView.leftAnchor, right: self.middleView.rightAnchor, topConstant: 0, leftConstant: 0, rightConstant: 0, heightConstant: 200)
+        _ = self.timeView.anchor(bottom: imgView.bottomAnchor, right: imgView.rightAnchor, bottomConstant: 8, rightConstant: 8, eqWidth: self.timeLbl.widthAnchor, eqHeight: self.timeLbl.heightAnchor, widthMultiplier: 1.5)
         _ = self.timeLbl.anchor(bottom: timeView.bottomAnchor, right: timeView.rightAnchor, rightConstant: 4)
         _ = self.timeIcon.anchor(left: timeView.leftAnchor, right: timeLbl.leftAnchor, leftConstant: 4, rightConstant: 4)
         _ = self.timeIcon.centerConstraintWith(centerY: self.timeLbl.centerYAnchor)
         
         //bottom view constraint
-        _ = descriptionLbl.anchor(top: self.imageView.bottomAnchor, left: self.imageView.leftAnchor, right: self.imageView.rightAnchor, topConstant: 8, leftConstant: 16, rightConstant: 16)    
+        _ = descriptionLbl.anchor(top: self.imgView.bottomAnchor, left: self.imgView.leftAnchor, right: self.imgView.rightAnchor, topConstant: 8, leftConstant: 16, rightConstant: 16)
+        _ = descriptionLbl.heightAnchor.constraint(greaterThanOrEqualToConstant: 0).isActive = true
         _ = difficultyLbl.anchor(top: self.descriptionLbl.bottomAnchor, left: descriptionLbl.leftAnchor, topConstant: 16, leftConstant: 0)
             difficultyLbl.setContentHuggingPriority(UILayoutPriority.defaultHigh, for: .horizontal)
-        _ = difficulty.anchor(left: difficultyLbl.rightAnchor, leftConstant: 8)
+        _ = difficulty.anchor(left: difficultyLbl.rightAnchor, bottom: self.middleView.bottomAnchor, leftConstant: 8, bottomConstant: 16)
         _ = difficulty.centerConstraintWith(centerY: difficultyLbl.centerYAnchor)
         _ = iconStackView.anchor(left: difficulty.rightAnchor, right: descriptionLbl.rightAnchor, leftConstant: 8)
         _ = iconStackView.centerConstraintWith(centerY: difficultyLbl.centerYAnchor)

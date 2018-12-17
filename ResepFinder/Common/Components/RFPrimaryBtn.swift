@@ -44,7 +44,6 @@ class RFPrimaryBtn: UIButton {
     }
     
     func selected(_ status: Bool){
-        self.animateTouch(duration: 0.2)
         if status == true {
             self.setImage(self.activeImg, for: .normal)
         }else {

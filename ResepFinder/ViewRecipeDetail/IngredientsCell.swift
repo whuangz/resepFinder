@@ -79,7 +79,7 @@ extension IngredientsCell {
             self.addToShoppingList.animateTouch(duration: 0.2)
             self.service.checkAddedIngredientToUser(recipeID: ((self.recipe?.id)!)) { (selected) in
                 if selected {
-                    self.service.removeRecipe(recipeID: (self.recipe?.id)!)
+                    self.service.removeRecipeBy((self.recipe?.id)!)
                     self.addToShoppingList.setTitle("Add to Shopping List", for: .normal)
                     
                 }else{

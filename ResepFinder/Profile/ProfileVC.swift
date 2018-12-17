@@ -24,7 +24,7 @@ class ProfileVC: UITableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        setupViewModel()
+        //setupViewModel()
         self.tableView.reloadData()
         super.viewWillAppear(animated)
     }

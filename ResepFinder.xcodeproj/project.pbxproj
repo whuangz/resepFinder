@@ -28,6 +28,9 @@
 		26253C4D21AC36D700FC6598 /* CreateIngredientCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26253C4C21AC36D700FC6598 /* CreateIngredientCell.swift */; };
 		26253C5021AC440400FC6598 /* AddIngredientCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26253C4F21AC440400FC6598 /* AddIngredientCell.swift */; };
 		26253C5221AC496E00FC6598 /* UITextField+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26253C5121AC496E00FC6598 /* UITextField+Ext.swift */; };
+		2626785821C7A2FA004E1E77 /* RFAdvancedSearchVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2626785721C7A2FA004E1E77 /* RFAdvancedSearchVM.swift */; };
+		2626785B21C7A3D9004E1E77 /* RFSearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2626785921C7A3D9004E1E77 /* RFSearchCell.swift */; };
+		2626785C21C7A3D9004E1E77 /* RFSearchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2626785A21C7A3D9004E1E77 /* RFSearchCell.xib */; };
 		26287867218F0D1400CD07C5 /* RFPrimaryBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26287866218F0D1400CD07C5 /* RFPrimaryBtn.swift */; };
 		2628786A218F0DFE00CD07C5 /* RFColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26287869218F0DFE00CD07C5 /* RFColor.swift */; };
 		2628786C218F0E0800CD07C5 /* RFFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2628786B218F0E0800CD07C5 /* RFFont.swift */; };
@@ -89,6 +92,8 @@
 		26B2BAC021874B76004B148F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 26B2BABF21874B76004B148F /* Assets.xcassets */; };
 		26B2BAC321874B76004B148F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 26B2BAC121874B76004B148F /* LaunchScreen.storyboard */; };
 		26B2BACC21874BE5004B148F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 26B2BACB21874BE5004B148F /* GoogleService-Info.plist */; };
+		26B80D4A21C7D478003AE55D /* RFSearchResultVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26B80D4921C7D478003AE55D /* RFSearchResultVC.swift */; };
+		26B80D4C21C7D54D003AE55D /* RFSearchResultVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26B80D4B21C7D54D003AE55D /* RFSearchResultVM.swift */; };
 		26C3A35721B11E9B007601D2 /* ProfileVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C3A35621B11E9B007601D2 /* ProfileVM.swift */; };
 		26C3A35A21B12326007601D2 /* RFUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C3A35921B12326007601D2 /* RFUser.swift */; };
 		26C3E1F021A6F65D0095FBB5 /* UIButton+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C3E1EF21A6F65D0095FBB5 /* UIButton+Ext.swift */; };
@@ -155,6 +160,9 @@
 		26253C4C21AC36D700FC6598 /* CreateIngredientCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateIngredientCell.swift; sourceTree = "<group>"; };
 		26253C4F21AC440400FC6598 /* AddIngredientCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddIngredientCell.swift; sourceTree = "<group>"; };
 		26253C5121AC496E00FC6598 /* UITextField+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Ext.swift"; sourceTree = "<group>"; };
+		2626785721C7A2FA004E1E77 /* RFAdvancedSearchVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RFAdvancedSearchVM.swift; sourceTree = "<group>"; };
+		2626785921C7A3D9004E1E77 /* RFSearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RFSearchCell.swift; sourceTree = "<group>"; };
+		2626785A21C7A3D9004E1E77 /* RFSearchCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RFSearchCell.xib; sourceTree = "<group>"; };
 		26287866218F0D1400CD07C5 /* RFPrimaryBtn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RFPrimaryBtn.swift; sourceTree = "<group>"; };
 		26287869218F0DFE00CD07C5 /* RFColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RFColor.swift; sourceTree = "<group>"; };
 		2628786B218F0E0800CD07C5 /* RFFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RFFont.swift; sourceTree = "<group>"; };
@@ -221,6 +229,8 @@
 		26B2BAC221874B76004B148F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		26B2BAC421874B76004B148F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		26B2BACB21874BE5004B148F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		26B80D4921C7D478003AE55D /* RFSearchResultVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RFSearchResultVC.swift; sourceTree = "<group>"; };
+		26B80D4B21C7D54D003AE55D /* RFSearchResultVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RFSearchResultVM.swift; sourceTree = "<group>"; };
 		26C3A35621B11E9B007601D2 /* ProfileVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVM.swift; sourceTree = "<group>"; };
 		26C3A35921B12326007601D2 /* RFUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RFUser.swift; sourceTree = "<group>"; };
 		26C3E1EF21A6F65D0095FBB5 /* UIButton+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Ext.swift"; sourceTree = "<group>"; };
@@ -344,6 +354,17 @@
 				26F3ABDA21B3FB9000E33834 /* AddIngredientVM.swift */,
 			);
 			name = AddCell;
+			sourceTree = "<group>";
+		};
+		2626785621C7A2D4004E1E77 /* AdvancedSearch */ = {
+			isa = PBXGroup;
+			children = (
+				2650F9C921A96BED000638DE /* RFAdvancedSearchVC.swift */,
+				2626785721C7A2FA004E1E77 /* RFAdvancedSearchVM.swift */,
+				2626785921C7A3D9004E1E77 /* RFSearchCell.swift */,
+				2626785A21C7A3D9004E1E77 /* RFSearchCell.xib */,
+			);
+			path = AdvancedSearch;
 			sourceTree = "<group>";
 		};
 		26287868218F0DDD00CD07C5 /* Components */ = {
@@ -650,6 +671,8 @@
 				26DBF3F82191FE6500CD77FF /* Login */,
 				263399182188AC640035F4BE /* Registration */,
 				265EDDD621C36ED0001F455C /* Location */,
+				2626785621C7A2D4004E1E77 /* AdvancedSearch */,
+				26B80D4821C7D44F003AE55D /* SearchResult */,
 				26B2BAB821874B76004B148F /* AppDelegate.swift */,
 				26B2BABC21874B76004B148F /* Main.storyboard */,
 				263399242188B5F10035F4BE /* LocalizedStrings */,
@@ -658,7 +681,6 @@
 				26F72E4A21952E60008129A0 /* RFBaseController.swift */,
 				268AFC8A2199668400197028 /* RFBaseTableCell.swift */,
 				26ABDBBD21A0581C00F05409 /* RFBaseCollectionCell.swift */,
-				2650F9C921A96BED000638DE /* RFAdvancedSearchVC.swift */,
 			);
 			path = ResepFinder;
 			sourceTree = "<group>";
@@ -674,6 +696,15 @@
 				263399202188AD020035F4BE /* RF-Bridging-Header.h */,
 			);
 			path = SupportingFiles;
+			sourceTree = "<group>";
+		};
+		26B80D4821C7D44F003AE55D /* SearchResult */ = {
+			isa = PBXGroup;
+			children = (
+				26B80D4921C7D478003AE55D /* RFSearchResultVC.swift */,
+				26B80D4B21C7D54D003AE55D /* RFSearchResultVM.swift */,
+			);
+			path = SearchResult;
 			sourceTree = "<group>";
 		};
 		26C3A35821B1231E007601D2 /* Model */ = {
@@ -936,6 +967,7 @@
 				26156E0621C61D4C00D2F152 /* RFReviewListCell.xib in Resources */,
 				26B2BABE21874B76004B148F /* Main.storyboard in Resources */,
 				2674F822219D051F0002D64C /* DialogView.xib in Resources */,
+				2626785C21C7A3D9004E1E77 /* RFSearchCell.xib in Resources */,
 				265EDDDD21C36FF1001F455C /* RFLocationCell.xib in Resources */,
 				2681C2B421A68BED00AE98F0 /* HomeCollectionCell.xib in Resources */,
 				263399262188B60B0035F4BE /* eng.strings in Resources */,
@@ -1016,6 +1048,7 @@
 				26A23B0521A30C0400164B04 /* UserMessageCell.swift in Sources */,
 				26253C4D21AC36D700FC6598 /* CreateIngredientCell.swift in Sources */,
 				263BE07621A5182B00AD3A2C /* HomeVC.swift in Sources */,
+				26B80D4A21C7D478003AE55D /* RFSearchResultVC.swift in Sources */,
 				26C3A35A21B12326007601D2 /* RFUser.swift in Sources */,
 				26C739FF21B3AFEF000B7FAE /* RFProtocols.swift in Sources */,
 				268AFC84219962DC00197028 /* RFEnum.swift in Sources */,
@@ -1035,6 +1068,8 @@
 				3C192D2921C52F7F00F5ACB1 /* RFFunction.swift in Sources */,
 				26D5EDBD219D7D16004AFB39 /* RFDialogView.swift in Sources */,
 				264D2FFD21935BB600F66595 /* LoginVM.swift in Sources */,
+				2626785B21C7A3D9004E1E77 /* RFSearchCell.swift in Sources */,
+				26B80D4C21C7D54D003AE55D /* RFSearchResultVM.swift in Sources */,
 				26F3224C21A4188900EDEC7F /* MessageVC.swift in Sources */,
 				265EDDDC21C36FF1001F455C /* RFLocationCell.swift in Sources */,
 				264D2FFF21935CD400F66595 /* RFValidations.swift in Sources */,
@@ -1085,6 +1120,7 @@
 				26144B6221B42556001BCEA5 /* RecipeDetailVM.swift in Sources */,
 				26253C5021AC440400FC6598 /* AddIngredientCell.swift in Sources */,
 				26FD0BFD21B4D7E900D9C540 /* CreateStepsVM.swift in Sources */,
+				2626785821C7A2FA004E1E77 /* RFAdvancedSearchVM.swift in Sources */,
 				26E7009121ABE690001A8F7C /* CreateReviewsCell.swift in Sources */,
 				26A8A391219C6D4700C235FB /* SettingVC.swift in Sources */,
 				26B2BAB921874B76004B148F /* AppDelegate.swift in Sources */,

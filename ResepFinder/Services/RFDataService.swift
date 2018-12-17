@@ -89,6 +89,45 @@ class RFDataService: NSObject {
             }
         }
     }
+    
+    func getQueryRecipes(query: String, byLocation loc: String, completion: @escaping (_ listOfRecipes: [RFRecipe])->()){
+        var recipes = [RFRecipe]()
+        var queriesData = [String]()
+        self.RECIPE_REF.child(loc).observe(.value) { (snapshot) in
+            guard let dataSnap = snapshot.children.allObjects as? [DataSnapshot] else {return}
+            
+            for recipe in dataSnap {
+                let title = recipe.childSnapshot(forPath: "title").value as! String
+                
+                if title.caseInsensitiveCompare(query) == .orderedSame || title.contains(query){
+                    let id = recipe.key
+                    let r = RFRecipe(id: id, title: title)
+                    if !(queriesData.contains(title)){
+                        queriesData.append(title)
+                        recipes.append(r)
+                    }
+                }
+            }
+            completion(recipes)
+        }
+    }
+    
+    func getRecipesBy(location loc: String, withTitle query: String, completion: @escaping (_ recipe: [RFRecipe]) -> ()){
+        var recipes = [RFRecipe]()
+        self.RECIPE_REF.child(loc).observe(.value) { (snapshot) in
+            guard let dataSnap = snapshot.children.allObjects as? [DataSnapshot] else {return}
+            
+            for recipe in dataSnap {
+                let title = recipe.childSnapshot(forPath: "title").value as! String
+                if title.caseInsensitiveCompare(query) == .orderedSame || title.contains(query){
+                    if let data = recipe.value as? Dictionary<String,AnyObject> {
+                        recipes.append(self.appendRecipes(data))
+                    }
+                }
+            }
+            completion(recipes)
+        }
+    }
 
     func getRecipes(forUser user: RFUser, completion: @escaping (_ recipe: [RFRecipe]) -> ()){
         RECIPE_REF.child(user.region!).observe(.value) { (snapshot) in

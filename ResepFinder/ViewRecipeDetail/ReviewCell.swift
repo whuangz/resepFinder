@@ -22,6 +22,13 @@ class ReviewCell: RFBaseTableCell {
         prepareUI()
     }
     
+    func bindData(_ recipeID: String){
+        let vm = RFReviewVM(recipeID: recipeID)
+        vm.getListOfReviews { (reviews) in
+            self.totalReviewer.text = reviews.count > 1 ? "\(reviews.count) Reviwers" : reviews.count != 0 ? "\(reviews.count) Reviewer" : "Be first to review!"
+        }
+    }
+    
 }
 
 

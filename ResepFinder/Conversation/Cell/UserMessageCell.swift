@@ -82,7 +82,7 @@ extension UserMessageCell {
     fileprivate func getUserProfileText() -> UILabel {
         let label = UILabel()
         label.text = "D"
-        label.font = RFFont.instance.headBold18
+        label.font = RFFont.instance.subHead14
         return label
     }
    

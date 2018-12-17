@@ -16,7 +16,7 @@ class HomeVC: RFBaseController {
     @IBOutlet weak var topViewTopConstraint: NSLayoutConstraint!
     
     private var headerView: HomeHeaderView!
-    private var collectionView: UICollectionView!
+    private var tableView: UITableView!
     private var navigationBarHeight: CGFloat!
     private var defaultLocationKey = "KA"
     private var viewModel: HomeVM?
@@ -34,7 +34,7 @@ class HomeVC: RFBaseController {
         self.navigationController?.navigationBar.isHidden = false
         super.viewWillAppear(animated)
         initializeData()
-        self.collectionView.reloadData()
+        self.tableView.reloadData()
     }
     
     func initializeData(){
@@ -55,9 +55,8 @@ class HomeVC: RFBaseController {
     }
     
     private func registerCell(){
-        collectionView.register(UINib(nibName: "HomeHeaderView", bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "header")
-        collectionView.register(UINib(nibName: "HomeCollectionCell", bundle: nil), forCellWithReuseIdentifier: "HomeCollectionCell")
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "nocell")
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "nocell")
+        tableView.register(UINib(nibName: "HomeCollectionCell", bundle: nil), forCellReuseIdentifier: "HomeCollectionCell")
     }
     
     
@@ -79,35 +78,32 @@ class HomeVC: RFBaseController {
 extension HomeVC {
     fileprivate func prepareUI(){
         self.headerView = getHeaderView()
-        self.collectionView = getCollectionView()
+        self.tableView = getTableView()
         self.headerView.cameraBtn.addTarget(self, action: #selector(doNothing), for: .touchUpInside)
         layoutView()
     }
 
     private func layoutView(){
         self.topView.addSubview(headerView)
-        self.bottomView.addSubview(collectionView)
+        self.bottomView.addSubview(tableView)
         self.view.bringSubview(toFront: topView)
         
         _ = headerView.anchor(top: self.topView.topAnchor, left: self.topView.leftAnchor, bottom: self.topView.bottomAnchor, right: self.topView.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0)
-        _ = collectionView.anchor(top: self.bottomView.topAnchor, left: self.bottomView.leftAnchor, bottom: self.bottomView.bottomAnchor, right: self.bottomView.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0)
+        _ = tableView.anchor(top: self.bottomView.topAnchor, left: self.bottomView.leftAnchor, bottom: self.bottomView.bottomAnchor, right: self.bottomView.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0)
     }
     
-    
-    private func getCollectionView() -> UICollectionView {
-        let flowLayout = UICollectionViewFlowLayout()
-        flowLayout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+    private func getTableView() -> UITableView {
+        let tableView = UITableView()
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.tableFooterView = UIView(frame: .zero)
+        tableView.estimatedRowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.separatorStyle = .none
+        tableView.allowsMultipleSelection = false
+        tableView.allowsSelection = false
         
-        let cv = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
-        cv.delegate = self
-        cv.dataSource = self
-        cv.alwaysBounceVertical = false
-        cv.backgroundColor = .clear
-        cv.isScrollEnabled = true
-        cv.contentInset = UIEdgeInsets(top: 0, left: 16, bottom: 16, right: 16)
-        cv.scrollIndicatorInsets = UIEdgeInsets(top: 180, left: 0, bottom: 0, right: 0)
-        return cv
-
+        return tableView
     }
     
     private func getHeaderView() -> HomeHeaderView{
@@ -116,9 +112,9 @@ extension HomeVC {
     }
     
     private func setupGesture() {
-        self.headerView.searchBar.rx.tapGesture().when(GestureRecognizerState.recognized).subscribe { (_) in
-            self.navigateToAdvanceSearch()
-        }.disposed(by: self.disposeBag)
+        self.headerView.searchBar.rx.tapGesture().when(GestureRecognizerState.recognized).subscribe(onNext: { (_) in
+            self.navigateToAdvanceSearch(self.defaultLocationKey)
+        }).disposed(by: self.disposeBag)
     }
     
 }
@@ -127,32 +123,33 @@ extension HomeVC {
 extension HomeVC: HomeInput {
     func setupData(vm: HomeVM) {
         self.viewModel = vm
-        self.collectionView.reloadData()
+        self.tableView.reloadData()
     }
     
 }
 
 
 //MARK: - Table View Delegate & Datasource implementation
-extension HomeVC: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
+extension HomeVC: UITableViewDelegate, UITableViewDataSource {
+
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
             return 1
         }
         return self.viewModel?.totalRecipes ?? 0
     }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "nocell", for: indexPath) as! UICollectionViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "nocell", for: indexPath) as! UITableViewCell
             cell.backgroundColor = .clear
             return cell
         }else{
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HomeCollectionCell", for: indexPath) as! HomeCollectionCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "HomeCollectionCell", for: indexPath) as! HomeCollectionCell
             cell.delegate = self
             if let vm = self.viewModel{
                 if vm.totalRecipes != 0 {
@@ -163,14 +160,14 @@ extension HomeVC: UICollectionViewDataSource, UICollectionViewDelegate, UICollec
             return cell
         }
     }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if indexPath.section == 0{
-            return CGSize(width: self.view.frame.width, height: self.topView.frame.height - self.navigationBarHeight)
-        }
-        return CGSize(width: self.view.frame.width, height: 400)
-    }
 
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.section == 0{
+            return (self.topView.frame.height - self.navigationBarHeight)
+        }
+        return UITableViewAutomaticDimension
+    }
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
 
         if scrollView.contentOffset.y > 0 {
@@ -188,7 +185,7 @@ extension HomeVC: UICollectionViewDataSource, UICollectionViewDelegate, UICollec
             self.setupRightBarItemWith(image: "camera_icon_snap", action: #selector(doNothing))
             self.setSearchBarAsNavigation()
             self.searchBar.rx.tapGesture().when(GestureRecognizerState.recognized).subscribe(onNext: { (_) in
-                self.navigateToAdvanceSearch()
+                self.navigateToAdvanceSearch(self.defaultLocationKey)
             }).disposed(by: self.disposeBag)
             UIApplication.shared.statusBarView?.backgroundColor = color
         }else{
@@ -214,7 +211,7 @@ extension HomeVC: NavigationControllerDelegate {
 extension HomeVC: SelectLocationDelegate {
     func didChooseLocation(location: RFLocation) {
         self.defaultLocationKey = location.id!
-        self.collectionView.reloadData()
+        self.tableView.reloadData()
     }
     
 }
