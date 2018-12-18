@@ -27,17 +27,19 @@ class RFTabBarVC: UITabBarController {
         let home = self.setTabBarItem(HomeVC(), imageName: "home", selectedImg: "selected_home", tag: 1, title: RFLocalizedString().forKey("home_tab_menu"))
         
         
+        let recommend = self.setTabBarItem(UIViewController(), imageName: "recommend", selectedImg: "selected_recommend", tag: 2, title: RFLocalizedString().forKey("recoomend_tab_menu"))
+        
         let createRecipe = CreateVC()
         createRecipe.tabBarItem.title = "\(RFLocalizedString().forKey("create_tab_menu"))"
         createRecipe.tabBarItem.image = UIImage(named: "createR")?.withRenderingMode(UIImageRenderingMode.alwaysOriginal)
-        createRecipe.tabBarItem.tag = 2
+        createRecipe.tabBarItem.tag = 3
         
         
-        let conversation = self.setTabBarItem(ConversationVC(), imageName: "conversation", selectedImg: "selected_conversation", tag: 3, title: RFLocalizedString().forKey("conversation_tab_menu"))
+        let conversation = self.setTabBarItem(ConversationVC(), imageName: "conversation", selectedImg: "selected_conversation", tag: 4, title: RFLocalizedString().forKey("conversation_tab_menu"))
         
-        let profile = self.setTabBarItem(self.profileVC, imageName: "profile", selectedImg: "selected_profile", tag: 4, title: RFLocalizedString().forKey("profile_tab_menu"))
+        let profile = self.setTabBarItem(self.profileVC, imageName: "profile", selectedImg: "selected_profile", tag: 5, title: RFLocalizedString().forKey("profile_tab_menu"))
         
-        self.viewControllers = [home, createRecipe, conversation, profile]
+        self.viewControllers = [home, recommend, createRecipe, conversation, profile]
         self.selectedViewController = self.viewControllers?.first as? UINavigationController
     }
     

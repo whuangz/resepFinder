@@ -25,6 +25,7 @@
 
 //MARK: - TABBARMENU
 "home_tab_menu" = "Home";
+"recoomend_tab_menu" = "Recommend";
 "create_tab_menu" = "Create";
 "conversation_tab_menu" = "Conversation";
 "profile_tab_menu" = "Profile";

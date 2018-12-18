@@ -148,11 +148,13 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "nocell", for: indexPath) as! UITableViewCell
+            cell.selectionStyle = .none
             cell.backgroundColor = .clear
             return cell
         }else{
             let cell = tableView.dequeueReusableCell(withIdentifier: "HomeCollectionCell", for: indexPath) as! HomeCollectionCell
             cell.delegate = self
+            cell.selectionStyle = .none
             if let vm = self.viewModel{
                 if vm.totalRecipes != 0 {
                     let recipes = vm.getRecipes()
