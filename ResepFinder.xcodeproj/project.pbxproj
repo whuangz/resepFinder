@@ -135,6 +135,7 @@
 		3C192D2921C52F7F00F5ACB1 /* RFFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C192D2821C52F7F00F5ACB1 /* RFFunction.swift */; };
 		3C63EC2921BECA7A00661D9D /* DetailIngredientsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C63EC2821BECA7A00661D9D /* DetailIngredientsVC.swift */; };
 		3C63EC2B21BECB6900661D9D /* DetailIngredientsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C63EC2A21BECB6900661D9D /* DetailIngredientsVM.swift */; };
+		3CE8804121C9536B0040E6D2 /* RecommendVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE8804021C9536B0040E6D2 /* RecommendVC.swift */; };
 		F9561E5DE3860D00424A1AD9 /* Pods_ResepFinder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DE5EC465E1A8CB3A3F6CDB0 /* Pods_ResepFinder.framework */; };
 /* End PBXBuildFile section */
 
@@ -274,6 +275,7 @@
 		3C192D2821C52F7F00F5ACB1 /* RFFunction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RFFunction.swift; sourceTree = "<group>"; };
 		3C63EC2821BECA7A00661D9D /* DetailIngredientsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailIngredientsVC.swift; sourceTree = "<group>"; };
 		3C63EC2A21BECB6900661D9D /* DetailIngredientsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailIngredientsVM.swift; sourceTree = "<group>"; };
+		3CE8804021C9536B0040E6D2 /* RecommendVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendVC.swift; sourceTree = "<group>"; };
 		5DE5EC465E1A8CB3A3F6CDB0 /* Pods_ResepFinder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ResepFinder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -676,6 +678,7 @@
 				2626785621C7A2D4004E1E77 /* AdvancedSearch */,
 				26B80D4821C7D44F003AE55D /* SearchResult */,
 				26B80D4D21C7F9EF003AE55D /* CameraView */,
+				3CE8803F21C953500040E6D2 /* Recommend */,
 				26B2BAB821874B76004B148F /* AppDelegate.swift */,
 				26B2BABC21874B76004B148F /* Main.storyboard */,
 				263399242188B5F10035F4BE /* LocalizedStrings */,
@@ -891,6 +894,14 @@
 				17C1C4AF62C0DDD2FFCDFFB8 /* Pods-ResepFinder.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		3CE8803F21C953500040E6D2 /* Recommend */ = {
+			isa = PBXGroup;
+			children = (
+				3CE8804021C9536B0040E6D2 /* RecommendVC.swift */,
+			);
+			path = Recommend;
 			sourceTree = "<group>";
 		};
 		A83840CDDEA6052743F9236E /* Frameworks */ = {
@@ -1141,6 +1152,7 @@
 				26144B6421B42828001BCEA5 /* RFIngredient.swift in Sources */,
 				2608521921B773FB002C7AA4 /* RFViewRecipeVM.swift in Sources */,
 				26E7009721ABF806001A8F7C /* RecipeDetailCell.swift in Sources */,
+				3CE8804121C9536B0040E6D2 /* RecommendVC.swift in Sources */,
 				26CE274521A2BCCE0040346F /* RFImageView.swift in Sources */,
 				2628786A218F0DFE00CD07C5 /* RFColor.swift in Sources */,
 				263E376521AAE607001DDE33 /* String+Ext.swift in Sources */,

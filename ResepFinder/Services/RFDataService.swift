@@ -42,6 +42,7 @@ class RFDataService: NSObject {
     }
     
     func getListOfLocations(handler: @escaping (_ location: [RFLocation])->()){
+        self.showProgress()
         LOCATION_REF.observeSingleEvent(of: .value) { (dataSnapShot) in
             var arrOfLocations = [RFLocation]()
             guard let dataSnap = dataSnapShot.children.allObjects as? [DataSnapshot] else {return}
@@ -50,6 +51,7 @@ class RFDataService: NSObject {
                 arrOfLocations.append(l)
             }
             handler(arrOfLocations)
+            self.dismissProgress()
         }
     }
     
@@ -65,6 +67,7 @@ class RFDataService: NSObject {
     }
     
     func getLocationBy(_ locationID: String, handler: @escaping (_ location: RFLocation)->()){
+        self.showProgress()
         LOCATION_REF.observeSingleEvent(of: .value) { (dataSnapShot) in
             guard let dataSnap = dataSnapShot.children.allObjects as? [DataSnapshot] else {return}
             for location in dataSnap{
@@ -73,10 +76,13 @@ class RFDataService: NSObject {
                     handler(l)
                 }
             }
+            
+            self.dismissProgress()
         }
     }
     
     func getUser(forUid uid: String, handler: @escaping (_ userName: RFUser)->()){
+        self.showProgress()
         USER_REF.observeSingleEvent(of: .value) { (userSnapshot) in
             guard let usersSnapShot = userSnapshot.children.allObjects as? [DataSnapshot] else {return}
             for user in usersSnapShot {
@@ -87,10 +93,12 @@ class RFDataService: NSObject {
                     handler(user)
                 }
             }
+            self.dismissProgress()
         }
     }
     
     func getQueryRecipes(query: String, byLocation loc: String, completion: @escaping (_ listOfRecipes: [RFRecipe])->()){
+        self.showProgress()
         var recipes = [RFRecipe]()
         var queriesData = [String]()
         self.RECIPE_REF.child(loc).observe(.value) { (snapshot) in
@@ -109,10 +117,12 @@ class RFDataService: NSObject {
                 }
             }
             completion(recipes)
+            self.dismissProgress()
         }
     }
     
     func getRecipesBy(location loc: String, withTitle query: String, completion: @escaping (_ recipe: [RFRecipe]) -> ()){
+        self.showProgress()
         var recipes = [RFRecipe]()
         self.RECIPE_REF.child(loc).observe(.value) { (snapshot) in
             guard let dataSnap = snapshot.children.allObjects as? [DataSnapshot] else {return}
@@ -126,10 +136,12 @@ class RFDataService: NSObject {
                 }
             }
             completion(recipes)
+            self.dismissProgress()
         }
     }
 
     func getRecipes(forUser user: RFUser, completion: @escaping (_ recipe: [RFRecipe]) -> ()){
+        self.showProgress()
         RECIPE_REF.child(user.region!).observe(.value) { (snapshot) in
             guard let recipeSnapShot = snapshot.children.allObjects as? [DataSnapshot] else {return}
             var recipes = [RFRecipe]()
@@ -143,10 +155,12 @@ class RFDataService: NSObject {
             }
             
             completion(recipes)
+            self.dismissProgress()
         }
     }
     
     func getAllUsers(query: String, completion: @escaping (_ users: [RFUser]) -> ()){
+        self.showProgress()
         let currentUser = Auth.auth().currentUser?.uid
         var users = [RFUser]()
         USER_REF.observe(.value) { (snapshot) in
@@ -166,10 +180,12 @@ class RFDataService: NSObject {
                 
             }
             completion(users)
+            self.dismissProgress()
         }
     }
     
     func getAllRecipesWith(from location: RFLocation, completion: @escaping (_ recipe: [RFRecipe]) -> ()){
+        self.showProgress()
         RECIPE_REF.child(location.name!).queryOrderedByKey().observe(.value) { (snapshot) in
             guard let recipeSnapShot = snapshot.children.allObjects as? [DataSnapshot] else {return}
             var recipes = [RFRecipe]()
@@ -180,6 +196,7 @@ class RFDataService: NSObject {
             }
             
             completion(recipes)
+            self.dismissProgress()
         }
     }
     
@@ -237,6 +254,7 @@ class RFDataService: NSObject {
     
     func getListOfSavedIngredients(completion: @escaping (_ recipe: [RFRecipe]) -> ()){
         let uid = Auth.auth().currentUser?.uid
+        self.showProgress()
         USER_SHOPPING_LIST_REF.observeSingleEvent(of: .value) { (snapshot) in
             guard let dataSnapshot = snapshot.children.allObjects as? [DataSnapshot] else {return}
             var returnedRecipes = [RFRecipe]()
@@ -265,6 +283,7 @@ class RFDataService: NSObject {
             }
             
             completion(returnedRecipes)
+            self.dismissProgress()
         }
     }
     
@@ -385,6 +404,7 @@ class RFDataService: NSObject {
     }
     
     func reviewRecipe(data: RFReview, recipeID: String){
+        showProgress()
         let uid = Auth.auth().currentUser?.uid
         let key = REVIEW_REF.childByAutoId().key
         let data: [String:Any] = [
@@ -394,9 +414,11 @@ class RFDataService: NSObject {
             "comment" : data.comment!
         ]
         REVIEW_REF.child(recipeID).child(uid!).updateChildValues(data)
+        dismissProgress()
     }
     
     func getReviews(recipeID: String, completion: @escaping (_ data: [RFReview])->()){
+        showProgress()
         self.REVIEW_REF.child(recipeID).observeSingleEvent(of: .value) { (dataSnap) in
             var reviews = [RFReview]()
             guard let dataSnapshot = dataSnap.children.allObjects as? [DataSnapshot] else {return}
@@ -408,15 +430,17 @@ class RFDataService: NSObject {
                 reviews.append(review)
             }
             completion(reviews)
+            self.dismissProgress()
         }
     }
     
     
     func showProgress() {
-        
+        SVProgressHUD.show()
+        SVProgressHUD.setDefaultMaskType(.clear)
     }
     
     func dismissProgress() {
-        
+        SVProgressHUD.dismiss()
     }
 }

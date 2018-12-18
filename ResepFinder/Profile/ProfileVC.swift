@@ -178,8 +178,8 @@ extension ProfileVC: ProfileInput {
 }
 
 extension ProfileVC: NavigationControllerDelegate {
-    func navigateController(_ vc: UIViewController) -> UINavigationController {
-        return self.navigationController!
+    func navigateController(_ vc: UIViewController) -> UIViewController {
+        return self
     }
     
     

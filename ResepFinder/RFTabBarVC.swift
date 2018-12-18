@@ -27,7 +27,7 @@ class RFTabBarVC: UITabBarController {
         let home = self.setTabBarItem(HomeVC(), imageName: "home", selectedImg: "selected_home", tag: 1, title: RFLocalizedString().forKey("home_tab_menu"))
         
         
-        let recommend = self.setTabBarItem(UIViewController(), imageName: "recommend", selectedImg: "selected_recommend", tag: 2, title: RFLocalizedString().forKey("recoomend_tab_menu"))
+        let recommend = self.setTabBarItem(RecommendVC(), imageName: "recommend", selectedImg: "selected_recommend", tag: 2, title: RFLocalizedString().forKey("recoomend_tab_menu"))
         
         let createRecipe = CreateVC()
         createRecipe.tabBarItem.title = "\(RFLocalizedString().forKey("create_tab_menu"))"

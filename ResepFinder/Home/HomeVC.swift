@@ -208,8 +208,8 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension HomeVC: NavigationControllerDelegate {
-    func navigateController(_ vc: UIViewController) -> UINavigationController {
-        return self.navigationController!
+    func navigateController(_ vc: UIViewController) -> UIViewController {
+        return self
     }
 }
 

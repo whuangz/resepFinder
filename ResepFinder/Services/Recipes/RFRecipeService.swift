@@ -14,6 +14,7 @@ import RxSwift
 class RFRecipeService: RFDataService {
    
     func createRecipeWith(title: String, desc: String, difficulty: String, serving: String, time: String, ingredients: [String], steps: [[String:Any]], recipeImg: UIImage, userData: RFUser){
+        self.showProgress()
         
         let uid = userData.uid
     
@@ -50,6 +51,7 @@ class RFRecipeService: RFDataService {
                     
                 })
             }
+            self.dismissProgress()
         }
         
         uploadTask.resume()
@@ -63,8 +65,7 @@ class RFRecipeService: RFDataService {
             "ingredients": ingredients,
         ]
         USER_SHOPPING_LIST_REF.child(uid!).child(recipeID).updateChildValues(body)
-        print("Added to my shopping list")
-        
+        print("Added to my shopping list")        
     }
     
     func removeRecipeBy(_ recipeID: String){

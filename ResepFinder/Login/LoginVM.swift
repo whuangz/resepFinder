@@ -40,12 +40,14 @@ class LoginVM: NSObject{
     }
     
     func doLogin(){
+        self.service.showProgress()
         self.service.loginWith(email: email.value, pwd: pwd.value).bind { (tuple) in
             if (tuple.1 != nil){
                 self.errMsg.value = tuple.1.debugDescription
             }else{
                 self.isSuccess.value = true
             }
+            self.service.dismissProgress()
         }.disposed(by: disposeBag)
     }
 }

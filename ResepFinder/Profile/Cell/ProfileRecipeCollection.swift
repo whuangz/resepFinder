@@ -38,8 +38,8 @@ class ProfileRecipeCollection: RFBaseTableCell {
     
     private func navigateTo(_ vc: UIViewController) {
         guard let delegate = self.delegate else {return}
-        guard let navigationController = delegate.navigateController(vc) as? UINavigationController else {return}
-        navigationController.pushViewController(vc, animated: true)
+        guard let navigationController = delegate.navigateController(vc) as? UIViewController else {return}
+        navigationController.navigationController!.pushViewController(vc, animated: true)
     }
     
 }

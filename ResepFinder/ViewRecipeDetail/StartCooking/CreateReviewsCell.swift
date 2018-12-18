@@ -119,7 +119,8 @@ extension CreateReviewsCell {
         _ = self.ratingStar.anchor(top: self.subHeader.bottomAnchor, topConstant: 8, widthConstant: 160, heightConstant: 50)
         _ = self.ratingStar.centerConstraintWith(centerX: self.subHeader.centerXAnchor)
         _ = self.commentTxt.anchor(top: self.ratingStar.bottomAnchor, left: self.leftAnchor, right: self.rightAnchor, topConstant: 8, leftConstant: 16, rightConstant: 16, heightConstant: 150)
-        _ = self.reviewBtn.anchor(top: self.commentTxt.bottomAnchor, left: self.leftAnchor, right: self.rightAnchor, topConstant: 24, leftConstant: 24, rightConstant: 24, heightConstant: 40)
+        _ = self.reviewBtn.anchor(top: self.commentTxt.bottomAnchor, left: self.leftAnchor, bottom: self.bottomAnchor,
+                                  right: self.rightAnchor, topConstant: 24, leftConstant: 24,bottomConstant: 50, rightConstant: 24, heightConstant: 40)
         
         
         if RFScreenHelper.isLessThanIPhone6() {

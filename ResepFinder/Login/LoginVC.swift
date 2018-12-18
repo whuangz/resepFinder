@@ -140,6 +140,8 @@ extension LoginVC {
         
         //set font
         self.loginTitle.font = RFFont.instance.headBold18
+        self.emailTxt.font = RFFont.instance.bodyMedium14
+        self.pwdTxt.font = RFFont.instance.bodyMedium14
         
     }
     

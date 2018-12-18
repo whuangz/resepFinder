@@ -161,12 +161,24 @@ extension RegistrationsVC {
         self.conPwdTxt.setPlaceholder(condPwdPlaceholder, floatingTitle: condPwdPlaceholder)
         self.regionTxt.text = regionPlaceholder
         self.registerBtn.setTitle(registerBtnText, for: .normal)
-        self.loginLink.setTitle(loginLinkText, for: .normal)
         self.socialLbl.text = socialMediaText
         
         
         //set font
         self.registerTitle.font = RFFont.instance.headBold18
+        
+        let attrs: [NSAttributedStringKey : Any] = [
+            NSAttributedStringKey.font : RFFont.instance.subHead14,
+            NSAttributedStringKey.underlineStyle : NSUnderlineStyle.styleSingle.rawValue,
+            ]
+        let loginLink = NSMutableAttributedString(string: loginLinkText, attributes: attrs)
+        self.loginLink.setAttributedTitle(loginLink, for: .normal)
+        self.userNameTxt.font = RFFont.instance.bodyMedium14
+        self.emailTxt.font = RFFont.instance.bodyMedium14
+        self.pwdTxt.font = RFFont.instance.bodyMedium14
+        self.conPwdTxt.font = RFFont.instance.bodyMedium14
+        self.regionTxt.font = RFFont.instance.bodyMedium14
+        
         
     }
     

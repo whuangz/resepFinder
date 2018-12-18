@@ -14,16 +14,19 @@ import RxSwift
 class RFConversationService: RFDataService {
     
     func uploadText(withMsg msg: String, forUID uid: String, withGroupKey groupKey: String?, sendComplete: @escaping (_ status: Bool)->()){
+        self.showProgress()
         if groupKey != nil {
             let body = [
                 "content": msg,
                 "sender_id": uid
             ]
             CONVERSATION_REF.child(groupKey!).child("messages").childByAutoId().updateChildValues(body)
+            self.dismissProgress()
         }
     }
     
     func getAllMessagesForConversation(conversation: RFConversation, handler: @escaping (_ messages: [Message])->()){
+        self.showProgress()
         var messages = [Message]()
         CONVERSATION_REF.child(conversation.roomID).child("messages").observeSingleEvent(of: .value) { (groupFeedSnapShot) in
             guard let groupFeedSnapShot = groupFeedSnapShot.children.allObjects as? [DataSnapshot] else {return}
@@ -39,10 +42,12 @@ class RFConversationService: RFDataService {
                 messages.append(message!)
             }
             handler(messages)
+            self.dismissProgress()
         }
     }
     
     func getAllConversations(completion: @escaping (_ conversations: [RFConversation])->()){
+        self.showProgress()
         let uid = Auth.auth().currentUser?.uid
         var conversations = [RFConversation]()
         CONVERSATION_REF.observeSingleEvent(of: .value) { (dataSnapshot) in
@@ -56,15 +61,18 @@ class RFConversationService: RFDataService {
                 
             }
             completion(conversations)
+            self.dismissProgress()
         }
     }
     
     func createRoomWith(ids: [String], completion: @escaping (_ status: Bool)-> ()){
+        self.showProgress()
         let body = [
             "members": ids
             ] as [String : Any]
         CONVERSATION_REF.childByAutoId().updateChildValues(body)
         completion(true)
+        self.dismissProgress()
     }
     
 }

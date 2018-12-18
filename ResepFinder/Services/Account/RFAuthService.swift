@@ -41,7 +41,6 @@ class RFAuthService: RFDataService {
     }
     
     func registerWithParameters(username: String, email: String, pwd: String, location: String) -> Observable<((User?, Error?))>{
-        
         return Observable.create({ (observer) in
             Auth.auth().createUser(withEmail: email, password: pwd, completion: { (data, error) in
                 if error == nil {
@@ -57,11 +56,13 @@ class RFAuthService: RFDataService {
                     observer.onNext((nil, error))
                 }
             })
+        
             return Disposables.create()
         })
     }
     
     func retrieveUserDetail(completion: @escaping UserCompletion){
+        self.showProgress()
         guard let user = Auth.auth().currentUser else {return }
         USER_REF.child(user.uid).observe(.value) { (snapshot) in
             if let data = snapshot.value as? Dictionary<String,AnyObject> {
@@ -86,6 +87,8 @@ class RFAuthService: RFDataService {
                 
                 let returnedUser = RFUser(uid: uid, username: username, email: email, region: location, followers: followers, followings: followings)
                 completion(returnedUser)
+                
+                self.dismissProgress()
             }
         }
         
@@ -98,11 +101,13 @@ class RFAuthService: RFDataService {
     }
     
     private func createRecipeDetail(uid: String){
+        self.showProgress()
         let key = RECIPE_REF.childByAutoId().key!
         let author:[String:Any] = ["userId" : uid , "recipeID" : key]
         
         let recipes = ["\(key)" : author]
         RECIPE_REF.updateChildValues(recipes)
+        self.dismissProgress()
     }
     
 }

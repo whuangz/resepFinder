@@ -12,7 +12,7 @@ import RxSwift
 import FirebaseAuth
 
 protocol NavigationControllerDelegate {
-    func navigateController(_ vc: UIViewController) -> UINavigationController
+    func navigateController(_ vc: UIViewController) -> UIViewController
 }
 
 class HomeCollectionCell: UITableViewCell {
@@ -64,8 +64,14 @@ class HomeCollectionCell: UITableViewCell {
     
     private func navigateTo(_ vc: UIViewController) {
         guard let delegate = self.delegate else {return}
-        guard let navigationController = delegate.navigateController(vc) as? UINavigationController else {return}
-        navigationController.pushViewController(vc, animated: true)
+        guard let navigationController = delegate.navigateController(vc) as? RFBaseController else {return}
+        if Auth.auth().currentUser != nil {
+            navigationController.navigationController!.pushViewController(vc, animated: true)
+        }else{
+            let registerVC = UINavigationController(rootViewController: RegistrationsVC())
+            registerVC.hidesBottomBarWhenPushed = true
+            navigationController.present(registerVC, animated: true, completion: nil)
+        }
     }
 
     func bindData(data: RFRecipe, location: String){
@@ -99,6 +105,8 @@ class HomeCollectionCell: UITableViewCell {
                         }
                     }
                 }
+            }else{
+                self.loveBtn.isHidden = true
             }
            
         }

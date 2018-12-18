@@ -40,6 +40,7 @@ class RegistrationsVM: NSObject{
     }
     
     func doRegister(){
+        self.service.showProgress()
         self.service.registerWithParameters(username: username.value ,email: email.value, pwd: pwd.value, location: region.value).bind { (tuple) in
             if (tuple.1 != nil){
                 self.errMsg.value = tuple.1.debugDescription
@@ -50,6 +51,7 @@ class RegistrationsVM: NSObject{
                     self.isSuccess.value = true
 //                }).disposed(by: self.disposeBag)
             }
+            self.service.dismissProgress()
         }.disposed(by: disposeBag)
     }
 }

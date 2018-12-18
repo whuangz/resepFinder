@@ -108,7 +108,7 @@
                         <constraint firstItem="jt7-hg-ztO" firstAttribute="top" secondItem="xQZ-8v-OEa" secondAttribute="top" id="zdW-El-6ab"/>
                     </constraints>
                 </scrollView>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m7A-KG-raU">
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m7A-KG-raU">
                     <rect key="frame" x="0.0" y="567" width="375" height="100"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="F5n-Gt-LF0">
