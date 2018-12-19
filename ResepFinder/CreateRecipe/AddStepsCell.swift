@@ -71,6 +71,7 @@ extension AddStepsCell {
         self.stepNo = getNoBtn()
         self.stepDescription = getTextField()
         self.deleteBtn = getBtn()
+        self.deleteBtn.isHidden = true
         
         layoutViews()
     }
@@ -124,7 +125,7 @@ extension AddStepsCell {
     fileprivate func getBtn() -> RFPrimaryBtn{
         let button = RFPrimaryBtn()
         
-        button.setContentImageFor(active: "camera", inactive: "camera")
+        button.setContentImageFor(active: "remove", inactive: "remove")
         button.imageEdgeInsets = UIEdgeInsetsMake(0, 8, 0, 8)
         return button
     }

@@ -32,7 +32,6 @@ class RecommendVC: RFBaseController {
     
     let plusBtn: UIButton = {
         let btn = UIButton()
-        btn.backgroundColor = .green
         btn.setImage(UIImage(named: "plus"), for: .normal)
         return btn
     }()
@@ -71,9 +70,9 @@ extension RecommendVC {
         _ = titleLbl.centerConstraintWith(centerX: self.view.centerXAnchor)
         _ = searchBarField.anchor(top: self.titleLbl.bottomAnchor, topConstant: 32, widthConstant: 250, heightConstant: 35)
         _ = searchBarField.centerConstraintWith(centerX: self.titleLbl.centerXAnchor, xConstant: -20)
-        _ = plusBtn.anchor(left: searchBarField.rightAnchor, leftConstant: 8, widthConstant: 35, heightConstant: 35)
+        _ = plusBtn.anchor(left: searchBarField.rightAnchor, leftConstant: 8, widthConstant: 30, heightConstant: 30)
         _ = plusBtn.centerConstraintWith(centerY: self.searchBarField.centerYAnchor)
-        //_ = collectionView.anchor(top: self.searchBarField.bottomAnchor, left: self.view.leftAnchor, bottom: self.view.bottomAnchor, right: self.view.rightAnchor, topConstant: 24, leftConstant: 0, bottomConstant: 0, rightConstant: 0)
+        _ = collectionView.anchor(top: self.searchBarField.bottomAnchor, left: self.view.leftAnchor, bottom: self.view.bottomAnchor, right: self.view.rightAnchor, topConstant: 24, leftConstant: 0, bottomConstant: 0, rightConstant: 0)
     }
     
     fileprivate func getCollectionView() -> UICollectionView {
@@ -89,6 +88,7 @@ extension RecommendVC {
         cv.showsHorizontalScrollIndicator = false
         cv.contentInset = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
         cv.isScrollEnabled = false
+        cv.backgroundColor = .red
         return cv
     }
    

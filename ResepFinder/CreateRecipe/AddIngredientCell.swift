@@ -45,6 +45,7 @@ extension AddIngredientCell {
         
         self.ingredientField = getTextField()
         self.deleteBtn = getBtn()
+        self.deleteBtn.isHidden = true
         self.viewModel = AddIngredientVM()
         
         layoutViews()
@@ -73,7 +74,7 @@ extension AddIngredientCell {
     fileprivate func getBtn() -> RFPrimaryBtn{
         let button = RFPrimaryBtn()
         
-        button.setContentImageFor(active: "camera", inactive: "camera")
+        button.setContentImageFor(active: "remove", inactive: "remove")
         button.imageEdgeInsets = UIEdgeInsetsMake(0, 16, 0, 16)
         return button
     }
@@ -83,3 +84,4 @@ extension AddIngredientCell {
 protocol AddIngredientProtocol {
     func setDetailsView(data: [Int:String])
 }
+
