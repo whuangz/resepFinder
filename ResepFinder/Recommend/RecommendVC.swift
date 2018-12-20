@@ -74,6 +74,10 @@ class RecommendVC: RFBaseController {
     }
     
     func observeData(){
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(didDismissKeyboard))
+        self.view.addGestureRecognizer(tap)
+        
         searchBarField.rx.controlEvent([.editingDidEnd])
             .asObservable()
             .subscribe(onNext: { _ in
@@ -88,6 +92,10 @@ class RecommendVC: RFBaseController {
             }
         }).disposed(by: self.disposeBag)
        
+    }
+    
+    @objc func didDismissKeyboard(){
+        self.view.endEditing(true)
     }
     
 }
