@@ -61,10 +61,9 @@ class RFAuthService: RFDataService {
         })
     }
     
-    func retrieveUserDetail(completion: @escaping UserCompletion){
+    func retrieveUserDetail(uid: String, completion: @escaping UserCompletion){
         self.showProgress()
-        guard let user = Auth.auth().currentUser else {return }
-        USER_REF.child(user.uid).observe(.value) { (snapshot) in
+        USER_REF.child(uid).observe(.value) { (snapshot) in
             if let data = snapshot.value as? Dictionary<String,AnyObject> {
                 let uid = data["uid"] as? String ?? ""
                 let username = data["username"] as? String ?? ""

@@ -151,6 +151,8 @@ extension AddStepsCell: UIImagePickerControllerDelegate, UINavigationControllerD
     
     
     func generateImagePathFromDatabase(img: UIImage, completion: @escaping (_ data: String) -> ()){
+        SVProgressHUD.show()
+        SVProgressHUD.setDefaultMaskType(.clear)
         let data = UIImageJPEGRepresentation(img, 0.6)
         let uid = Auth.auth().currentUser?.uid
         let metaData = StorageMetadata()
@@ -168,6 +170,7 @@ extension AddStepsCell: UIImagePickerControllerDelegate, UINavigationControllerD
                 imgStorage.downloadURL(completion: { (url, err) in
                     guard let downloadUrl = url?.absoluteString else {return}
                     completion(downloadUrl)
+                    SVProgressHUD.dismiss()
                 })
             }
         }

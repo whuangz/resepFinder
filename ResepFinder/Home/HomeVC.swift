@@ -35,6 +35,7 @@ class HomeVC: RFBaseController {
         super.viewWillAppear(animated)
         initializeData()
         self.tableView.reloadData()
+        self.view.endEditing(true)
     }
     
     func initializeData(){

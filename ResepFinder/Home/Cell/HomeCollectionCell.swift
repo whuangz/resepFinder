@@ -34,6 +34,7 @@ class HomeCollectionCell: UITableViewCell {
     private var difficulty: UILabel!
     
     private var iconStackView: UIStackView!
+    private var likesCount: UILabel!
     private var starBtn: RFPrimaryBtn!
     private var loveBtn: RFPrimaryBtn!
     
@@ -85,6 +86,7 @@ class HomeCollectionCell: UITableViewCell {
         self.timeLbl.text = data.time
         self.descriptionLbl.text = data.desc
         self.difficulty.text = data.difficulty
+        self.likesCount.text = "\(data.like ?? 0 )"
         
         self.location = location
         
@@ -135,6 +137,7 @@ extension HomeCollectionCell {
         self.iconStackView = getStacView()
         self.starBtn = getIconBtn()
         self.loveBtn = getIconBtn()
+        self.likesCount = getLbl()
         
         configureViews()
         layoutViews()
@@ -209,6 +212,7 @@ extension HomeCollectionCell {
         self.middleView.addSubview(descriptionLbl)
         self.middleView.addSubview(iconStackView)
         //self.iconStackView.addArrangedSubview(self.starBtn)
+        self.middleView.addSubview(self.likesCount)
         self.iconStackView.addArrangedSubview(self.loveBtn)
         
         //top view constraint
@@ -233,7 +237,9 @@ extension HomeCollectionCell {
             difficultyLbl.setContentHuggingPriority(UILayoutPriority.defaultHigh, for: .horizontal)
         _ = difficulty.anchor(left: difficultyLbl.rightAnchor, bottom: self.middleView.bottomAnchor, leftConstant: 8, bottomConstant: 16)
         _ = difficulty.centerConstraintWith(centerY: difficultyLbl.centerYAnchor)
-        _ = iconStackView.anchor(left: difficulty.rightAnchor, right: descriptionLbl.rightAnchor, leftConstant: 8)
+        _ = likesCount.anchor(left: difficulty.rightAnchor, leftConstant: 8)
+        _ = likesCount.centerConstraintWith(centerY: difficultyLbl.centerYAnchor)
+        _ = iconStackView.anchor(left: likesCount.rightAnchor, right: descriptionLbl.rightAnchor, leftConstant: 8)
         _ = iconStackView.centerConstraintWith(centerY: difficultyLbl.centerYAnchor)
         
         
@@ -283,7 +289,7 @@ extension HomeCollectionCell {
     
     fileprivate func getLbl() -> UILabel {
         let label = UILabel()
-        label.text = "Username100"
+        label.text = "100"
         label.font =  RFFont.instance.bodyMedium12
         return label
     }
@@ -310,6 +316,7 @@ extension HomeCollectionCell {
         stackView.distribution = .fillEqually
         stackView.alignment = .center
         stackView.axis = .horizontal
+        stackView.spacing = -5
         return stackView
     }
     

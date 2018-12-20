@@ -17,7 +17,7 @@ class RFUser: NSObject {
     var following: [String]?
     var recipes: [RFRecipe]?
 
-    init(uid: String, username: String, location: String) {
+    init(uid: String, username: String, location: String = "") {
         self.uid = uid
         self.username = username
         self.region = location

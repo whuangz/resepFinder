@@ -15,6 +15,12 @@ class ProfileVC: UITableViewController {
     private var descriptionCell: ProfileDescriptionCellTableViewCell?
     private var detailCell: ProfileDetailsCell?
     private var recipeCollectionCell: ProfileRecipeCollection?
+    private var uid: String?
+    
+    convenience init(uid: String){
+        self.init()
+        self.uid = uid
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,9 +46,20 @@ class ProfileVC: UITableViewController {
         tableView.register(ProfileRecipeCollection.self, forCellReuseIdentifier: ("ProfileRecipeList"))
     }
     
-    private func setupViewModel(){
+    func setupViewModel(){
         self.viewModel = ProfileVM(vc: self)
-        self.viewModel?.retrieveUserDetail()
+        self.viewModel?.retrieveUserDetail(uid: self.uid ?? "")
+        self.tableView.reloadData()
+        
+        if self.uid != nil {
+            let backButton = UIImage(named: "back")
+            let leftMenuButton = UIBarButtonItem(image: backButton?.withRenderingMode(UIImageRenderingMode.alwaysOriginal), style: UIBarButtonItemStyle.plain, target: self, action: #selector(navigateBack))
+            self.navigationItem.leftBarButtonItem = leftMenuButton
+        }
+    }
+    
+    @objc func navigateBack(){
+        self.navigationController?.popViewController(animated: true)
     }
     
     deinit {
@@ -105,6 +122,7 @@ extension ProfileVC {
     private func createProfileDetails() -> UITableViewCell {
         detailCell = tableView.dequeueReusableCell(withIdentifier: ("ProfileDetailsCell")) as? ProfileDetailsCell
         self.detailCell?.selectionStyle = .none
+        self.detailCell?.delegate = self
         return self.detailCell!
     }
     

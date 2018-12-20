@@ -7,27 +7,34 @@
 //
 
 import UIKit
+import RxSwift
+import RxGesture
+import RxCocoa
 
 class ProfileDetailsCell: RFBaseTableCell, RFBaseProtocol {
 
-    fileprivate var followingView: UIView!
+     var followingView: UIView!
     fileprivate var followingCount: UILabel!
     fileprivate var followingLbl: UILabel!
     fileprivate var totalRecipesView: UIView!
     fileprivate var totalRecipesCount: UILabel!
     fileprivate var totalRecipesLbl: UILabel!
-    fileprivate var followerView: UIView!
+     var followerView: UIView!
     fileprivate var followerCount: UILabel!
     fileprivate var followerLbl: UILabel!
+    private var userData: RFUser?
 
+    var delegate: NavigationControllerDelegate?
     
     override func setupViews() {
         super.setupViews()
         prepareUI()
+        observeData()
     }
     
     func bindModel(_ model: AnyObject) {
         if let user = model as? RFUser {
+            self.userData = user
             
             if let recipes = user.recipes {
                 self.totalRecipesCount.text = "\(recipes.count)"
@@ -41,6 +48,38 @@ class ProfileDetailsCell: RFBaseTableCell, RFBaseProtocol {
                 self.followerCount.text = "\(followers.count)"
             }
         }
+    }
+    
+    func observeData(){
+        self.followingView.rx.tapGesture().when(GestureRecognizerState.ended).subscribe(onNext: {  (_) in
+            self.navigateToFollowing()
+        }).disposed(by: self.dispose)
+        
+        self.followerView.rx.tapGesture().when(GestureRecognizerState.ended).subscribe(onNext: {  (_) in
+            self.navigateToFollowers()
+        }).disposed(by: self.dispose)
+    }
+    
+    private func navigateToFollowing(){
+        if let user = self.userData {
+            let vm = ListOfUserVM(uids: user.following ?? [String](), title: "Followings")
+            let followingVC = ListOfUserVC(vm: vm)
+            self.navigateTo(followingVC)
+        }
+    }
+    
+    private func navigateToFollowers(){
+        if let user = self.userData {
+            let vm = ListOfUserVM(uids: user.follower ?? [String](), title: "Followers")
+            let followersVC = ListOfUserVC(vm: vm)
+            self.navigateTo(followersVC)
+        }
+    }
+    
+    private func navigateTo(_ vc: UIViewController) {
+        guard let delegate = self.delegate else {return}
+        guard let navigationController = delegate.navigateController(vc) as? UIViewController else {return}
+        navigationController.navigationController!.pushViewController(vc, animated: true)
     }
     
 }

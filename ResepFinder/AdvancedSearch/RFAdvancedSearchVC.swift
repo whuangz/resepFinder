@@ -29,6 +29,11 @@ class RFAdvancedSearchVC: RFBaseController {
         self.searchBar.becomeFirstResponder()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.view.endEditing(true)
+    }
+    
 
     fileprivate func setupNavigationBar(){
         self.setupCustomLeftBarItem(image: "back", action: #selector(self.navigateToPreviouseScreen))

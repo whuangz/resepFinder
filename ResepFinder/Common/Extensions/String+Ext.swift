@@ -20,6 +20,13 @@ extension String {
         let textSize = (self as NSString).size(withAttributes: [NSAttributedStringKey.font : font])
         return textSize.width
     }
+    
+    func size(width width: CGFloat, font: UIFont) -> CGSize {
+        let constraintRect = CGSize(width: width, height: .greatestFiniteMagnitude)
+        let boundingBox = self.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [.font: font], context: nil)
+        
+        return boundingBox.size
+    }
 }
 
 extension NSMutableAttributedString {

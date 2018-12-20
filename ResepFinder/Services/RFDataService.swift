@@ -101,13 +101,15 @@ class RFDataService: NSObject {
         self.showProgress()
         var recipes = [RFRecipe]()
         var queriesData = [String]()
+        let query = query.lowercased()
         self.RECIPE_REF.child(loc).observe(.value) { (snapshot) in
             guard let dataSnap = snapshot.children.allObjects as? [DataSnapshot] else {return}
             
             for recipe in dataSnap {
-                let title = recipe.childSnapshot(forPath: "title").value as! String
+                let title = (recipe.childSnapshot(forPath: "title").value as! String)
+                let titleForQueried = title.lowercased()
                 
-                if title.caseInsensitiveCompare(query) == .orderedSame || title.contains(query){
+                if titleForQueried.caseInsensitiveCompare(query) == .orderedSame || titleForQueried.contains(query){
                     let id = recipe.key
                     let r = RFRecipe(id: id, title: title)
                     if !(queriesData.contains(title)){
@@ -184,6 +186,29 @@ class RFDataService: NSObject {
         }
     }
     
+    func getListOfUserByUid(uids: [String], completion: @escaping (_ users: [RFUser]) -> ()){
+        self.showProgress()
+        var users = [RFUser]()
+        USER_REF.observe(.value) { (snapshot) in
+            guard let userSnapshot = snapshot.children.allObjects as? [DataSnapshot] else {return}
+            
+            for user in userSnapshot {
+                let uid = user.childSnapshot(forPath: "uid").value as! String
+                let name = user.childSnapshot(forPath: "username").value as! String
+            
+                for u in uids {
+                    if u == uid {
+                        let user = RFUser(uid: uid, username: name)
+                        users.append(user)
+                    }
+                }
+                
+            }
+            completion(users)
+            self.dismissProgress()
+        }
+    }
+    
     func getAllRecipesWith(from location: RFLocation, completion: @escaping (_ recipe: [RFRecipe]) -> ()){
         self.showProgress()
         RECIPE_REF.child(location.name!).queryOrderedByKey().observe(.value) { (snapshot) in
@@ -230,7 +255,10 @@ class RFDataService: NSObject {
             let serving = data["serving"] as? String ?? ""
             let time = data["time"] as? String ?? ""
             let pathToImg = data["pathToImage"] as? String ?? ""
-            let likes = data["likes"] as? Int ?? 0
+            var likes = 0
+            if let dataLikes = data["peopleWhoLikes"] as? [String:AnyObject]{
+                likes = dataLikes.count
+            }
             var ingredients = [RFIngredient]()
             var steps = [RFStep]()
             
@@ -345,9 +373,9 @@ class RFDataService: NSObject {
         }
     }
     
-    func getNumberOfFollowings(completion: @escaping (_ data: [Int:[String]]) -> ()) {
-        let uid = Auth.auth().currentUser?.uid
-        FOLLOW_RELATION_REF.child(uid!).observeSingleEvent(of: .value) { (snapshot) in
+    func getNumberOfFollowings(uid: String, completion: @escaping (_ data: [Int:[String]]) -> ()) {
+        
+        FOLLOW_RELATION_REF.child(uid).observe(.value) { (snapshot) in
             guard let dataSnap = snapshot.value as? [String:Any] else {
                 let followTable = [ 0: [String](), 1: [String]() ]
                 completion(followTable)
