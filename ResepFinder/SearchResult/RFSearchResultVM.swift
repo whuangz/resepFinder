@@ -13,10 +13,15 @@ class RFSearchResultVM {
     var titleName: String?
     private var service = RFDataService()
     private var location: String?
+    var listOfRecipes: [RFRecipe]?
     
     init(title: String, location:String) {
         self.titleName = title
         self.location = location
+    }
+    
+    init(listOfRecipes: [RFRecipe]) {
+        self.listOfRecipes = listOfRecipes
     }
     
     func getListOfQueriedRecipes(completion: @escaping (_ recipe: [RFRecipe])->()){

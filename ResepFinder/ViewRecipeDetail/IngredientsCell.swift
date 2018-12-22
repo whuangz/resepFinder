@@ -81,9 +81,12 @@ extension IngredientsCell {
                 if selected {
                     self.service.removeRecipeBy((self.recipe?.id)!)
                     self.addToShoppingList.setTitle("Add to Shopping List", for: .normal)
-                    
+                    RFAlertHelper.instance.showSuccessAlert("Ingredient's removed from list", tapCompletion: { (_) in
+                    })
                 }else{
                     self.addRecipeToMyList()
+                    RFAlertHelper.instance.showSuccessAlert("Added to Shopping List", tapCompletion: { (_) in
+                    })
                     self.addToShoppingList.setTitle("Remove from My List", for: .normal)
                 }
             }

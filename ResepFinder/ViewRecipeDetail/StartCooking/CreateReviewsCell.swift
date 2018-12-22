@@ -44,7 +44,12 @@ class CreateReviewsCell: RFBaseCollectionCell {
             if let value: NSValue = info[UIKeyboardFrameEndUserInfoKey] as? NSValue {
                 let rawFrame = value.cgRectValue
                 let keyboardFrame = self.convert(rawFrame, to: nil);
-                self.keyboardBottomSpaceConstraint?.constant = -(keyboardFrame.size.height)
+                if RFScreenHelper.isLessThanIPhone6() {
+                    self.keyboardBottomSpaceConstraint?.constant = -(keyboardFrame.size.height) + 80
+                }else{
+                    self.keyboardBottomSpaceConstraint?.constant = -(keyboardFrame.size.height)
+                }
+                
                 UIView.animate(withDuration: 0, delay: 0, options: .curveEaseOut, animations: {
                     self.layoutIfNeeded()
                 }) { (completed) in
@@ -114,13 +119,13 @@ extension CreateReviewsCell {
         addSubview(ratingStar)
         addSubview(commentTxt)
         
-        _ = self.imgView.anchor(top: topAnchor, left: leftAnchor, right: rightAnchor, topConstant: 0, leftConstant: 0, rightConstant: 0, heightConstant: 300)
-        _ = self.subHeader.anchor(top: self.imgView.bottomAnchor, left: self.leftAnchor, right: self.rightAnchor, topConstant: 16, leftConstant: 8, rightConstant: 8)
-        _ = self.ratingStar.anchor(top: self.subHeader.bottomAnchor, topConstant: 8, widthConstant: 160, heightConstant: 50)
+        _ = self.imgView.anchor(top: topAnchor, left: leftAnchor, right: rightAnchor, topConstant: 0, leftConstant: 0, rightConstant: 0, heightConstant: 280)
+        _ = self.subHeader.anchor(top: self.imgView.bottomAnchor, left: self.leftAnchor, right: self.rightAnchor, topConstant: 16, leftConstant: 8, rightConstant: 8, heightConstant: 50)
+        _ = self.ratingStar.anchor(top: self.subHeader.bottomAnchor, topConstant: 4, widthConstant: 160, heightConstant: 50)
         _ = self.ratingStar.centerConstraintWith(centerX: self.subHeader.centerXAnchor)
         _ = self.commentTxt.anchor(top: self.ratingStar.bottomAnchor, left: self.leftAnchor, right: self.rightAnchor, topConstant: 8, leftConstant: 16, rightConstant: 16, heightConstant: 150)
-        _ = self.reviewBtn.anchor(top: self.commentTxt.bottomAnchor, left: self.leftAnchor, bottom: self.bottomAnchor,
-                                  right: self.rightAnchor, topConstant: 24, leftConstant: 24,bottomConstant: 50, rightConstant: 24, heightConstant: 40)
+        _ = self.reviewBtn.anchor(top: self.commentTxt.bottomAnchor, left: self.leftAnchor,
+                                  right: self.rightAnchor, topConstant: 24, leftConstant: 24,rightConstant: 24, heightConstant: 40)
         
         
         if RFScreenHelper.isLessThanIPhone6() {

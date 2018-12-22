@@ -7,3 +7,18 @@
 //
 
 import Foundation
+
+class RecommendVM {
+    
+    private var service = RFDataService()
+    
+    init() {
+        
+    }
+    
+    func findRecipeBasedOn(_ ingredients: [String], withLocation loc: String, completion: @escaping (_ listOfRecipes: [RFRecipe])->()){
+        self.service.getRecipesBy(ingredients, withLocation: loc) { (listOfrecipes) in
+            completion(listOfrecipes)
+        }
+    }
+}

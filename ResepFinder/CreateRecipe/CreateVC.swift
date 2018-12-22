@@ -48,7 +48,8 @@ class CreateVC: RFBaseController {
         guard let viewModel = self.viewModel else {return}
 
         if viewModel.sendData(){
-            print("SUCCESS")
+            RFAlertHelper.instance.showSuccessAlert("Recipe's Successfully Created", tapCompletion: { (_) in
+            })
             self.dismissToPreviousScreen()
         }
         

@@ -28,17 +28,28 @@ class RFSearchResultVC: RFBaseController {
         prepareUI()
         registerCell()
         getRecipes()
+        self.view.endEditing(true)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.view.endEditing(true)
     }
     
     private func getRecipes(){
-        self.viewModel.getListOfQueriedRecipes { (listOfRecipes) in
-            self.listOfRecipes = listOfRecipes
-            self.collectionView.reloadData()
+        if let recipes = self.viewModel.listOfRecipes {
+            self.listOfRecipes = recipes
+            self.searchBar.placeholder = "Type Ingredients Here"
+        }else{
+            self.viewModel.getListOfQueriedRecipes { (listOfRecipes) in
+                self.listOfRecipes = listOfRecipes
+                self.collectionView.reloadData()
+            }
         }
     }
     
     fileprivate func setupNavigationBar(){
-        self.setupCustomLeftBarItem(image: "back", action: #selector(self.dismissToRoot))
+        self.setupCustomLeftBarItem(image: "back", action: #selector(self.dismissToPreviousScreen))
         self.setSearchBarAsNavigation()
         self.navigationController?.navigationBar.backgroundColor = .white
     }

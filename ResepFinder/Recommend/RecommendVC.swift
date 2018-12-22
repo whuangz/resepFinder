@@ -40,6 +40,7 @@ class RecommendVC: RFBaseController {
     }()
     
     var inputtedIngredients = [String]()
+    private var viewModel: RecommendVM?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,6 +48,11 @@ class RecommendVC: RFBaseController {
         prepareUI()
         registerCell()
         observeData()
+        setViewModel()
+    }
+    
+    func setViewModel(){
+        self.viewModel = RecommendVM()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -54,6 +60,7 @@ class RecommendVC: RFBaseController {
         self.searchBarField.text = ""
         self.inputtedIngredients = [String]()
         self.collectionView.reloadData()
+        self.view.endEditing(true)
     }
     
     func setupNavigationBar(){
@@ -66,7 +73,18 @@ class RecommendVC: RFBaseController {
     }
 
     @objc func navigateToFindRecipe(){
-        print("Nothing")
+        let location = UserDefaults.standard.getLocation()
+        if let vm = self.viewModel {
+            vm.findRecipeBasedOn(self.inputtedIngredients, withLocation: location) { (listOfRecipes) in
+                self.navigateToSearchResult(recipes: listOfRecipes)
+            }
+        }
+    }
+    
+    func navigateToSearchResult(recipes: [RFRecipe]){
+        let vm = RFSearchResultVM(listOfRecipes: recipes)
+        let vc = RFSearchResultVC(vm: vm)
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     func registerCell(){

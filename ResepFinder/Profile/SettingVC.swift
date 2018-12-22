@@ -87,8 +87,9 @@ class SettingVC: UITableViewController {
     func showLogoutDialog(){
         let dialog = RFDialogView.instance
         dialog.showDialogWith(title: "Logout", content: "Are you sure want to log out?", leftBtn: "No", rightBtn: "Logout") {
+            RFAlertHelper.instance.showSuccessAlert("Successfully Log out", tapCompletion: { (_) in
+            })
             self.viewModel.doLogout()
-            //return to homepage
         }
     }
 }

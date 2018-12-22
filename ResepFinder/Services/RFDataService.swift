@@ -463,6 +463,28 @@ class RFDataService: NSObject {
     }
     
     
+    func getRecipesBy(_ ingredients: [String], withLocation loc:String, completion: @escaping (_ recipe: [RFRecipe])->()){
+        self.showProgress()
+        var recipes = [RFRecipe]()
+        var ingredients = ingredients.map {$0.lowercased()}
+        self.RECIPE_REF.child(loc).observe(.value) { (snapshot) in
+            guard let dataSnap = snapshot.children.allObjects as? [DataSnapshot] else {return}
+            
+            for recipe in dataSnap {
+                if let ingredientsData = recipe.childSnapshot(forPath: "ingredients").value as? [String]{
+                    let lowerIngredientsData = ingredientsData.map {$0.lowercased()}
+                    if lowerIngredientsData.containsData(ingredients) {
+                        if let data = recipe.value as? Dictionary<String,AnyObject> {
+                            recipes.append(self.appendRecipes(data))
+                        }
+                    }
+                }
+            }
+            completion(recipes)
+            self.dismissProgress()
+        }
+    }
+    
     func showProgress() {
         SVProgressHUD.show()
         SVProgressHUD.setDefaultMaskType(.clear)

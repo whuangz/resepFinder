@@ -79,6 +79,7 @@ extension RFBaseController {
 extension RFBaseController {
     
     @objc func navigateToAdvanceSearch(_ locationID: String) {
+        self.view.endEditing(true)
         let vm = RFAdvancedSearchVM(locID: locationID)
         let advancedSearchVC = RFAdvancedSearchVC(vm: vm)
         advancedSearchVC.hidesBottomBarWhenPushed = true
@@ -102,6 +103,7 @@ extension RFBaseController {
     }
     
     @objc func dismissToRoot(){
+        self.view.endEditing(true)
         self.navigationController?.popToRootViewController(animated: true)
     }
 

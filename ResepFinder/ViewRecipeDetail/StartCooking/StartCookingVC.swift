@@ -158,6 +158,8 @@ extension StartCookingVC: UICollectionViewDelegate, UICollectionViewDataSource, 
 extension StartCookingVC: ReviewRecipeProtocol{
     func didSendReview(_ data: RFReview) {
         self.viewModel?.submitReview(data)
+        RFAlertHelper.instance.showSuccessAlert("Recipe's Successfully Reviewed", tapCompletion: { (_) in
+        })
         self.dismiss(animated: true, completion: nil)
     }
     

@@ -107,6 +107,7 @@
 		26C6964521A26DC20020862D /* SearchUserVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C6964421A26DC20020862D /* SearchUserVC.swift */; };
 		26C739FF21B3AFEF000B7FAE /* RFProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C739FE21B3AFEF000B7FAE /* RFProtocols.swift */; };
 		26C73A0321B3B5A8000B7FAE /* RFRecipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C73A0221B3B5A8000B7FAE /* RFRecipe.swift */; };
+		26CC101B21CD0544004767FC /* RFAlertHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26CC101A21CD0544004767FC /* RFAlertHelper.swift */; };
 		26CE274521A2BCCE0040346F /* RFImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26CE274421A2BCCE0040346F /* RFImageView.swift */; };
 		26D5EDBB219D7CFB004AFB39 /* DialogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D5EDBA219D7CFB004AFB39 /* DialogView.swift */; };
 		26D5EDBD219D7D16004AFB39 /* RFDialogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D5EDBC219D7D16004AFB39 /* RFDialogView.swift */; };
@@ -132,6 +133,8 @@
 		26F3ABD921B3FA4300E33834 /* CreatIngredientVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26F3ABD821B3FA4300E33834 /* CreatIngredientVM.swift */; };
 		26F3ABDB21B3FB9000E33834 /* AddIngredientVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26F3ABDA21B3FB9000E33834 /* AddIngredientVM.swift */; };
 		26F72E4B21952E60008129A0 /* RFBaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26F72E4A21952E60008129A0 /* RFBaseController.swift */; };
+		26F8E1D521CE7C6900847F2C /* UserDefaults+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26F8E1D421CE7C6900847F2C /* UserDefaults+Ext.swift */; };
+		26F8E1D721CE897A00847F2C /* Array+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26F8E1D621CE897A00847F2C /* Array+Ext.swift */; };
 		26FD0BFB21B4D7DF00D9C540 /* AddStepVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26FD0BFA21B4D7DF00D9C540 /* AddStepVM.swift */; };
 		26FD0BFD21B4D7E900D9C540 /* CreateStepsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26FD0BFC21B4D7E900D9C540 /* CreateStepsVM.swift */; };
 		26FDAEE421ACFF5B00758D33 /* CreateStepsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26FDAEE321ACFF5B00758D33 /* CreateStepsCell.swift */; };
@@ -250,6 +253,7 @@
 		26C6964421A26DC20020862D /* SearchUserVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUserVC.swift; sourceTree = "<group>"; };
 		26C739FE21B3AFEF000B7FAE /* RFProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RFProtocols.swift; sourceTree = "<group>"; };
 		26C73A0221B3B5A8000B7FAE /* RFRecipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RFRecipe.swift; sourceTree = "<group>"; };
+		26CC101A21CD0544004767FC /* RFAlertHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RFAlertHelper.swift; sourceTree = "<group>"; };
 		26CE274421A2BCCE0040346F /* RFImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RFImageView.swift; sourceTree = "<group>"; };
 		26D5EDBA219D7CFB004AFB39 /* DialogView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DialogView.swift; sourceTree = "<group>"; };
 		26D5EDBC219D7D16004AFB39 /* RFDialogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RFDialogView.swift; sourceTree = "<group>"; };
@@ -275,6 +279,8 @@
 		26F3ABD821B3FA4300E33834 /* CreatIngredientVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatIngredientVM.swift; sourceTree = "<group>"; };
 		26F3ABDA21B3FB9000E33834 /* AddIngredientVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddIngredientVM.swift; sourceTree = "<group>"; };
 		26F72E4A21952E60008129A0 /* RFBaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RFBaseController.swift; sourceTree = "<group>"; };
+		26F8E1D421CE7C6900847F2C /* UserDefaults+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Ext.swift"; sourceTree = "<group>"; };
+		26F8E1D621CE897A00847F2C /* Array+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Ext.swift"; sourceTree = "<group>"; };
 		26FD0BFA21B4D7DF00D9C540 /* AddStepVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddStepVM.swift; sourceTree = "<group>"; };
 		26FD0BFC21B4D7E900D9C540 /* CreateStepsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateStepsVM.swift; sourceTree = "<group>"; };
 		26FDAEE321ACFF5B00758D33 /* CreateStepsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateStepsCell.swift; sourceTree = "<group>"; };
@@ -423,6 +429,7 @@
 				268AFC83219962DC00197028 /* RFEnum.swift */,
 				2681C2B521A6C5FB00AE98F0 /* RFScreenHelper.swift */,
 				3C192D2821C52F7F00F5ACB1 /* RFFunction.swift */,
+				26CC101A21CD0544004767FC /* RFAlertHelper.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -445,6 +452,8 @@
 				26E9F2F021B6CA46006D1FB9 /* UIImage+Ext.swift */,
 				267E202921B95C1000A474CC /* UIImagePickerController+RxSwift.swift */,
 				265EDDDE21C37895001F455C /* UIViewController+Ext.swift */,
+				26F8E1D421CE7C6900847F2C /* UserDefaults+Ext.swift */,
+				26F8E1D621CE897A00847F2C /* Array+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1097,10 +1106,12 @@
 				26E9F2F521B6CB51006D1FB9 /* CachedImageView.swift in Sources */,
 				26A23B0521A30C0400164B04 /* UserMessageCell.swift in Sources */,
 				26253C4D21AC36D700FC6598 /* CreateIngredientCell.swift in Sources */,
+				26F8E1D721CE897A00847F2C /* Array+Ext.swift in Sources */,
 				263BE07621A5182B00AD3A2C /* HomeVC.swift in Sources */,
 				26B80D4A21C7D478003AE55D /* RFSearchResultVC.swift in Sources */,
 				26C3A35A21B12326007601D2 /* RFUser.swift in Sources */,
 				26C739FF21B3AFEF000B7FAE /* RFProtocols.swift in Sources */,
+				26F8E1D521CE7C6900847F2C /* UserDefaults+Ext.swift in Sources */,
 				268AFC84219962DC00197028 /* RFEnum.swift in Sources */,
 				265C167421BD0B8100770779 /* ListOfIngredientsVM.swift in Sources */,
 				2695F9C021CA958500910EC7 /* ListOfUserVM.swift in Sources */,
@@ -1115,6 +1126,7 @@
 				263E376321AADB79001DDE33 /* IngredientsCell.swift in Sources */,
 				26B80D4F21C7FB5D003AE55D /* CameraVC.swift in Sources */,
 				260F320421BB9E4500A85A43 /* RFConversationService.swift in Sources */,
+				26CC101B21CD0544004767FC /* RFAlertHelper.swift in Sources */,
 				26380A2C2197CB8700DFBB82 /* UIView+Ext.swift in Sources */,
 				26D5EDBB219D7CFB004AFB39 /* DialogView.swift in Sources */,
 				3C192D2921C52F7F00F5ACB1 /* RFFunction.swift in Sources */,

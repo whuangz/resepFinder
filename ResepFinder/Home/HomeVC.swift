@@ -28,19 +28,31 @@ class HomeVC: RFBaseController {
         prepareUI()
         registerCell()
         setupGesture()
+        setupLocation()
+        self.view.endEditing(true)
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.navigationBar.isHidden = false
         super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.isHidden = false
         initializeData()
         self.tableView.reloadData()
+        self.view.endEditing(true)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         self.view.endEditing(true)
     }
     
     func initializeData(){
         self.viewModel = HomeVM(vc: self)
         self.viewModel?.retrieveRecipesWith(defaultLocationID: defaultLocationKey)
+    }
+    
+    private func setupLocation(){
+        let locationName = RegionLoc(rawValue: self.defaultLocationKey)?.rawValue ?? ""
+        UserDefaults.standard.setLocation(value: locationName)
     }
     
     private func setupNavigationBar(){

@@ -160,6 +160,7 @@ extension RFLocationVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let locations = self.viewModel?.locations {
             self.delegate?.didChooseLocation(location: locations[indexPath.row])
+            UserDefaults.standard.setLocation(value: locations[indexPath.row].name!)
         }
         
         self.navigationController?.popViewController(animated: true)
