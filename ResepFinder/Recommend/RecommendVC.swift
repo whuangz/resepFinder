@@ -73,10 +73,16 @@ class RecommendVC: RFBaseController {
     }
 
     @objc func navigateToFindRecipe(){
-        let location = UserDefaults.standard.getLocation()
-        if let vm = self.viewModel {
-            vm.findRecipeBasedOn(self.inputtedIngredients, withLocation: location) { (listOfRecipes) in
-                self.navigateToSearchResult(recipes: listOfRecipes)
+        if inputtedIngredients.count == 0 {
+            RFAlertHelper.instance.showFailureAlert("Cannot recommend zero ingredients")
+        }else if(inputtedIngredients.count < 3){
+            RFAlertHelper.instance.showFailureAlert("Ingredients must be minimum 3 to be recommended")
+        }else{
+            let location = UserDefaults.standard.getLocation()
+            if let vm = self.viewModel {
+                vm.findRecipeBasedOn(self.inputtedIngredients, withLocation: location) { (listOfRecipes) in
+                    self.navigateToSearchResult(recipes: listOfRecipes)
+                }
             }
         }
     }
@@ -84,6 +90,7 @@ class RecommendVC: RFBaseController {
     func navigateToSearchResult(recipes: [RFRecipe]){
         let vm = RFSearchResultVM(listOfRecipes: recipes)
         let vc = RFSearchResultVC(vm: vm)
+        vc.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -106,6 +113,7 @@ class RecommendVC: RFBaseController {
             
             if !self.inputtedIngredients.contains(self.searchBarField.text!){
                 self.inputtedIngredients.append(self.searchBarField.text! )
+                self.searchBarField.text = ""
                 self.collectionView.reloadData()
             }
         }).disposed(by: self.disposeBag)

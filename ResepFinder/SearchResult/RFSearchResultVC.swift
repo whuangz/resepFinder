@@ -49,7 +49,7 @@ class RFSearchResultVC: RFBaseController {
     }
     
     fileprivate func setupNavigationBar(){
-        self.setupCustomLeftBarItem(image: "back", action: #selector(self.dismissToPreviousScreen))
+        self.setupCustomLeftBarItem(image: "back", action: #selector(self.dismissToRoot))
         self.setSearchBarAsNavigation()
         self.navigationController?.navigationBar.backgroundColor = .white
     }
