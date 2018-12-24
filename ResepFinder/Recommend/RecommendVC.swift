@@ -111,7 +111,7 @@ class RecommendVC: RFBaseController {
         
         self.plusBtn.rx.tapGesture().when(GestureRecognizerState.ended).subscribe(onNext: { (_) in
             
-            if !self.inputtedIngredients.contains(self.searchBarField.text!){
+            if !self.inputtedIngredients.contains(self.searchBarField.text!) && self.searchBarField.text != ""{
                 self.inputtedIngredients.append(self.searchBarField.text! )
                 self.searchBarField.text = ""
                 self.collectionView.reloadData()

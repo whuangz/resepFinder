@@ -40,12 +40,27 @@ class RFSearchResultVC: RFBaseController {
         if let recipes = self.viewModel.listOfRecipes {
             self.listOfRecipes = recipes
             self.searchBar.placeholder = "Type Ingredients Here"
+            
+            if self.listOfRecipes == nil || (self.listOfRecipes?.isEmpty)!  {
+                setBlankState()
+            }
         }else{
             self.viewModel.getListOfQueriedRecipes { (listOfRecipes) in
-                self.listOfRecipes = listOfRecipes
-                self.collectionView.reloadData()
+                if !listOfRecipes.isEmpty {
+                    self.listOfRecipes = listOfRecipes
+                    self.collectionView.reloadData()
+                }else{
+                    self.setBlankState()
+                }
             }
         }
+    }
+    
+    fileprivate func setBlankState(){
+        let blankState = RFBlankStateView(frame: self.collectionView.frame)
+        self.view.addSubview(blankState)
+        blankState.setBlankStateWith(title: "Recipe not found", image: UIImage(named: "not-found")!)
+        _ = blankState.anchor(top: self.view.topAnchor, left: self.view.leftAnchor, bottom: self.view.bottomAnchor, right: self.view.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0)
     }
     
     fileprivate func setupNavigationBar(){

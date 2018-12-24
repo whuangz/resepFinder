@@ -10,7 +10,7 @@ import UIKit
 import RxCocoa
 import RxSwift
 
-class RFAdvancedSearchVC: RFBaseController {
+class RFAdvancedSearchVC: RFBaseController, UISearchBarDelegate {
 
     var searchTableView: UITableView!
     private var viewModel: RFAdvancedSearchVM!
@@ -38,6 +38,7 @@ class RFAdvancedSearchVC: RFBaseController {
     fileprivate func setupNavigationBar(){
         self.setupCustomLeftBarItem(image: "back", action: #selector(self.navigateToPreviouseScreen))
         self.setSearchBarAsNavigation()
+        self.searchBar.delegate = self
         self.navigationController?.navigationBar.backgroundColor = .white
     }
 
@@ -80,7 +81,10 @@ class RFAdvancedSearchVC: RFBaseController {
         let vc = RFSearchResultVC(vm: vm)
         self.navigationController?.pushViewController(vc, animated: true)
     }
-
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        self.navigateToSearchResult(byTitle: self.searchBar.text ?? "")
+    }
 }
 
 //MARK: - Tableview delegate & extension
@@ -105,7 +109,6 @@ extension RFAdvancedSearchVC {
         self.searchTableView = getTableView()
         layoutViews()
     }
-    
     
     fileprivate func layoutViews(){
         self.view.addSubview(searchTableView)
