@@ -8,6 +8,9 @@
 
 import UIKit
 import FirebaseAuth
+import RxCocoa
+import RxSwift
+import RxGesture
 
 class RFViewRecipeVC: RFBaseController {
     
@@ -93,12 +96,6 @@ class RFViewRecipeVC: RFBaseController {
         return self.viewModel?.recipe ?? RFRecipe()
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.setupViews()
-    }
-    
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.setupViews()
@@ -164,8 +161,22 @@ extension RFViewRecipeVC {
         configureView()
     }
     
+    
     private func configureView(){
-        self.setupFollowBtn()
+        if let userID = Auth.auth().currentUser?.uid{
+            if self.getRecipe().uid == userID{
+                self.followBtn.isHidden = true
+            }else{
+                self.followBtn.isHidden = false
+                self.viewModel?.service.checkFollowRelation(userID: (self.getRecipe().uid)!) { (selected) in
+                    if selected {
+                        self.followBtn.setTitle("Unfollow", for: .normal)
+                    }else{
+                        self.followBtn.setTitle("Follow", for: .normal)
+                    }
+                }
+            }
+        }
     }
     
     fileprivate func setupFollowBtn(){
@@ -190,10 +201,13 @@ extension RFViewRecipeVC {
         }
     }
     
+    
     private func addGesture() {
         self.startBtn.rx.tap.subscribe(onNext: { (_) in
             self.navigateToStartCooking()
         }).disposed(by: self.disposeBag)
+        
+        self.setupFollowBtn()
     }
     
     private func layoutViews(){
