@@ -81,10 +81,25 @@ class HomeVC: RFBaseController {
     }
     
     @objc func navigateToCamera(){
-        let cameraVC = CameraVC()
+        let cameraVC = CameraVC(delegate: self)
         self.present(cameraVC, animated: true, completion: nil)
     }
+    
+    
+    func navigateToSearchResult(byTitle title:String){
+        let location = UserDefaults.standard.getLocation()
+        let vm = RFSearchResultVM(title: title, location: location)
+        let vc = RFSearchResultVC(vm: vm)
+        vc.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
 
+}
+
+extension HomeVC: CameraFinishingProtocol {
+    func getPhotoIdentifier(byTitle title: String) {
+        self.navigateToSearchResult(byTitle: title)
+    }
 }
 
 

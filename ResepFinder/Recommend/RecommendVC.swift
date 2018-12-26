@@ -60,7 +60,8 @@ class RecommendVC: RFBaseController {
         self.searchBarField.text = ""
         self.inputtedIngredients = [String]()
         self.collectionView.reloadData()
-        self.view.endEditing(true)
+        //self.view.endEditing(true)
+        self.searchBarField.becomeFirstResponder()
     }
     
     func setupNavigationBar(){

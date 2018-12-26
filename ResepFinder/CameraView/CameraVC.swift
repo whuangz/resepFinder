@@ -8,6 +8,8 @@
 
 import UIKit
 import AVFoundation
+import CoreML
+import Vision
 
 class CameraVC: RFBaseController {
 
@@ -38,6 +40,12 @@ class CameraVC: RFBaseController {
     var previewLayer: AVCaptureVideoPreviewLayer!
     
     var photoData: Data?
+    private var delegate: CameraFinishingProtocol?
+    
+    convenience init(delegate: CameraFinishingProtocol){
+        self.init()
+        self.delegate = delegate
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -109,9 +117,9 @@ extension CameraVC: AVCapturePhotoCaptureDelegate {
         } else {
             if let sampleBuffer = photoSampleBuffer, let previewBuffer = previewPhotoSampleBuffer, let dataImage = AVCapturePhotoOutput.jpegPhotoDataRepresentation(forJPEGSampleBuffer: sampleBuffer, previewPhotoSampleBuffer: previewBuffer) {
                 
-                if let image = UIImage(data: dataImage) {
-                    //self.capturedImage.image = image
-                }
+//                if let image = UIImage(data: dataImage) {
+//                    //self.capturedImage.image = image
+//                }
             }
         }
         
@@ -120,22 +128,47 @@ extension CameraVC: AVCapturePhotoCaptureDelegate {
     @available(iOS 11.0, *)
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
         if error != nil {
-            debugPrint(error)
+            debugPrint(error as Any)
         }else{
             photoData = photo.fileDataRepresentation()
             
             do {
-                
+                let model = try VNCoreMLModel(for: resepFinder().model)
+                let request = VNCoreMLRequest(model: model, completionHandler: resultsMethod)
+                let handler = VNImageRequestHandler(data: photoData!)
+                try handler.perform([request])
             }catch{
                 debugPrint(error.localizedDescription)
             }
-            
+        }
+    }
+    
+    @available(iOS 11.0, *)
+    func resultsMethod(request: VNRequest, error: Error?){
+        //handle changing label text
+        guard let results = request.results as? [VNClassificationObservation] else {return}
+        for classification in results {
+            if classification.confidence > 0.85 {
+                let confindence = Int(classification.confidence * 100)
+                let completeSentence = "This looks like a \(classification.identifier) and I am \(confindence) percent sure."
+                print(completeSentence)
+                
+                //self.navigateToSearchResult(byTitle: classification.identifier)
+                self.dismissToPreviousScreen()
+                self.delegate?.getPhotoIdentifier(byTitle: classification.identifier)
+                break
+            }else{
+                self.dismissToPreviousScreen()
+                self.delegate?.getPhotoIdentifier(byTitle: "")
+                break
+            }
         }
     }
 }
     
 
 extension CameraVC {
+    
     fileprivate func prepareUI(){
         self.view.backgroundColor = .white
         configureView()
@@ -144,8 +177,8 @@ extension CameraVC {
     
     fileprivate func configureView(){
         let tap = UITapGestureRecognizer(target: self, action: #selector(didTapCameraView))
-        tap.numberOfTapsRequired = 2
-        cameraView.addGestureRecognizer(tap)
+        tap.numberOfTapsRequired = 1
+        captureView.addGestureRecognizer(tap)
         
         self.cancelBtn.addTarget(self, action: #selector(self.dismissToPreviousScreen), for: .touchUpInside)
     }
@@ -164,4 +197,9 @@ extension CameraVC {
         _ = cancelBtn.anchor(left: self.view.leftAnchor, leftConstant: 32)
         _ = cancelBtn.centerConstraintWith(centerY: self.captureView.centerYAnchor)
     }
+}
+
+
+protocol CameraFinishingProtocol {
+    func getPhotoIdentifier(byTitle title: String)
 }
