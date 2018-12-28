@@ -88,15 +88,18 @@ extension LoginVC {
         viewModel.isSuccess.asObservable().bind { (valid) in
             print(valid)
             if valid {
+                self.navigateToProfileMenu()
                 RFAlertHelper.instance.showSuccessAlert("Successfully Sign In", tapCompletion: { (_) in
                 })
-                self.navigateToProfileMenu()
+                
             }
         }.disposed(by: disposeBag)
         
         viewModel.errMsg.asObservable().bind { (message) in
             debugPrint(message)
-            RFAlertHelper.instance.showFailureAlert("Invalid Email or Password")
+            if message != "" {
+                RFAlertHelper.instance.showFailureAlert("Invalid Email or Password")
+            }
         }.disposed(by: disposeBag)
     }
 }

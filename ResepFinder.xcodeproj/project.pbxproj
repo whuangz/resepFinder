@@ -100,7 +100,6 @@
 		26B80D4A21C7D478003AE55D /* RFSearchResultVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26B80D4921C7D478003AE55D /* RFSearchResultVC.swift */; };
 		26B80D4C21C7D54D003AE55D /* RFSearchResultVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26B80D4B21C7D54D003AE55D /* RFSearchResultVM.swift */; };
 		26B80D4F21C7FB5D003AE55D /* CameraVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26B80D4E21C7FB5D003AE55D /* CameraVC.swift */; };
-		26BE65C221D378C20073C97F /* resepFinder.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 26BE65C121D378C10073C97F /* resepFinder.mlmodel */; };
 		26C3A35721B11E9B007601D2 /* ProfileVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C3A35621B11E9B007601D2 /* ProfileVM.swift */; };
 		26C3A35A21B12326007601D2 /* RFUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C3A35921B12326007601D2 /* RFUser.swift */; };
 		26C3E1F021A6F65D0095FBB5 /* UIButton+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C3E1EF21A6F65D0095FBB5 /* UIButton+Ext.swift */; };
@@ -142,6 +141,7 @@
 		26FDAEE421ACFF5B00758D33 /* CreateStepsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26FDAEE321ACFF5B00758D33 /* CreateStepsCell.swift */; };
 		26FDAEE721ACFF7C00758D33 /* AddStepsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26FDAEE621ACFF7C00758D33 /* AddStepsCell.swift */; };
 		3C192D2921C52F7F00F5ACB1 /* RFFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C192D2821C52F7F00F5ACB1 /* RFFunction.swift */; };
+		3C49CA4321D66D4300517BBC /* resepFinder.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 3C49CA4221D66D4200517BBC /* resepFinder.mlmodel */; };
 		3C63EC2921BECA7A00661D9D /* DetailIngredientsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C63EC2821BECA7A00661D9D /* DetailIngredientsVC.swift */; };
 		3C63EC2B21BECB6900661D9D /* DetailIngredientsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C63EC2A21BECB6900661D9D /* DetailIngredientsVM.swift */; };
 		3CE8804121C9536B0040E6D2 /* RecommendVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE8804021C9536B0040E6D2 /* RecommendVC.swift */; };
@@ -248,7 +248,6 @@
 		26B80D4921C7D478003AE55D /* RFSearchResultVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RFSearchResultVC.swift; sourceTree = "<group>"; };
 		26B80D4B21C7D54D003AE55D /* RFSearchResultVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RFSearchResultVM.swift; sourceTree = "<group>"; };
 		26B80D4E21C7FB5D003AE55D /* CameraVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraVC.swift; sourceTree = "<group>"; };
-		26BE65C121D378C10073C97F /* resepFinder.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = resepFinder.mlmodel; sourceTree = "<group>"; };
 		26C3A35621B11E9B007601D2 /* ProfileVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVM.swift; sourceTree = "<group>"; };
 		26C3A35921B12326007601D2 /* RFUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RFUser.swift; sourceTree = "<group>"; };
 		26C3E1EF21A6F65D0095FBB5 /* UIButton+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Ext.swift"; sourceTree = "<group>"; };
@@ -291,6 +290,7 @@
 		26FDAEE621ACFF7C00758D33 /* AddStepsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddStepsCell.swift; sourceTree = "<group>"; };
 		29937144E2B89E09C074755A /* Pods-ResepFinder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ResepFinder.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ResepFinder/Pods-ResepFinder.debug.xcconfig"; sourceTree = "<group>"; };
 		3C192D2821C52F7F00F5ACB1 /* RFFunction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RFFunction.swift; sourceTree = "<group>"; };
+		3C49CA4221D66D4200517BBC /* resepFinder.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = resepFinder.mlmodel; sourceTree = "<group>"; };
 		3C63EC2821BECA7A00661D9D /* DetailIngredientsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailIngredientsVC.swift; sourceTree = "<group>"; };
 		3C63EC2A21BECB6900661D9D /* DetailIngredientsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailIngredientsVM.swift; sourceTree = "<group>"; };
 		3CE8804021C9536B0040E6D2 /* RecommendVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendVC.swift; sourceTree = "<group>"; };
@@ -741,7 +741,7 @@
 		26B2BACA21874B88004B148F /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
-				26BE65C121D378C10073C97F /* resepFinder.mlmodel */,
+				3C49CA4221D66D4200517BBC /* resepFinder.mlmodel */,
 				2607290A218F4D6700140AF9 /* Fonts */,
 				26B2BACB21874BE5004B148F /* GoogleService-Info.plist */,
 				26B2BABF21874B76004B148F /* Assets.xcassets */,
@@ -1208,7 +1208,7 @@
 				26C73A0321B3B5A8000B7FAE /* RFRecipe.swift in Sources */,
 				26144B6421B42828001BCEA5 /* RFIngredient.swift in Sources */,
 				2608521921B773FB002C7AA4 /* RFViewRecipeVM.swift in Sources */,
-				26BE65C221D378C20073C97F /* resepFinder.mlmodel in Sources */,
+				3C49CA4321D66D4300517BBC /* resepFinder.mlmodel in Sources */,
 				26E7009721ABF806001A8F7C /* RecipeDetailCell.swift in Sources */,
 				2695F9C221CAB3F300910EC7 /* RecommendVM.swift in Sources */,
 				3CE8804121C9536B0040E6D2 /* RecommendVC.swift in Sources */,

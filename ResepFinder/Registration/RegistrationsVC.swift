@@ -100,15 +100,17 @@ extension RegistrationsVC {
         guard let viewModel = self.viewModel else {return}
         viewModel.isSuccess.asObservable().bind { (valid) in
             if valid {
+                self.navigateToProfileMenu()
                 RFAlertHelper.instance.showSuccessAlert("User's Successfully Created", tapCompletion: { (_) in
                 })
-                self.navigateToProfileMenu()
             }
         }.disposed(by: disposeBag)
         
         viewModel.errMsg.asObservable().bind { (message) in
             debugPrint(message)
-            RFAlertHelper.instance.showFailureAlert("Email's already exist")
+            if message != "" {
+                RFAlertHelper.instance.showFailureAlert("Email's already exist")
+            }
         }.disposed(by: disposeBag)
     }
 }

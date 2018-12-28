@@ -22,10 +22,13 @@ class StartCookingVC: RFBaseController {
         return btn
     }()
     
-    private let progressView: UIView = {
-        let view = UIView()
+    private let progressView: UIStackView = {
+        let view = UIStackView()
         view.layer.borderColor = UIColor.init(white: 0.9, alpha: 0.8).cgColor
         view.layer.borderWidth = 1.0
+        view.spacing = 5
+        view.distribution = .fillEqually
+        view.alignment = .center
         return view
     }()
     
@@ -114,12 +117,43 @@ extension StartCookingVC{
         return cv
     }
     
+    private func addNoOfProgressLbl(_ txt: String) {
+        let lbl = UILabel()
+        lbl.font = RFFont.instance.subHead18
+        lbl.textAlignment = .center
+        let attrs = [
+            NSAttributedStringKey.strokeColor : UIColor.white,
+            NSAttributedStringKey.strokeWidth: -4,
+            NSAttributedStringKey.foregroundColor : RFColor.instance.black
+            ] as [NSAttributedStringKey : Any]
+        lbl.attributedText = NSMutableAttributedString(string: txt, attributes: attrs)
+        
+        self.progressView.addArrangedSubview(lbl)
+        
+    }
+    
+    private func addFlagIcon(){
+        let imgView = UIImageView()
+        imgView.image = UIImage(named: "flag")
+        imgView.contentMode = .scaleAspectFit
+        _ = imgView.anchor(widthConstant: 20, heightConstant: 20)
+        self.progressView.addArrangedSubview(imgView)
+    }
+    
 }
 
 //MARK: - UITableView Delegate & Implementation
 extension StartCookingVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return Int(totalSteps + 1)
+        let steps = Int(totalSteps + 1)
+        for i in 1...steps {
+            if i == steps {
+                self.addFlagIcon()
+            }else{
+                self.addNoOfProgressLbl("\(i)")
+            }
+        }
+        return steps
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
