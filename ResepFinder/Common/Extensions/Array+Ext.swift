@@ -8,11 +8,23 @@
 
 import Foundation
 
-extension Array where Element: Equatable {
-    func containsData(_ array: [Element]) -> Bool {
+extension Array where Element: NSString {
+    func containsData(_ array: [String]) -> Bool {
+        var flagged = 0
+        let lowerIngredientsData = self.map {($0 as! String).lowercased()}
         for item in array {
-            if !self.contains(item) { return false }
+            for listItem in lowerIngredientsData {
+                if listItem.contains(item) {
+                    flagged += 1
+                    break
+                }
+            }
         }
-        return true
+        
+        if flagged >= 3 {
+            return true
+        }else{
+            return false
+        }
     }
 }

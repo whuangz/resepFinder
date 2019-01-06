@@ -23,10 +23,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //redirectoProfileMenu()
         
         window?.rootViewController = tabBar
-        
         FirebaseApp.configure()
+        setupUserLocation()
         
         return true
+    }
+    
+    func setupUserLocation(){
+        let dataService = RFDataService()
+        if let user = Auth.auth().currentUser {
+            dataService.getUser(forUid: (user.uid)) { (user) in
+                UserDefaults.standard.setLocation(value: user.region!)
+            }
+        }else{
+            UserDefaults.standard.setLocation(value: "Jawa")
+        }
     }
     
     func redirectoProfileMenu(){

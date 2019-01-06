@@ -53,6 +53,10 @@ class HomeCollectionCell: UITableViewCell {
         middleView.rx.tapGesture().when(.recognized).subscribe(onNext: { (_) in
             self.navigateToViewRecipe()
         }).disposed(by: self.disposeBag)
+        
+        topView.rx.tapGesture().when(.recognized).subscribe(onNext: { (_) in
+            self.navigateToProfileVC()
+        }).disposed(by: self.disposeBag)
     }
     
     private func navigateToViewRecipe(){
@@ -74,6 +78,12 @@ class HomeCollectionCell: UITableViewCell {
             navigationController.present(registerVC, animated: true, completion: nil)
         }
     }
+    func navigateToProfileVC(){
+        guard let recipe = self.recipe else {return}
+        let vc = ProfileVC(uid: recipe.uid!)
+        vc.hidesBottomBarWhenPushed = true
+        navigateTo(vc)
+    }
 
     func bindData(data: RFRecipe, location: String){
         self.recipe = data
@@ -81,7 +91,8 @@ class HomeCollectionCell: UITableViewCell {
         self.nameLbl.text = data.creator
         self.userProfileInitialName.text = "\(RFFunction.getInitialname(name: data.creator!))"
         guard let img = data.recipePathToImg else {return}
-
+        
+        
         self.imgView.loadImage(urlString: img)
         self.timeLbl.text = data.time
         self.descriptionLbl.text = data.desc
@@ -95,6 +106,7 @@ class HomeCollectionCell: UITableViewCell {
                 self.loveBtn.selected(selected)
             }
             if let userID = Auth.auth().currentUser?.uid{
+                self.loveBtn.isEnabled = true
                 if recipe.uid == userID{
                     self.followBtn.isHidden = true
                 }else{
@@ -108,7 +120,7 @@ class HomeCollectionCell: UITableViewCell {
                     }
                 }
             }else{
-                self.loveBtn.isHidden = true
+                self.loveBtn.isEnabled = false
             }
            
         }
@@ -148,6 +160,7 @@ extension HomeCollectionCell {
         self.timeLbl.text = " 5 Mins "
         self.imgView.image = UIImage(named: "recipe1")
         self.timeIcon.image = UIImage(named: "timer")
+        self.timeIcon.contentMode = .scaleAspectFit
         
         self.descriptionLbl.text = "Fluffy sweet potatoes mixed with butter, sugar, and vanilla, and baked with a crunchy pecan streusel topping. This recipe was given to me by my brother-in-law."
         self.difficultyLbl.text = "Difficulty:"

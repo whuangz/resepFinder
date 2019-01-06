@@ -16,6 +16,21 @@ class RFSearchResultVC: RFBaseController {
     fileprivate var collectionView: UICollectionView!
     private var viewModel: RFSearchResultVM!
     private var listOfRecipes: [RFRecipe]?
+    private var identifier: RFBaseController?
+    
+    private var possibleResult: UILabel = {
+        let label = UILabel()
+        label.font = RFFont.instance.subHead14
+        label.textColor = RFColor.instance.black
+        label.isHidden = true
+        return label
+    }()
+    
+    convenience init(vm: RFSearchResultVM, identifier: RFBaseController){
+        self.init()
+        self.viewModel = vm
+        self.identifier = identifier
+    }
     
     convenience init(vm: RFSearchResultVM){
         self.init()
@@ -65,7 +80,14 @@ class RFSearchResultVC: RFBaseController {
     
     fileprivate func setupNavigationBar(){
         self.setupCustomLeftBarItem(image: "back", action: #selector(self.dismissToRoot))
-        self.setSearchBarAsNavigation()
+        if let classType = self.identifier {
+            if classType.isKind(of: CameraVC.self){
+                self.possibleResult.isHidden = false
+            }
+        }else{
+            self.possibleResult.isHidden = true
+            self.setSearchBarAsNavigation()
+        }
         self.navigationController?.navigationBar.backgroundColor = .white
     }
     
@@ -125,9 +147,15 @@ extension RFSearchResultVC {
     fileprivate func prepareUI(){
         self.view.backgroundColor = .white
         self.collectionView = getCollectionView()
-        self.searchBar.text = self.viewModel.titleName ?? ""
+        if let classType = self.identifier {
+            if classType.isKind(of: CameraVC.self){
+                self.possibleResult.text = "Possible Result: \(self.viewModel.titleName ?? "")"
+            }
+        }else{
+            self.searchBar.text = self.viewModel.titleName ?? ""
+            configureView()
+        }
         
-        configureView()
         layoutViews()
     }
     
@@ -140,8 +168,10 @@ extension RFSearchResultVC {
     
     fileprivate func layoutViews(){
         self.view.addSubview(collectionView)
+        self.navigationItem.title = self.possibleResult.text
         
         _ = collectionView.anchor(top: self.view.topAnchor, left: self.view.leftAnchor, bottom: self.view.bottomAnchor, right: self.view.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0)
+        
     }
     
     fileprivate func getCollectionView() -> UICollectionView {

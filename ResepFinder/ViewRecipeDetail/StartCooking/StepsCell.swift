@@ -21,7 +21,12 @@ class StepsCell: RFBaseCollectionCell {
     }
     
     func bindData(data: RFStep){
-        self.imgView.loadImage(urlString: data.imgPath!)
+        
+        if data.imgPath == "" {
+            self.imgView.image = UIImage(named: "no-img")
+        }else{
+            self.imgView.loadImage(urlString: data.imgPath!)
+        }
         self.stepDescription.text = data.description!
     }
     

@@ -182,11 +182,12 @@ class MessageVC: RFBaseController, UITextFieldDelegate {
         
         
         self.messageInputContainer.addSubview(inputTextField)
-        self.messageInputContainer.addSubview(imageButton)
+        //self.messageInputContainer.addSubview(imageButton)
         
-        self.messageInputContainer.constraintWithVisual(format: "H:|-16-[v0(30)]-8-[v1]-16-|", views: imageButton, inputTextField)
+        //self.messageInputContainer.constraintWithVisual(format: "H:|-16-[v0(30)]-8-[v1]-16-|", views: imageButton, inputTextField)
+        self.messageInputContainer.constraintWithVisual(format: "H:|-16-[v0]-16-|", views: inputTextField)
         self.messageInputContainer.constraintWithVisual(format: "V:|-8-[v0]-8-|", views: inputTextField)
-        self.messageInputContainer.constraintWithVisual(format: "V:|-8-[v0]-8-|", views: imageButton)
+        //self.messageInputContainer.constraintWithVisual(format: "V:|-8-[v0]-8-|", views: imageButton)
     }
     
     @objc func navigateBack(){

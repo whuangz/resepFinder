@@ -51,6 +51,10 @@ class ConversationVC: RFBaseController {
         self.navigationController?.pushViewController(searchUserVC, animated: true)
     }
     
+    @objc func didDismissKeyboard(){
+        self.view.endEditing(true)
+    }
+    
 }
 
 
@@ -61,6 +65,9 @@ extension ConversationVC{
         self.view.backgroundColor = .white
         self.searchBarView = getSearchBarView()
         self.recentConversationTable = getTableView()
+        
+//        let tap = UITapGestureRecognizer(target: self, action: #selector(didDismissKeyboard))
+//        self.view.addGestureRecognizer(tap)
         layoutViews()
     }
     

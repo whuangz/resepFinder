@@ -62,6 +62,7 @@ class RecommendVC: RFBaseController {
         self.collectionView.reloadData()
         //self.view.endEditing(true)
         self.searchBarField.becomeFirstResponder()
+        setupNavigationBar()
     }
     
     func setupNavigationBar(){
@@ -71,6 +72,14 @@ class RecommendVC: RFBaseController {
         self.navigationController?.view.backgroundColor = .clear
         self.navigationController?.navigationBar.backgroundColor = .clear
         self.setupRightBarItemWith(title: "FIND", action: #selector(navigateToFindRecipe))
+        self.setupCustomLeftBarItem(image: "location", action: #selector(self.navigateToChangeLocation))
+    }
+    
+    @objc func navigateToChangeLocation(){
+        let locationVM = RFLocationVM()
+        let locationVC = RFLocationVC(vm: locationVM, delegate: self)
+        locationVC.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(locationVC, animated: true)
     }
 
     @objc func navigateToFindRecipe(){
@@ -207,4 +216,11 @@ extension RecommendVC {
         return cv
     }
    
+}
+
+extension RecommendVC: SelectLocationDelegate {
+    func didChooseLocation(location: RFLocation) {
+        UserDefaults.standard.setLocation(value: location.name!)
+    }
+    
 }

@@ -80,9 +80,14 @@ extension DetailIngredientsVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! UITableViewCell
         if let ingredients = self.viewModel?.getIngredients() {
+            cell.textLabel?.numberOfLines = 0
             cell.textLabel?.text = "\(ingredients[indexPath.row])"
         }
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableViewAutomaticDimension
     }
     
     

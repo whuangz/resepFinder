@@ -16,6 +16,7 @@ class IngredientsCell: RFBaseTableCell {
     fileprivate var addToShoppingList: RFPrimaryBtn!
     var recipe: RFRecipe?
     private var service = RFRecipeService()
+    fileprivate var totalServing: UILabel!
     
     var arrayOfIngredients = [
         "2 sweet potatoes",
@@ -38,6 +39,7 @@ class IngredientsCell: RFBaseTableCell {
     func bindData(_ model: AnyObject){
         if let data = model as? RFRecipe {
             self.recipe = data
+            self.totalServing.text = "Serving: \(data.numberOfServing!)"
             self.service.checkAddedIngredientToUser(recipeID: ((self.recipe?.id)!)) { (selected) in
                 if selected {
                     self.addToShoppingList.setTitle("Remove from My List", for: .normal)
@@ -65,6 +67,7 @@ extension IngredientsCell {
         self.topView = self.getView()
         self.ingredientHeader = self.getHeaderLbl()
         self.ingredientContent = self.getTextView()
+        self.totalServing = self.getSubHeaderLbl()
         self.addToShoppingList = self.getBtn()
         
         configureViews(self.arrayOfIngredients)
@@ -100,9 +103,11 @@ extension IngredientsCell {
         topView.addSubview(ingredientHeader)
         topView.addSubview(ingredientContent)
         topView.addSubview(addToShoppingList)
+        topView.addSubview(totalServing)
         
         _ = self.topView.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor)
         _ = self.ingredientHeader.anchor(top: topView.topAnchor, left: topView.leftAnchor, right: topView.rightAnchor, topConstant: 16, leftConstant: 16)
+        _ = self.totalServing.anchor(top: ingredientHeader.bottomAnchor, left: topView.leftAnchor,leftConstant: 16, widthConstant: 100)
         _ = self.ingredientContent.anchor(top: ingredientHeader.bottomAnchor, left: topView.leftAnchor, bottom: topView.bottomAnchor, right: topView.rightAnchor, topConstant: 16, leftConstant: 16, rightConstant: 16)
         _ = self.addToShoppingList.anchor(left: ingredientHeader.rightAnchor, right: topView.rightAnchor, leftConstant: 8, rightConstant: 16, widthConstant: 130)
         _ = self.addToShoppingList.centerConstraintWith(centerY: ingredientHeader.centerYAnchor)
@@ -112,6 +117,14 @@ extension IngredientsCell {
         let view = UIView()
         view.layer.masksToBounds = true
         return view
+    }
+    
+    fileprivate func getSubHeaderLbl() -> UILabel {
+        let label = UILabel()
+        label.font = RFFont.instance.bodyMedium10
+        label.textColor = RFColor.instance.primGray
+        label.text = "Ingredients"
+        return label
     }
     
     fileprivate func getHeaderLbl() -> UILabel {

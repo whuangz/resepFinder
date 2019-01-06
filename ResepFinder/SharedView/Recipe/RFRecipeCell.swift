@@ -46,6 +46,7 @@ extension RFRecipeCell {
         self.titleLbl = getTitleLbl()
         self.timeView = getView()
         self.timeIcon = getImageView()
+        self.timeIcon.contentMode = .scaleAspectFit
         self.timeLbl = getTimeLbl()
         
         configureViews()
@@ -68,9 +69,8 @@ extension RFRecipeCell {
         addSubview(profileImg)
         
         _ = self.recipeView.anchor(top: topAnchor, left: leftAnchor, right: rightAnchor, topConstant: 0, leftConstant: 0, rightConstant: 0, heightConstant: 135, eqWidth: widthAnchor)
-        _ = self.timeView.anchor(bottom: recipeView.bottomAnchor, right: recipeView.rightAnchor, bottomConstant: 8, rightConstant: 8, eqWidth: self.timeLbl.widthAnchor, eqHeight: self.timeLbl.heightAnchor, widthMultiplier: 1.5)
+        _ = self.timeView.anchor(bottom: recipeView.bottomAnchor, right: recipeView.rightAnchor, bottomConstant: 8, rightConstant: 8, eqWidth: self.timeLbl.widthAnchor, eqHeight: self.timeLbl.heightAnchor, widthMultiplier: 1.4)
         _ = self.timeLbl.anchor(bottom: timeView.bottomAnchor, right: timeView.rightAnchor, rightConstant: 4)
-    
         _ = self.timeIcon.anchor(left: timeView.leftAnchor, right: timeLbl.leftAnchor, leftConstant: 4, rightConstant: 4)
         _ = self.timeIcon.centerConstraintWith(centerY: self.timeLbl.centerYAnchor)
         

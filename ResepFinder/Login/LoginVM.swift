@@ -45,6 +45,11 @@ class LoginVM: NSObject{
             if (tuple.1 != nil){
                 self.errMsg.value = tuple.1.debugDescription
             }else{
+                if let user = Auth.auth().currentUser {
+                    self.service.getUser(forUid: (user.uid)) { (user) in
+                        UserDefaults.standard.setLocation(value: user.region!)
+                    }
+                }
                 self.isSuccess.value = true
             }
             self.service.dismissProgress()

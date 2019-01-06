@@ -31,6 +31,7 @@ class CameraVC: RFBaseController {
     let cancelBtn: UIButton = {
         let btn = UIButton(type: UIButtonType.custom)
         btn.isUserInteractionEnabled = true
+        btn.setTitleColor(RFColor.instance.black, for: .normal)
         btn.setTitle("Cancel", for: .normal)
         return btn
     }()
@@ -41,6 +42,7 @@ class CameraVC: RFBaseController {
     
     var photoData: Data?
     private var delegate: CameraFinishingProtocol?
+    var context = CIContext(options: nil)
     
     convenience init(delegate: CameraFinishingProtocol){
         self.init()
@@ -60,7 +62,7 @@ class CameraVC: RFBaseController {
     
     func initializeCameraSession(){
         captureSession = AVCaptureSession()
-        captureSession.sessionPreset = AVCaptureSession.Preset.hd1920x1080
+        captureSession.sessionPreset = .photo
         
         let backCamera = AVCaptureDevice.default(for: AVMediaType.video)
         
@@ -70,18 +72,23 @@ class CameraVC: RFBaseController {
             if captureSession.canAddInput(input) == true{
                 captureSession.addInput(input)
             }
+            captureSession.startRunning()
             
             cameraOutput = AVCapturePhotoOutput()
+            cameraOutput.isHighResolutionCaptureEnabled = true
+            
             if captureSession.canAddOutput(cameraOutput) == true{
+                
                 captureSession.addOutput(cameraOutput!)
                 
                 previewLayer = AVCaptureVideoPreviewLayer(session: captureSession!)
-                previewLayer.videoGravity = AVLayerVideoGravity.resizeAspect
-                previewLayer.connection?.videoOrientation = .portrait
+                //previewLayer.videoGravity = AVLayerVideoGravity.resizeAspect
+                //previewLayer.connection?.videoOrientation = .portrait
                 
                 cameraView.layer.addSublayer(previewLayer!)
-                captureSession.startRunning()
+                
             }
+            captureSession.commitConfiguration()
         }catch{
             print(error.localizedDescription)
         }
@@ -91,16 +98,18 @@ class CameraVC: RFBaseController {
         self.cameraView.isUserInteractionEnabled = false
         
         let settings = AVCapturePhotoSettings()
-        let previewPixelType = settings.availablePreviewPhotoPixelFormatTypes.first
+        settings.isAutoStillImageStabilizationEnabled = true
+        settings.isHighResolutionPhotoEnabled = true
+        //        let previewPixelType = settings.availablePreviewPhotoPixelFormatTypes.first
+        //
+        //        let previewFormat = [
+        //            kCVPixelBufferPixelFormatTypeKey as String :previewPixelType,
+        //            kCVPixelBufferWidthKey as String: 160,
+        //            kCVPixelBufferHeightKey as String : 160
+        //        ]
         
-        let previewFormat = [
-            kCVPixelBufferPixelFormatTypeKey as String :previewPixelType,
-            kCVPixelBufferWidthKey as String: 160,
-            kCVPixelBufferHeightKey as String : 160
-        ]
         
-        
-        settings.previewPhotoFormat = previewFormat
+        //settings.previewPhotoFormat = previewFormat
         //settings.previewPhotoFormat = settings.embeddedThumbnailPhotoFormat
         
         cameraOutput.capturePhoto(with: settings, delegate: self)
@@ -131,6 +140,25 @@ extension CameraVC: AVCapturePhotoCaptureDelegate {
             debugPrint(error as Any)
         }else{
             photoData = photo.fileDataRepresentation()
+//            let img = UIImage(data: photoData!)
+//
+//            var inputImage = CIImage(image: img!)
+//            let options:[String : AnyObject] = [CIDetectorImageOrientation:3 as AnyObject]
+//            let filters = inputImage!.autoAdjustmentFilters(options: options)
+//
+//            for filter: CIFilter in filters {
+//                filter.setValue(inputImage, forKey: kCIInputImageKey)
+//                inputImage =  filter.outputImage
+//            }
+//            let cgImage = context.createCGImage(inputImage!, from: inputImage!.extent)
+//
+//            //Apply noir Filter
+//            let currentFilter = CIFilter(name: "CIPhotoEffectTonal")
+//            currentFilter!.setValue(CIImage(image: UIImage(cgImage: cgImage!)), forKey: kCIInputImageKey)
+//
+//            let output = currentFilter!.outputImage
+//            let cgimg = context.createCGImage(output!, from: output!.extent)
+            
             
             do {
                 let model = try VNCoreMLModel(for: resepFinder().model)
@@ -148,21 +176,18 @@ extension CameraVC: AVCapturePhotoCaptureDelegate {
         //handle changing label text
         guard let results = request.results as? [VNClassificationObservation] else {return}
         for classification in results {
-            if classification.confidence > 0.85 {
+            if classification.confidence >= 0.50 {
                 let confindence = Int(classification.confidence * 100)
                 let completeSentence = "This looks like a \(classification.identifier) and I am \(confindence) percent sure."
                 print(completeSentence)
                 
                 //self.navigateToSearchResult(byTitle: classification.identifier)
                 self.dismissToPreviousScreen()
-                self.delegate?.getPhotoIdentifier(byTitle: classification.identifier)
-                break
-            }else{
-                self.dismissToPreviousScreen()
-                self.delegate?.getPhotoIdentifier(byTitle: "")
+                self.delegate?.getPhotoIdentifier(byTitle: classification.identifier, identifier: self)
                 break
             }
         }
+        
     }
 }
     
@@ -192,7 +217,7 @@ extension CameraVC {
         //self.cameraView.bringSubview(toFront: cancelBtn)
         
         _ = cameraView.anchor(top: self.view.topAnchor, left: self.view.leftAnchor, bottom: self.view.bottomAnchor, right: self.view.rightAnchor)
-        _ = captureView.anchor(bottom: self.view.bottomAnchor, bottomConstant: 24, widthConstant: 60, heightConstant: 60)
+        _ = captureView.anchor(bottom: self.view.bottomAnchor, bottomConstant: 18, widthConstant: 60, heightConstant: 60)
         _ = captureView.centerConstraintWith(centerX: self.view.centerXAnchor)
         _ = cancelBtn.anchor(left: self.view.leftAnchor, leftConstant: 32)
         _ = cancelBtn.centerConstraintWith(centerY: self.captureView.centerYAnchor)
@@ -201,5 +226,5 @@ extension CameraVC {
 
 
 protocol CameraFinishingProtocol {
-    func getPhotoIdentifier(byTitle title: String)
+    func getPhotoIdentifier(byTitle title: String, identifier: RFBaseController)
 }

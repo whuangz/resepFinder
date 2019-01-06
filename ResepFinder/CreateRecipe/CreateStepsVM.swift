@@ -21,9 +21,26 @@ class CreateStepVM {
     
     func getSteps() -> [[String:Any]]{
         var arryOfSteps = [[String:Any]]()
-        if let arrOfTxt = stepsTxt, let arrOfImg = stepsImg {
+        if let arrOfTxt = stepsTxt, var arrOfImg = stepsImg {
             
             let sortedTextData = Array(arrOfTxt).sorted(by: <)
+            
+            
+            for key in 0..<sortedTextData.count {
+                if arrOfImg.count != 0 {
+                    for (key1, val) in arrOfImg {
+                        if arrOfImg[key] != nil && key1 == key {
+                            arrOfImg[key] = val
+                        }else{
+                            arrOfImg[key] = ""
+                        }
+                    }
+                }else{
+                    arrOfImg[key] = ""
+                }
+                
+            }
+            
             let sortedImgData = Array(arrOfImg).sorted(by: { $0.key < $1.key })
             
             if sortedImgData.count == sortedImgData.count {

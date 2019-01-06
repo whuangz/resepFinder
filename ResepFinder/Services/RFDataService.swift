@@ -131,7 +131,9 @@ class RFDataService: NSObject {
             
             for recipe in dataSnap {
                 let title = recipe.childSnapshot(forPath: "title").value as! String
-                if title.caseInsensitiveCompare(query) == .orderedSame || title.contains(query){
+                let titleForQueried = title.lowercased()
+                
+                if titleForQueried.caseInsensitiveCompare(query) == .orderedSame || titleForQueried.contains(query){
                     if let data = recipe.value as? Dictionary<String,AnyObject> {
                         recipes.append(self.appendRecipes(data))
                     }
@@ -165,6 +167,7 @@ class RFDataService: NSObject {
         self.showProgress()
         let currentUser = Auth.auth().currentUser?.uid
         var users = [RFUser]()
+        let query = query.lowercased()
         USER_REF.observe(.value) { (snapshot) in
             guard let userSnapshot = snapshot.children.allObjects as? [DataSnapshot] else {return}
             
@@ -173,8 +176,10 @@ class RFDataService: NSObject {
                 let name = user.childSnapshot(forPath: "username").value as! String
                 let location = user.childSnapshot(forPath: "location").value as! String
                 
+                let lowerCaseName = name.lowercased()
+                
                 if uid != currentUser {
-                    if name.caseInsensitiveCompare(query) == .orderedSame || name.contains(query){
+                    if lowerCaseName.caseInsensitiveCompare(query) == .orderedSame || lowerCaseName.contains(query){
                         let user = RFUser(uid: uid, username: name, location: location)
                         users.append(user)
                     }
@@ -373,6 +378,23 @@ class RFDataService: NSObject {
         }
     }
     
+    func getFollowingUser(completion: @escaping (_ data: [String]) -> ()){
+        let uid = Auth.auth().currentUser?.uid
+        FOLLOW_RELATION_REF.child(uid!).observe(.value) { (snapshot) in
+            guard let dataSnap = snapshot.value as? [String:Any] else {
+                return
+            }
+            var followings = [String]()
+            if let followingData = dataSnap["followings"] as? [String:AnyObject]{
+                for (_,v) in followingData {
+                    followings.append((v as? String)!)
+                }
+            }
+            
+            completion(followings)
+        }
+    }
+    
     func getNumberOfFollowings(uid: String, completion: @escaping (_ data: [Int:[String]]) -> ()) {
         
         FOLLOW_RELATION_REF.child(uid).observe(.value) { (snapshot) in
@@ -466,14 +488,13 @@ class RFDataService: NSObject {
     func getRecipesBy(_ ingredients: [String], withLocation loc:String, completion: @escaping (_ recipe: [RFRecipe])->()){
         self.showProgress()
         var recipes = [RFRecipe]()
-        var ingredients = ingredients.map {$0.lowercased()}
+        let ingredients = ingredients.map {$0.lowercased()}
         self.RECIPE_REF.child(loc).observe(.value) { (snapshot) in
             guard let dataSnap = snapshot.children.allObjects as? [DataSnapshot] else {return}
             
             for recipe in dataSnap {
-                if let ingredientsData = recipe.childSnapshot(forPath: "ingredients").value as? [String]{
-                    let lowerIngredientsData = ingredientsData.map {$0.lowercased()}
-                    if lowerIngredientsData.containsData(ingredients) {
+                if let ingredientsData = recipe.childSnapshot(forPath: "ingredients").value as? [NSString]{
+                    if ingredientsData.containsData(ingredients) {
                         if let data = recipe.value as? Dictionary<String,AnyObject> {
                             recipes.append(self.appendRecipes(data))
                         }

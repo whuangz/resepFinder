@@ -71,6 +71,8 @@
 		265EDDDF21C37895001F455C /* UIViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 265EDDDE21C37895001F455C /* UIViewController+Ext.swift */; };
 		266C973421A4415100110728 /* MessageHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 266C973321A4415100110728 /* MessageHeaderView.swift */; };
 		266C973621A4416B00110728 /* MessageHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 266C973521A4416B00110728 /* MessageHeaderView.xib */; };
+		266E5B3721DB201B00EE2A6C /* resepFinder.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 266E5B3621DB201A00EE2A6C /* resepFinder.mlmodel */; };
+		266E5B3921DB243A00EE2A6C /* PhotoLibraryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 266E5B3821DB243A00EE2A6C /* PhotoLibraryVC.swift */; };
 		2674F822219D051F0002D64C /* DialogView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2674F821219D051F0002D64C /* DialogView.xib */; };
 		267E202A21B95C1000A474CC /* UIImagePickerController+RxSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 267E202921B95C1000A474CC /* UIImagePickerController+RxSwift.swift */; };
 		2681C2AC21A6699B00AE98F0 /* HomeCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2681C2AB21A6699B00AE98F0 /* HomeCollectionCell.swift */; };
@@ -141,7 +143,6 @@
 		26FDAEE421ACFF5B00758D33 /* CreateStepsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26FDAEE321ACFF5B00758D33 /* CreateStepsCell.swift */; };
 		26FDAEE721ACFF7C00758D33 /* AddStepsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26FDAEE621ACFF7C00758D33 /* AddStepsCell.swift */; };
 		3C192D2921C52F7F00F5ACB1 /* RFFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C192D2821C52F7F00F5ACB1 /* RFFunction.swift */; };
-		3C49CA4321D66D4300517BBC /* resepFinder.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 3C49CA4221D66D4200517BBC /* resepFinder.mlmodel */; };
 		3C63EC2921BECA7A00661D9D /* DetailIngredientsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C63EC2821BECA7A00661D9D /* DetailIngredientsVC.swift */; };
 		3C63EC2B21BECB6900661D9D /* DetailIngredientsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C63EC2A21BECB6900661D9D /* DetailIngredientsVM.swift */; };
 		3CE8804121C9536B0040E6D2 /* RecommendVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE8804021C9536B0040E6D2 /* RecommendVC.swift */; };
@@ -217,6 +218,8 @@
 		265EDDDE21C37895001F455C /* UIViewController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Ext.swift"; sourceTree = "<group>"; };
 		266C973321A4415100110728 /* MessageHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageHeaderView.swift; sourceTree = "<group>"; };
 		266C973521A4416B00110728 /* MessageHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MessageHeaderView.xib; sourceTree = "<group>"; };
+		266E5B3621DB201A00EE2A6C /* resepFinder.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = resepFinder.mlmodel; sourceTree = "<group>"; };
+		266E5B3821DB243A00EE2A6C /* PhotoLibraryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoLibraryVC.swift; sourceTree = "<group>"; };
 		2674F821219D051F0002D64C /* DialogView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DialogView.xib; sourceTree = "<group>"; };
 		267E202921B95C1000A474CC /* UIImagePickerController+RxSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImagePickerController+RxSwift.swift"; sourceTree = "<group>"; };
 		2681C2AB21A6699B00AE98F0 /* HomeCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionCell.swift; sourceTree = "<group>"; };
@@ -290,7 +293,6 @@
 		26FDAEE621ACFF7C00758D33 /* AddStepsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddStepsCell.swift; sourceTree = "<group>"; };
 		29937144E2B89E09C074755A /* Pods-ResepFinder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ResepFinder.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ResepFinder/Pods-ResepFinder.debug.xcconfig"; sourceTree = "<group>"; };
 		3C192D2821C52F7F00F5ACB1 /* RFFunction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RFFunction.swift; sourceTree = "<group>"; };
-		3C49CA4221D66D4200517BBC /* resepFinder.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = resepFinder.mlmodel; sourceTree = "<group>"; };
 		3C63EC2821BECA7A00661D9D /* DetailIngredientsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailIngredientsVC.swift; sourceTree = "<group>"; };
 		3C63EC2A21BECB6900661D9D /* DetailIngredientsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailIngredientsVM.swift; sourceTree = "<group>"; };
 		3CE8804021C9536B0040E6D2 /* RecommendVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendVC.swift; sourceTree = "<group>"; };
@@ -741,7 +743,7 @@
 		26B2BACA21874B88004B148F /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
-				3C49CA4221D66D4200517BBC /* resepFinder.mlmodel */,
+				266E5B3621DB201A00EE2A6C /* resepFinder.mlmodel */,
 				2607290A218F4D6700140AF9 /* Fonts */,
 				26B2BACB21874BE5004B148F /* GoogleService-Info.plist */,
 				26B2BABF21874B76004B148F /* Assets.xcassets */,
@@ -765,6 +767,7 @@
 			isa = PBXGroup;
 			children = (
 				26B80D4E21C7FB5D003AE55D /* CameraVC.swift */,
+				266E5B3821DB243A00EE2A6C /* PhotoLibraryVC.swift */,
 			);
 			path = CameraView;
 			sourceTree = "<group>";
@@ -1147,6 +1150,7 @@
 				26D5EDBD219D7D16004AFB39 /* RFDialogView.swift in Sources */,
 				264D2FFD21935BB600F66595 /* LoginVM.swift in Sources */,
 				2626785B21C7A3D9004E1E77 /* RFSearchCell.swift in Sources */,
+				266E5B3921DB243A00EE2A6C /* PhotoLibraryVC.swift in Sources */,
 				26B80D4C21C7D54D003AE55D /* RFSearchResultVM.swift in Sources */,
 				26F3224C21A4188900EDEC7F /* MessageVC.swift in Sources */,
 				265EDDDC21C36FF1001F455C /* RFLocationCell.swift in Sources */,
@@ -1208,7 +1212,7 @@
 				26C73A0321B3B5A8000B7FAE /* RFRecipe.swift in Sources */,
 				26144B6421B42828001BCEA5 /* RFIngredient.swift in Sources */,
 				2608521921B773FB002C7AA4 /* RFViewRecipeVM.swift in Sources */,
-				3C49CA4321D66D4300517BBC /* resepFinder.mlmodel in Sources */,
+				266E5B3721DB201B00EE2A6C /* resepFinder.mlmodel in Sources */,
 				26E7009721ABF806001A8F7C /* RecipeDetailCell.swift in Sources */,
 				2695F9C221CAB3F300910EC7 /* RecommendVM.swift in Sources */,
 				3CE8804121C9536B0040E6D2 /* RecommendVC.swift in Sources */,

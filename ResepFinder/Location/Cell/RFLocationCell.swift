@@ -25,6 +25,10 @@ class RFLocationCell: RFBaseTableCell {
     
     func bindData(_ data: RFLocation){
         self.locationName.text = data.name
+        if data.name == UserDefaults.standard.getLocation(){
+            let image = UIImage(named: "check")
+            self.checkButton.setImage(image, for: .normal)
+        }
     }
     
     func configureView(){
@@ -33,9 +37,9 @@ class RFLocationCell: RFBaseTableCell {
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        let image = selected ? UIImage(named: "check") : UIImage(named: "uncheck")
-        self.checkButton.setImage(image, for: .normal)
+//
+//        let image = selected ? UIImage(named: "check") : UIImage(named: "uncheck")
+//        self.checkButton.setImage(image, for: .normal)
     }
     
 }

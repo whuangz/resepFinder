@@ -22,6 +22,14 @@ class SearchUserVM {
         }
     }
     
+    func getFollowingUsers(completion: @escaping (_ users: [RFUser]) -> ()){
+        service.getFollowingUser { (uids) in
+            self.service.getListOfUserByUid(uids: uids, completion: { (returnedUsers) in
+                completion(returnedUsers)
+            })
+        }
+    }
+    
     func validateSelectedUsers(data: String){
         
         if selectedUsers != nil {

@@ -31,6 +31,8 @@ class ProfileVC: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         //setupViewModel()
+        UIApplication.shared.statusBarView?.backgroundColor = .white
+        self.navigationController?.navigationBar.backgroundColor = UIColor.white
         self.tableView.reloadData()
         super.viewWillAppear(animated)
     }

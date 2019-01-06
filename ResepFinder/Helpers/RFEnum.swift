@@ -41,20 +41,46 @@ enum RFTabBarItem: Int {
 
 enum RegionLoc: String {
     case KA
-    case JW
+    case JA
     case SL
     case SM
+    case BL
     
     var rawValue: String {
         switch self {
         case .KA:
             return "Kalimantan"
-        case .JW:
+        case .JA:
             return "Jawa"
         case .SL:
             return "Sulawesi"
         case .SM:
             return "Sumatera"
+        case .BL:
+            return "Bali"
+        }
+    }
+}
+
+enum RegionLocByName: String {
+    case Kalimantan
+    case Jawa
+    case Sulawesi
+    case Sumatera
+    case Bali
+    
+    var rawValue: String {
+        switch self {
+        case .Kalimantan:
+            return "KA"
+        case .Jawa:
+            return "JA"
+        case .Sulawesi:
+            return "SL"
+        case .Sumatera:
+            return "SM"
+        case .Bali:
+            return "BL"
         }
     }
 }

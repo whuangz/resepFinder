@@ -90,6 +90,7 @@ extension RFLocationVC{
         self.backButton = getButton()
         //self.searchBarView = getSearchBarView()
         self.locationTable = getTableView()
+        
         layoutViews()
     }
     

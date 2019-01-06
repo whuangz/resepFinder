@@ -51,10 +51,10 @@ class RFRecipeService: RFDataService {
                     
                 })
             }
-            self.dismissProgress()
         }
         
         uploadTask.resume()
+        self.dismissProgress()
     }
     
     func addRecipeToMyList(recipeID: String, recipeTitle: String, recipeImgPath: String, ingredients: [String]){

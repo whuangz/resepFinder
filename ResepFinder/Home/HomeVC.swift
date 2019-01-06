@@ -8,6 +8,7 @@
 
 import UIKit
 import RxGesture
+import FirebaseAuth
 
 class HomeVC: RFBaseController {
 
@@ -18,7 +19,7 @@ class HomeVC: RFBaseController {
     private var headerView: HomeHeaderView!
     private var tableView: UITableView!
     private var navigationBarHeight: CGFloat!
-    private var defaultLocationKey = "KA"
+    private var defaultLocationKey = "JA"
     private var viewModel: HomeVM?
     
     override func viewDidLoad() {
@@ -47,6 +48,7 @@ class HomeVC: RFBaseController {
     
     func initializeData(){
         self.viewModel = HomeVM(vc: self)
+        self.defaultLocationKey = RegionLocByName(rawValue: UserDefaults.standard.getLocation())?.rawValue ?? "Jawa"
         self.viewModel?.retrieveRecipesWith(defaultLocationID: defaultLocationKey)
     }
     
@@ -86,10 +88,10 @@ class HomeVC: RFBaseController {
     }
     
     
-    func navigateToSearchResult(byTitle title:String){
+    func navigateToSearchResult(byTitle title:String, identifier: RFBaseController){
         let location = UserDefaults.standard.getLocation()
         let vm = RFSearchResultVM(title: title, location: location)
-        let vc = RFSearchResultVC(vm: vm)
+        let vc = RFSearchResultVC(vm: vm, identifier: identifier)
         vc.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(vc, animated: true)
     }
@@ -97,8 +99,8 @@ class HomeVC: RFBaseController {
 }
 
 extension HomeVC: CameraFinishingProtocol {
-    func getPhotoIdentifier(byTitle title: String) {
-        self.navigateToSearchResult(byTitle: title)
+    func getPhotoIdentifier(byTitle title: String, identifier: RFBaseController) {
+        self.navigateToSearchResult(byTitle: title, identifier: identifier)
     }
 }
 

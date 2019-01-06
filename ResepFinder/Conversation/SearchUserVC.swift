@@ -46,7 +46,8 @@ class SearchUserVC: RFBaseController {
     func observeData(){
         let searchUserResults = searchBarView.rx.text.orEmpty.throttle(0.3, scheduler: MainScheduler.instance).distinctUntilChanged().flatMapLatest { (query) -> Observable<[RFUser]> in
             if query.isEmpty {
-                return .just([])
+                //return .just([])
+                return self.getFollowingUser().catchErrorJustReturn([])
             }
             return self.searchUser(query: query).catchErrorJustReturn([])
         }.observeOn(MainScheduler.instance)
@@ -56,6 +57,12 @@ class SearchUserVC: RFBaseController {
             cell.bindData(data: element)
         }.disposed(by: self.disposeBag)
         
+        
+//        self.listOfUsers.asObservable().bind(to: self.userTable.rx.items(cellIdentifier: "UserMessageCell", cellType: UserMessageCell.self)) { (row, element, cell) in
+//            cell.searchUserCell()
+//            cell.bindData(data: element)
+//            }.disposed(by: self.disposeBag)
+//
         self.userTable.rx.itemSelected
             .subscribe(onNext: { [weak self] indexPath in
                 let cell = self?.userTable.cellForRow(at: indexPath) as? UserMessageCell
@@ -78,6 +85,17 @@ class SearchUserVC: RFBaseController {
             self.viewModel.getUsers(query: query, completion: { (listofUsers) in
                 observer.onNext(listofUsers)
             })
+            
+            return Disposables.create()
+        })
+    }
+    
+    func getFollowingUser() -> Observable<[RFUser]>{
+        return Observable.create({ (observer) in
+            
+            self.viewModel.getFollowingUsers { (users) in
+                observer.onNext(users)
+            }
             
             return Disposables.create()
         })
@@ -127,8 +145,6 @@ extension SearchUserVC{
     
     private func getTableView() -> UITableView {
         let tableView = UITableView()
-        //tableView.delegate = self
-        //tableView.dataSource = self
         tableView.tableFooterView = UIView(frame: .zero)
         tableView.estimatedRowHeight = 60
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -140,18 +156,19 @@ extension SearchUserVC{
     
 }
 
-//MARK: - UITableView Delegate & Implementation
-extension SearchUserVC: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "UserMessageCell") as! UserMessageCell
-        cell.searchUserCell()
-        
-        return cell
-    }
-    
-    
-}
+////MARK: - UITableView Delegate & Implementation
+//extension SearchUserVC: UITableViewDelegate, UITableViewDataSource {
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return self.listOfUsers.count
+//    }
+//    
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "UserMessageCell") as! UserMessageCell
+//        cell.searchUserCell()
+//        cell.bindData(data: listOfUsers[indexPath.row])
+//        
+//        return cell
+//    }
+//    
+//    
+//}
