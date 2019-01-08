@@ -126,6 +126,7 @@ class RFDataService: NSObject {
     func getRecipesBy(location loc: String, withTitle query: String, completion: @escaping (_ recipe: [RFRecipe]) -> ()){
         self.showProgress()
         var recipes = [RFRecipe]()
+        let query = query.lowercased()
         self.RECIPE_REF.child(loc).observe(.value) { (snapshot) in
             guard let dataSnap = snapshot.children.allObjects as? [DataSnapshot] else {return}
             

@@ -21,6 +21,7 @@ class ConversationVC: RFBaseController {
         setupNavigationBar()
         registerCell()
         setViewModel()
+        self.view.endEditing(true)
     }
     
     func setViewModel(){
@@ -33,6 +34,7 @@ class ConversationVC: RFBaseController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.view.endEditing(true)
         setViewModel()
     }
     
@@ -66,8 +68,9 @@ extension ConversationVC{
         self.searchBarView = getSearchBarView()
         self.recentConversationTable = getTableView()
         
-//        let tap = UITapGestureRecognizer(target: self, action: #selector(didDismissKeyboard))
-//        self.view.addGestureRecognizer(tap)
+        let tap = UITapGestureRecognizer(target: self, action: #selector(didDismissKeyboard))
+        tap.cancelsTouchesInView = false
+        self.view.addGestureRecognizer(tap)
         layoutViews()
     }
     
@@ -95,6 +98,7 @@ extension ConversationVC{
         tableView.estimatedRowHeight = 60
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.separatorStyle = .none
+        tableView.tableFooterView = UIView(frame: .zero)
         
         return tableView
     }
